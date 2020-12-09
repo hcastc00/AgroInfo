@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="727.0" prefWidth="1137.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="727.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
+         <children>
+            <ImageView blendMode="DIFFERENCE" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="25.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@../../../resources/logo.png" />
+               </image>
+            </ImageView>
+            <Label text="AgroInfo">
+               <font>
+                  <Font name="DejaVu Sans" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <StackPane prefHeight="490.0" prefWidth="250.0">
+               <children>
+                  <VBox fx:id="panelAgricultor" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="panelGanadero" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="440.0" prefWidth="250.0">
+                     <children>
+                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Usuarios">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="exitButton11" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="exitButton111" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Auditoría">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+            <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="219.0" style="-fx-background-color: (255,255,255,20);" text="Exit" />
+         </children>
+      </VBox>
+      <StackPane layoutX="250.0" prefHeight="600.0" prefWidth="675.0" />
+   </children>
+</AnchorPane>
