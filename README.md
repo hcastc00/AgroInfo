@@ -14,5 +14,5 @@ Se ha utilizado Java con JavaFx para la UI, además de librerías como JFoenix y
 
 ### Capturas
 <p align="center">
-  <img width="200" height="200" src="https://github.com/hcastc00/AgroInfo/blob/master/resources/example.png">
+  <img  src="https://github.com/hcastc00/AgroInfo/blob/master/resources/example.png">
 </p>
