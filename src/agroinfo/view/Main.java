@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("base.fxml"));
         primaryStage.setTitle("AgroInfo");
-        primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setScene(new Scene(root, 1200  , 750));
         primaryStage.initStyle(StageStyle.UNDECORATED); //Para quitar la barra de windows
 
         root.setOnMousePressed(event -> {
