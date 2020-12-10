@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -15,8 +16,14 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("base.fxml"));
         primaryStage.setTitle("AgroInfo");
         primaryStage.setScene(new Scene(root, 1200  , 750));
-        primaryStage.initStyle(StageStyle.UNDECORATED); //Para quitar la barra de windows
 
+        //Quitar barra
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+
+        //Icono
+        primaryStage.getIcons().add(new Image("/ico.png"));
+
+        //Mover ventana
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
             y = event.getSceneY();

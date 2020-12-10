@@ -1,6 +1,6 @@
 # AgroInfo 
 <p align="center">
-  <img width="200" height="200" src="https://github.com/hcastc00/AgroInfo/blob/master/resources/logo.png">
+  <img width="200" height="200" src="resources/ico.png">
 </p>
 
 AgroInfo es una aplicación de escritorio pensada para la gestión de pequeñas y medianas explotaciones agrícolas y ganaderas.
@@ -14,5 +14,5 @@ Se ha utilizado Java con JavaFx para la UI, además de librerías como JFoenix y
 
 ### Capturas
 <p align="center">
-  <img  src="https://github.com/hcastc00/AgroInfo/blob/master/resources/example.png">
+  <img  src="resources/example.png">
 </p>
