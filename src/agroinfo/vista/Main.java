@@ -1,4 +1,4 @@
-package agroinfo.view;
+package agroinfo.vista;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

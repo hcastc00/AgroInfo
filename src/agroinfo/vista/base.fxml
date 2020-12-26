@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controller.BaseController">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.BaseController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
          <children>
