@@ -1,4 +1,32 @@
 package agroinfo.modelo.dao;
 
-public class GastoDAO {
+import agroinfo.modelo.conexion.ConexionBD;
+import agroinfo.modelo.vo.Gasto;
+
+import java.util.List;
+
+public class GastoDAO extends ConexionBD {
+    public void crear(Gasto gasto){
+
+    }
+
+    public void eliminar(Gasto gasto){
+
+    }
+
+    public void modificar(Gasto gasto){
+
+    }
+
+    public List<Gasto> listar(){
+        return null;
+    }
+
+    public Gasto buscar(int id){
+        return null;
+    }
+
+    public int getSiguenteId(){
+        return 0;
+    }
 }

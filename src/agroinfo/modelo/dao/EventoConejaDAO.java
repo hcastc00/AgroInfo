@@ -1,4 +1,36 @@
 package agroinfo.modelo.dao;
 
-public class EventoConejaDAO {
+import agroinfo.modelo.conexion.ConexionBD;
+import agroinfo.modelo.vo.EventoConeja;
+
+import java.util.List;
+
+public class EventoConejaDAO extends ConexionBD {
+    public void crear(EventoConeja evento){
+
+    }
+
+    public void eliminar(EventoConeja evento){
+
+    }
+
+    public void modificar(EventoConeja evento){
+
+    }
+
+    public List<EventoConeja> listar(){
+        return null;
+    }
+
+    public List<EventoConeja> listar(int idConeja){
+        return null;
+    }
+
+    public EventoConeja buscar(int id){
+        return null;
+    }
+
+    public int getSiguienteId(){
+        return 0;
+    }
 }

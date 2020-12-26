@@ -1,4 +1,4 @@
 package agroinfo.modelo.conexion;
 
-public class ConexionBBDD {
+public class ConexionBD {
 }

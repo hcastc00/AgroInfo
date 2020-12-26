@@ -1,4 +1,11 @@
 package agroinfo.modelo.dao;
 
-public class AlmacenDAO {
+import agroinfo.modelo.conexion.ConexionBD;
+import agroinfo.modelo.vo.Almacen;
+
+public class AlmacenDAO extends ConexionBD {
+
+    public Almacen getAlmacen(){
+        return null;
+    }
 }

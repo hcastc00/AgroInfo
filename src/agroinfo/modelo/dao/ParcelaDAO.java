@@ -1,4 +1,30 @@
 package agroinfo.modelo.dao;
 
-public class ParcelaDAO {
+import agroinfo.modelo.conexion.ConexionBD;
+import agroinfo.modelo.vo.Parcela;
+
+import java.util.List;
+
+public class ParcelaDAO extends ConexionBD {
+    public void crear(Parcela parcela){
+
+    }
+
+    public void modificar(Parcela parcela){
+
+    }
+
+    public void eliminar(Parcela parcela){
+
+    }
+
+    public List<Parcela> listar(){
+
+        return null;
+    }
+
+    public Parcela buscar(int id){
+
+        return null;
+    }
 }
