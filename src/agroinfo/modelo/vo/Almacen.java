@@ -4,6 +4,8 @@ public class Almacen {
     private double piensoLactancia;
     private double piensoMedicado;
     private double piensoRemate;
+    private int conejos;
+    private int excedenteTotal;
 
     public double getPiensoLactancia() {
         return piensoLactancia;
@@ -27,5 +29,21 @@ public class Almacen {
 
     public void setPiensoRemate(double piensoRemate) {
         this.piensoRemate = piensoRemate;
+    }
+
+    public int getConejos() {
+        return conejos;
+    }
+
+    public void setConejos(int conejos) {
+        this.conejos = conejos;
+    }
+
+    public int getExcedenteTotal() {
+        return excedenteTotal;
+    }
+
+    public void setExcedenteTotal(int excedenteTotal) {
+        this.excedenteTotal = excedenteTotal;
     }
 }
