@@ -26,7 +26,7 @@ public class GastoDAO extends ConexionBD {
         return null;
     }
 
-    public int getSiguenteId(){
+    public int getSiguienteId(){
         return 0;
     }
 }

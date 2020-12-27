@@ -1,5 +1,7 @@
 package agroinfo.modelo.vo;
 
+import agroinfo.modelo.dao.GastoDAO;
+
 public class Gasto {
     public enum TipoGasto {Agricultura, Ganaderia}
 
@@ -9,7 +11,7 @@ public class Gasto {
     private TipoGasto tipoGasto;
 
     public Gasto(double importe, String descripcion, TipoGasto tipoGasto) {
-        //this.id = TODO getNextId()
+        this.id = new GastoDAO().getSiguienteId();
         this.importe = importe;
         this.descripcion = descripcion;
         this.tipoGasto = tipoGasto;

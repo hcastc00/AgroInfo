@@ -1,5 +1,6 @@
 package agroinfo.modelo.vo;
 
+import agroinfo.modelo.dao.EventoDAO;
 import java.util.Date;
 
 public class Evento {
@@ -11,6 +12,7 @@ public class Evento {
 
     //Para Maquinaria
     public Evento(String referencia, Date fecha, String descripcion) {
+        this.id = new EventoDAO().getSiguienteId();
         this.referencia = referencia;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -18,6 +20,7 @@ public class Evento {
 
     //Para Parcela
     public Evento(int referencia, Date fecha, String descripcion) {
+        this.id = new EventoDAO().getSiguienteId();
         this.referencia = ((Integer)referencia).toString();
         this.fecha = fecha;
         this.descripcion = descripcion;

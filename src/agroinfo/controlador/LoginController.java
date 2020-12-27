@@ -7,7 +7,7 @@ package agroinfo.controlador;
         import javafx.scene.layout.Pane;
         import javafx.stage.Stage;
 
-public class BaseController {
+public class LoginController {
 
     @FXML
     private JFXButton exitButton;

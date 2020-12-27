@@ -1,5 +1,7 @@
 package agroinfo.modelo.vo;
 
+import agroinfo.modelo.dao.EventoConejaDAO;
+
 import java.util.Date;
 
 public class EventoConeja {
@@ -11,7 +13,7 @@ public class EventoConeja {
     private TipoEventoConeja tipoEventoConeja;
 
     public EventoConeja(int idConeja, Date fecha, TipoEventoConeja tipoEventoConeja) {
-        //this.id = TODO getNextId()
+        this.id = new EventoConejaDAO().getSiguienteId();
         this.idConeja = idConeja;
         this.fecha = fecha;
         this.tipoEventoConeja = tipoEventoConeja;
