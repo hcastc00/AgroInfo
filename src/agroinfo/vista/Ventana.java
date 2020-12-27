@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.logging.Logger;
+
 public class Ventana extends Application {
     private double x,y;
 

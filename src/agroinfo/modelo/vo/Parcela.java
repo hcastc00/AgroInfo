@@ -21,6 +21,8 @@ public class Parcela {
         this.tam = tam;
         this.tipoParcela = tipoParcela;
         this.tipoCultivo = tipoCultivo;
+        this.produccion = 0;
+        this.excedente = 0;
     }
 
     // GETTERS Y SETTERS
@@ -78,7 +80,16 @@ public class Parcela {
 
     public void setProduccion(double produccion) {
         this.produccion = produccion;
+        this.excedente = 0.9 * produccion;
         //TODO aqui se calcula el excedente
+    }
+
+    public void modificar(double longitud, double latitud, double tam, TipoParcela tipoParcela, TipoCultivo tipoCultivo){
+        this.setLongitud(longitud);
+        this.setLatitud(latitud);
+        this.setTam(tam);
+        this.setTipoParcela(tipoParcela);
+        this.setTipoCultivo(tipoCultivo);
     }
 }
 

@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="agroinfo.controlador.GanaderoController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
+            <children>
+                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="25.0" />
+                    </VBox.margin>
+                    <image>
+                        <Image url="@/logo.png" />
+                    </image>
+                </ImageView>
+                <Label text="AgroInfo">
+                    <font>
+                        <Font name="DejaVu Sans" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+                <StackPane prefHeight="490.0" prefWidth="250.0">
+                    <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
+                            <children>
+                                <JFXButton fx:id="botonConejos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Conejos">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </JFXButton>
+                                <JFXButton fx:id="botonAlmacen" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Almacen">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </JFXButton>
+                                <JFXButton fx:id="botonGastos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </JFXButton>
+                        <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Salir">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </JFXButton>
+            </children>
+        </VBox>
+        <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
+            <children>
+                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+            <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+            <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+            <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+            <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="146.0" prefWidth="950.0">
+                     <children>
+                        <JFXButton fx:id="Alta" onAction="#alta" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="100.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="Baja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Baja" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <JFXListView fx:id="listaConejas" layoutX="93.0" layoutY="208.0" prefHeight="441.0" prefWidth="764.0" style="-fx-background-color: #86c541;" />
+               </children>
+            </Pane>
+            </children></StackPane>
+    </children>
 </AnchorPane>

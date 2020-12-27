@@ -9,12 +9,14 @@ public class Gasto {
     private double importe;
     private String descripcion;
     private TipoGasto tipoGasto;
+    private String usuarioRegistrador;
 
-    public Gasto(double importe, String descripcion, TipoGasto tipoGasto) {
+    public Gasto(double importe, String descripcion, TipoGasto tipoGasto, String usuarioRegistrador) {
         this.id = new GastoDAO().getSiguienteId();
         this.importe = importe;
         this.descripcion = descripcion;
         this.tipoGasto = tipoGasto;
+        this.usuarioRegistrador = usuarioRegistrador;
     }
 
     public int getId() {

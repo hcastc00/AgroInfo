@@ -8,4 +8,8 @@ public class AlmacenDAO extends ConexionBD {
     public Almacen getAlmacen(){
         return null;
     }
+
+    public void setAlmacen(Almacen almacen) {
+
+    }
 }
