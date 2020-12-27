@@ -3,9 +3,13 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.EventoConeja;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class EventoConejaDAO extends ConexionBD {
+    public EventoConejaDAO() throws SQLException, ClassNotFoundException {
+    }
+
     public void crear(EventoConeja evento){
 
     }

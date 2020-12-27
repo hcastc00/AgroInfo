@@ -3,9 +3,13 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Evento;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class EventoDAO extends ConexionBD {
+    public EventoDAO() throws SQLException, ClassNotFoundException {
+    }
+
     public void crear(Evento evento){
 
     }

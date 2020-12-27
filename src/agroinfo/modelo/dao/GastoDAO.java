@@ -3,9 +3,13 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Gasto;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class GastoDAO extends ConexionBD {
+    public GastoDAO() throws SQLException, ClassNotFoundException {
+    }
+
     public void crear(Gasto gasto){
 
     }

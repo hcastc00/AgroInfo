@@ -3,10 +3,13 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Venta;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class VentaDAO extends ConexionBD {
+    public VentaDAO() throws SQLException, ClassNotFoundException {
+    }
+
     public void crear(Venta venta){
 
     }
