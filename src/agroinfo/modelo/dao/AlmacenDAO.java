@@ -38,4 +38,37 @@ public class AlmacenDAO extends ConexionBD {
 
         return almacen;
     }
+
+    public void modificar(Almacen almacen){
+
+        this.abrirConexion();
+
+        try {
+
+            String sentencia = "UPDATE almacen SET " +
+                    " conejos = ?," +
+                    " pienso_lactancia = ?," +
+                    " pienso_medicado = ?," +
+                    " pienso_remate = ?," +
+                    " excedente_parcelas = ?" +
+                    " WHERE id = 1";
+
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt   (1, almacen.getConejos());
+            pSentencia.setDouble(2, almacen.getPiensoLactancia());
+            pSentencia.setDouble(3, almacen.getPiensoMedicado());
+            pSentencia.setDouble(4, almacen.getPiensoRemate());
+
+            //Duda
+            pSentencia.setInt   (5, almacen.getExcedenteTotal());
+
+
+            pSentencia.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+    }
 }
