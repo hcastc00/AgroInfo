@@ -58,8 +58,6 @@ public class AlmacenDAO extends ConexionBD {
             pSentencia.setDouble(2, almacen.getPiensoLactancia());
             pSentencia.setDouble(3, almacen.getPiensoMedicado());
             pSentencia.setDouble(4, almacen.getPiensoRemate());
-
-            //Duda
             pSentencia.setInt   (5, almacen.getExcedenteTotal());
 
 
