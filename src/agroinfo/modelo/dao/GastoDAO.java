@@ -130,6 +130,8 @@ public class GastoDAO extends ConexionBD {
                     rs.getString("usuario_registrador")
             );
 
+            g.setId(rs.getInt("id"));
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

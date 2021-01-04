@@ -5,7 +5,7 @@ import agroinfo.modelo.dao.EventoConejaDAO;
 import java.util.Date;
 
 public class EventoConeja {
-    public enum TipoEventoConeja {Inseminacion, Parto};
+    public enum TipoEventoConeja {Inseminacion, Parto}
 
     private int id;
     private int idConeja;
@@ -13,7 +13,6 @@ public class EventoConeja {
     private TipoEventoConeja tipoEventoConeja;
 
     public EventoConeja(int idConeja, Date fecha, TipoEventoConeja tipoEventoConeja) {
-        this.id = new EventoConejaDAO().getSiguienteId();
         this.idConeja = idConeja;
         this.fecha = fecha;
         this.tipoEventoConeja = tipoEventoConeja;
@@ -34,6 +33,8 @@ public class EventoConeja {
     public TipoEventoConeja getTipoEventoConeja() {
         return tipoEventoConeja;
     }
+
+    public void setId(int id) { this.id = id; }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
