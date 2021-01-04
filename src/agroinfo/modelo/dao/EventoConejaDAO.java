@@ -140,7 +140,7 @@ public class EventoConejaDAO extends ConexionBD {
                     EventoConeja.TipoEventoConeja.valueOf(rs.getString("tipo"))
             );
 
-            ec.setId(rs.getInt("id"));
+            ec.setId(rs.getInt("identificador_coneja"));
             lista.add(ec);
         }
     }
