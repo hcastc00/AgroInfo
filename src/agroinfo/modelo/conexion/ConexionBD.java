@@ -10,20 +10,76 @@ public class ConexionBD {
     private String pass;
     private Connection connection;
 
-    public ConexionBD() throws SQLException, ClassNotFoundException {
+    public ConexionBD(){
 
-        this.url  = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
+        this.url = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
         this.driverName = "com.mysql.jdbc.Driver";
         this.user = "ugnqzgofv28azyoj";
         this.pass = "W6ivPw6VjI2fNHD1hB66";
-        this.connection= DriverManager.getConnection( url, user, pass);
+    }
 
-        Class.forName("com.mysql.jdbc.Driver");
-//Esto es de las queries
-        Statement stmt=connection.createStatement();
-        ResultSet rs=stmt.executeQuery("select * FROM test");
-        while(rs.next())
-            System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-        connection.close();
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void abrirConexion() {
+
+        if (this.url.isBlank() || this.driverName.isBlank() || this.user.isBlank() || this.pass.isBlank()) {
+
+            System.out.println("Al menos uno de los valores de la base de datos esta en blanco, asegurese de que ");
+        }
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            this.connection = DriverManager.getConnection(url, user, pass);
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al abrir la conexion con la base de datos: " + e);
+        }
+    }
+
+
+    public void cerrarConexion(){
+
+        try {
+            this.connection.close();
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error al cerrar la conexion con la base de datos: " + e);
+        }
     }
 }
