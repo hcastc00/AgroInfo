@@ -5,10 +5,12 @@ public class Venta {
     private int cantidad;
     private double precioUnitario;
     private String descripcion;
+    private String usuarioRegistrador;
 
-    public Venta(int cantidad, double precioUnitario, String descripcion) {
+    public Venta(int cantidad, double precioUnitario, String usuarioRegistrador, String descripcion) {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
+        this.usuarioRegistrador = usuarioRegistrador;
         this.descripcion = descripcion;
     }
 
@@ -24,7 +26,12 @@ public class Venta {
         return precioUnitario;
     }
 
+    public String getUsuarioRegistrador() {return usuarioRegistrador;}
+
     public String getDescripcion() {
         return descripcion;
     }
+
+    public void setId(int id) {this.id = id;}
+
 }

@@ -88,7 +88,7 @@ public class EventoConejaDAO extends ConexionBD {
         List<EventoConeja> lista = new ArrayList<>();
 
         try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM gastos");
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM evento_conejas");
             while(rs.next()){
                 EventoConeja ec = new EventoConeja(
                         rs.getInt("identificador_coneja"),
