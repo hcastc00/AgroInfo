@@ -7,5 +7,17 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="agroinfodb.database.windows.net" uuid="06085b78-f56c-4118-9c51-02fdc8f175d9">
+      <driver-ref>azure.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://agroinfodb.database.windows.net:1433</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="AgroInfo" uuid="899120b9-d707-455e-9150-63f93388208e">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/MBRKTOhfGp</jdbc-url>
+    </data-source>
   </component>
 </project>

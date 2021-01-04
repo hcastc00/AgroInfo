@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -61,7 +62,7 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Salir">
+                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Cerrar Sesion">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
@@ -76,17 +77,32 @@
             <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
             <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
                <children>
-                  <HBox alignment="CENTER" prefHeight="146.0" prefWidth="950.0">
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXButton fx:id="Alta" onAction="#alta" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta" textFill="WHITE">
+                        <JFXButton fx:id="Alta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta" textFill="WHITE">
                            <HBox.margin>
-                              <Insets right="100.0" />
+                              <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="Baja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Baja" textFill="WHITE" />
+                        <JFXButton fx:id="Baja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Baja" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin></JFXButton>
+                        <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
                      </children>
                   </HBox>
-                  <JFXListView fx:id="listaConejas" layoutX="93.0" layoutY="208.0" prefHeight="441.0" prefWidth="764.0" style="-fx-background-color: #86c541;" />
+                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="listaConejas" prefHeight="0.0" prefWidth="0.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
             </children></StackPane>

@@ -59,7 +59,7 @@ public class AgricultorController {
 
     @FXML
     void crearVenta(ActionEvent event) {
-        Venta venta = new Venta(1,5,"Cosecha");
+       // Venta venta = new Venta(1,5,"Cosecha");
     }
 
     @FXML

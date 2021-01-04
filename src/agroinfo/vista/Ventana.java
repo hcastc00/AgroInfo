@@ -15,6 +15,7 @@ public class Ventana extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("AgroInfo");
         primaryStage.setScene(new Scene(root, 1200  , 750));
@@ -32,8 +33,10 @@ public class Ventana extends Application {
         });
 
         root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - x);
-            primaryStage.setY(event.getScreenY() - y);
+            if( y < 75) {
+                primaryStage.setX(event.getScreenX() - x);
+                primaryStage.setY(event.getScreenY() - y);
+            }
         });
 
         primaryStage.show();
