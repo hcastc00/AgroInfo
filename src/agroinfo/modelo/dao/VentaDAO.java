@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class VentaDAO extends ConexionBD {
-    public VentaDAO() throws SQLException, ClassNotFoundException {
+    public VentaDAO(){
     }
 
     public void crear(Venta venta){

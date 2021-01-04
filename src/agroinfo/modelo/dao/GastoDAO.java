@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GastoDAO extends ConexionBD {
-    public GastoDAO() throws SQLException, ClassNotFoundException {
+    public GastoDAO(){
     }
 
     public void crear(Gasto gasto){

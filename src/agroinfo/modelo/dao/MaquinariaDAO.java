@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MaquinariaDAO extends ConexionBD {
 
-    public MaquinariaDAO() throws SQLException, ClassNotFoundException {
+    public MaquinariaDAO(){
     }
 
     public void crear(Maquinaria maquinaria){

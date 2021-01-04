@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ConejaDAO extends ConexionBD {
 
-    public ConejaDAO() throws SQLException, ClassNotFoundException {
+    public ConejaDAO(){
     }
 
     public void crear(Coneja coneja){

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class EventoConejaDAO extends ConexionBD {
-    public EventoConejaDAO() throws SQLException, ClassNotFoundException {
+    public EventoConejaDAO(){
     }
 
     public void crear(EventoConeja evento){

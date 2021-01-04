@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UsuarioDAO extends ConexionBD {
 
-    public UsuarioDAO() throws SQLException, ClassNotFoundException {
+    public UsuarioDAO(){
     }
 
     public void crear(Usuario usuario){

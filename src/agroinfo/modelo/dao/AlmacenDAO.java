@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class AlmacenDAO extends ConexionBD {
 
-    public AlmacenDAO() throws SQLException, ClassNotFoundException {
+    public AlmacenDAO() {
     }
 
     public Almacen getAlmacen(){
