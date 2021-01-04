@@ -3,7 +3,10 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Maquinaria;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MaquinariaDAO extends ConexionBD {
@@ -13,17 +16,86 @@ public class MaquinariaDAO extends ConexionBD {
 
     public void crear(Maquinaria maquinaria){
 
+        this.abrirConexion();
+
+        try {
+
+            String sentencia = "INSERT into maquinaria (matricula, nombre)" +
+                    "VALUES (?, ?)";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+            pSentencia.setString(1, maquinaria.getMatricula());
+            pSentencia.setString(2, maquinaria.getNombre());
+            pSentencia.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
     }
 
     public void eliminar(Maquinaria maquinaria){
 
+        this.abrirConexion();
+
+        try {
+
+            String sentencia = "DELETE FROM maquinaria WHERE matricula = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+            pSentencia.setString(1, maquinaria.getMatricula());
+            pSentencia.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
     }
 
     public List<Maquinaria> listar(){
-        return null;
+
+        List<Maquinaria> lista = new ArrayList<>();
+
+        this.abrirConexion();
+
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM maquinaria");
+
+            while (rs.next()){
+                lista.add(new Maquinaria(rs.getString("matricula"),
+                        rs.getString("nombre")));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return lista;
     }
 
     public Maquinaria buscar(String matricula){
-        return null;
+
+        Maquinaria maquinaria = null;
+
+        this.abrirConexion();
+
+        try {
+            String sentencia = "SELECT * FROM maquinaria WHERE matricula = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+            ResultSet rs = pSentencia.executeQuery();
+            maquinaria = new Maquinaria(rs.getString("matricula"), rs.getString("nombre"));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return maquinaria;
     }
 }
