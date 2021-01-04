@@ -1,8 +1,8 @@
 package agroinfo.modelo.vo;
 
 public class Parcela {
-    public enum TipoParcela {Secano, Regadio};
-    public enum TipoCultivo {Barbecho, Trigo, Cebada, Maiz, Remolacha};
+    public enum TipoParcela {Secano, Regadio}
+    public enum TipoCultivo {Barbecho, Trigo, Cebada, Maiz, Remolacha}
 
     private int id;
     private double longitud;
@@ -23,6 +23,18 @@ public class Parcela {
         this.tipoCultivo = tipoCultivo;
         this.produccion = 0;
         this.excedente = 0;
+    }
+
+    //TODO implementado este constructor para facilitar el listar de ParcelaDAO
+    public Parcela(int id, double longitud, double latitud, double tam, double produccion, double excedente, TipoParcela tipoParcela, TipoCultivo tipoCultivo) {
+        this.id = id;
+        this.longitud = longitud;
+        this.latitud = latitud;
+        this.tam = tam;
+        this.tipoParcela = tipoParcela;
+        this.tipoCultivo = tipoCultivo;
+        this.produccion = produccion;
+        this.excedente = excedente;
     }
 
     // GETTERS Y SETTERS
