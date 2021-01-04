@@ -3,7 +3,8 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Usuario;
 
-import javax.xml.transform.Result;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,7 +59,16 @@ public class UsuarioDAO extends ConexionBD {
 
     public Usuario iniciarSesion(String nombreUsuario, String contrasenya){
 
-        return null;
+        Usuario u = this.buscar(nombreUsuario);
+
+        //TODO encriptacion y comparacion encriptada
+
+        if(u == null || !u.getContrasenya().equals(contrasenya)){
+            return null;
+        }else {
+            return u;
+        }
+
     }
 
     public List<Usuario> listar(){
