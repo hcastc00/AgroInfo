@@ -107,14 +107,16 @@ public class ParcelaDAO extends ConexionBD {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM parcelas");
 
             while (rs.next()){
-                lista.add(new Parcela(rs.getInt("identificador"),
+                Parcela p = new Parcela(rs.getInt("identificador"),
                         rs.getDouble("latitud"),
                         rs.getDouble("longitud"),
                         rs.getDouble("tamanyo"),
-                        rs.getDouble("produccion"),
-                        rs.getDouble("excedente"),
                         Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
-                        Parcela.TipoCultivo.valueOf(rs.getString("tipo_parcela"))));
+                        Parcela.TipoCultivo.valueOf(rs.getString("tipo_parcela")));
+
+                p.setProduccion(rs.getDouble("produccion"));
+
+                lista.add(p);
             }
 
         } catch (SQLException throwables) {
@@ -138,14 +140,16 @@ public class ParcelaDAO extends ConexionBD {
 
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+
             parcela = new Parcela(rs.getInt("identificador"),
                     rs.getDouble("latitud"),
                     rs.getDouble("longitud"),
                     rs.getDouble("tamanyo"),
-                    rs.getDouble("produccion"),
-                    rs.getDouble("excedente"),
                     Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
-                    Parcela.TipoCultivo.valueOf(rs.getString("tipo_parcela")));
+                    Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
+
+            parcela.setProduccion(rs.getDouble("produccion"));
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

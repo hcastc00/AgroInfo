@@ -58,6 +58,8 @@ public class ConexionBD {
         this.connection = connection;
     }
 
+
+    //TODO quitar los try catch y propagar la excepcion para que se controle en la vista
     public void abrirConexion() {
 
         if (this.url.isBlank() || this.driverName.isBlank() || this.user.isBlank() || this.pass.isBlank()) {
