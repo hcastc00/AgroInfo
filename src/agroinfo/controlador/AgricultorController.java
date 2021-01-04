@@ -12,15 +12,16 @@ import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 public class AgricultorController {
-    private ParcelaDAO parcelaDAO;
-    private GastoDAO gastoDAO;
-    private VentaDAO ventaDAO;
-    private MaquinariaDAO maquinariaDAO;
-    private EventoDAO eventoDAO;
-    private AlmacenDAO almacenDAO;
+    private final ParcelaDAO parcelaDAO = new ParcelaDAO();
+    private final GastoDAO gastoDAO = new GastoDAO();
+    private final VentaDAO ventaDAO = new VentaDAO();
+    private final MaquinariaDAO maquinariaDAO = new MaquinariaDAO();
+    private final EventoDAO eventoDAO = new EventoDAO();
+    private final AlmacenDAO almacenDAO = new AlmacenDAO();
 
     @FXML
     private JFXButton exitButton;
@@ -82,7 +83,7 @@ public class AgricultorController {
     }
 
     @FXML
-    void crearEventoMaquinaria(ActionEvent event) {
+    void crearEventoMaquinaria(ActionEvent event) throws SQLException, ClassNotFoundException {
         Evento evento = new Evento("La matricula", new Date("10/12/2000"),"Fiesta en La Cueva");
     }
 

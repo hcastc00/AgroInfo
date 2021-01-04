@@ -11,11 +11,10 @@ package agroinfo.controlador;
         import javafx.scene.Scene;
         import javafx.scene.layout.Pane;
         import javafx.stage.Stage;
-        import agroinfo.vista.*;
         import java.io.IOException;
 
 public class LoginController {
-    private UsuarioDAO usuarioDAO;
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @FXML
     private JFXButton exitButton;

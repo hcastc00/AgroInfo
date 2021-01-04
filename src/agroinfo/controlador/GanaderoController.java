@@ -23,12 +23,12 @@ import java.util.Date;
 
 
 public class GanaderoController {
-    private ConejaDAO conejaDAO;
-    private EventoConejaDAO eventoConejaDAO;
-    private AlmacenDAO almacenDAO;
-    private VentaDAO ventaDAO;
-    private GastoDAO gastoDAO;
-    private ConexionSensor sensor;
+    private final ConejaDAO conejaDAO = new ConejaDAO();
+    private final EventoConejaDAO eventoConejaDAO = new EventoConejaDAO();
+    private final AlmacenDAO almacenDAO = new AlmacenDAO();
+    private final VentaDAO ventaDAO = new VentaDAO();
+    private final GastoDAO gastoDAO = new GastoDAO();
+    private final ConexionSensor sensor = new ConexionSensor();
 
 
     @FXML
