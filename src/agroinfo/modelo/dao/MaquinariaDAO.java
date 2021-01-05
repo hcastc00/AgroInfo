@@ -103,6 +103,8 @@ public class MaquinariaDAO extends ConexionBD {
 
             while (rs.next()){
 
+                a = new String[3];
+
                 a[0] = rs.getString("matricula");
                 a[1] = rs.getString("nombre");
                 a[2] = String.valueOf(rs.getDate("fecha"));
