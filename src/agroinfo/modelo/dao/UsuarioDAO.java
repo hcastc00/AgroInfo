@@ -110,7 +110,7 @@ public class UsuarioDAO extends ConexionBD {
             usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return usuario;
         }
 
         this.cerrarConexion();
