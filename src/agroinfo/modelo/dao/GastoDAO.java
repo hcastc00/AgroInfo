@@ -123,6 +123,8 @@ public class GastoDAO extends ConexionBD {
 
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
             g = new Gasto(
                     rs.getInt("importe"),
                     rs.getString("descripcion"),

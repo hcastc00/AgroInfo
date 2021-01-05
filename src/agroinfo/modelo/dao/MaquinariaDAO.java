@@ -128,6 +128,8 @@ public class MaquinariaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
             maquinaria = new Maquinaria(rs.getString("matricula"), rs.getString("nombre"));
 
         } catch (SQLException throwables) {

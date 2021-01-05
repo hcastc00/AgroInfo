@@ -107,6 +107,8 @@ public class UsuarioDAO extends ConexionBD {
 
             pSentencia.setString(1, nombreUsuario);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
             usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
 
         } catch (SQLException throwables) {

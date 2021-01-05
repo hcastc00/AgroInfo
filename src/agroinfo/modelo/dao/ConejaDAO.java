@@ -161,6 +161,8 @@ public class ConejaDAO extends ConexionBD {
 
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
             coneja = new Coneja(rs.getInt(1));
 
         } catch (SQLException throwables) {

@@ -156,6 +156,8 @@ public class EventoConejaDAO extends ConexionBD {
 
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
             ec = new EventoConeja(
                     rs.getInt("identificador_coneja"),
                     rs.getDate("fecha"),

@@ -184,6 +184,7 @@ public class EventoDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
             //Si no tiene matricula, el evento es de Parcela
             if(rs.getString("matricula") == null){

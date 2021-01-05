@@ -96,6 +96,8 @@ public class VentaDAO extends ConexionBD {
 
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
             v = new Venta(
                     rs.getInt("cantidad"),
                     rs.getDouble("precio_unitario"),

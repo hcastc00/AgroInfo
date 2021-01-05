@@ -140,6 +140,7 @@ public class ParcelaDAO extends ConexionBD {
 
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
             parcela = new Parcela(rs.getInt("identificador"),
                     rs.getDouble("latitud"),
