@@ -18,13 +18,13 @@
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
             <children>
-                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="imagen" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                     <VBox.margin>
                         <Insets bottom="10.0" top="25.0" />
                     </VBox.margin>
-                    <image>
-                        <Image url="@/logo.png" />
-                    </image>
+               <image>
+                  <Image url="@/agricultor.png" />
+               </image>
                 </ImageView>
                 <Label text="AgroInfo">
                     <font>
@@ -38,12 +38,12 @@
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                             <children>
-                                <JFXButton fx:id="botonParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Parcelas">
+                                <JFXButton fx:id="botonParcela" onAction="#parcelaAction" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Parcelas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonMaquinaria" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Maquinaria">
+                                <JFXButton fx:id="botonMaquinaria" onAction="#maquinariaAction" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Maquinaria">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
@@ -69,25 +69,45 @@
                 </JFXButton>
             </children>
         </VBox>
-        <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
+        <StackPane fx:id="sp" layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
                 <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
                 <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                     <children>
+                        <JFXButton fx:id="altaMaquinaria" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="listaMaquinaria" prefHeight="0.0" prefWidth="0.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
                 <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
-                                <JFXButton fx:id="Alta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                                <JFXButton fx:id="altaParcela" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
                                     <HBox.margin>
                                         <Insets right="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="Baja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Baja">
-                                    <HBox.margin>
-                                        <Insets right="50.0" />
-                                    </HBox.margin></JFXButton>
                                 <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
                                     <font>
                                         <Font size="19.0" />

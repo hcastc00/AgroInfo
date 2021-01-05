@@ -32,7 +32,7 @@
                         <ColorAdjust />
                      </effect>
                         </ImageView>
-                        <Label fx:id="id" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: black;" text="Parcela:">
+                        <Label fx:id="id" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: black;" text="Parcela">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -76,6 +76,11 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </JFXButton>
+                  <JFXButton layoutX="645.0" layoutY="42.0" prefHeight="37.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </JFXButton>
                     </children>
                 </HBox>
             </children>

@@ -105,7 +105,7 @@ public class MaquinariaDAO extends ConexionBD {
 
                 a[0] = rs.getString("matricula");
                 a[1] = rs.getString("nombre");
-                a[2] = rs.getDate("fecha").toString();
+                a[2] = String.valueOf(rs.getDate("fecha"));
                 lista.add(a);
             }
 

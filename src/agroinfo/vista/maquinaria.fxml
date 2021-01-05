@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="950.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.MaquinariaController">
+    <children>
+        <Pane layoutX="50.0" layoutY="28.0" style="-fx-background-color: #86c541; -fx-background-radius: 1.5em;">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="850.0">
+                    <children>
+                  <ImageView fitHeight="78.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/tractor.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                        <Label fx:id="nombre" prefHeight="17.0" prefWidth="90.0" style="-fx-text-fill: black;" text="Nombre">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Label>
+                  <Label fx:id="id" prefHeight="17.0" prefWidth="75.0" style="-fx-text-fill: black;" text="Matricula">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+                        <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="186.0">
+                            <children>
+                                <Label style="-fx-text-fill: black;" text="Proximo Evento">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <Label fx:id="evento" style="-fx-text-fill: black;" text="No definido">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </Label>
+                            </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                        </VBox>
+                        <JFXButton prefHeight="37.0" prefWidth="156.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gestionar Eventos">
+                            <HBox.margin>
+                                <Insets left="50.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                  <JFXButton layoutX="645.0" layoutY="42.0" prefHeight="37.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+            <effect>
+                <DropShadow blurType="GAUSSIAN" height="100.0" radius="49.5" width="100.0" />
+            </effect>
+        </Pane>
+    </children>
+</AnchorPane>
