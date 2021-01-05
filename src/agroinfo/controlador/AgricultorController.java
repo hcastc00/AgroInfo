@@ -74,7 +74,7 @@ public class AgricultorController implements Initializable {
     private VBox listaParcelas;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { parcelaAction(new ActionEvent()); }
+    public void initialize(URL url, ResourceBundle resourceBundle) { parcelaAction(); }
 
     @FXML
     void altaParcela(ActionEvent event) {
@@ -82,7 +82,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void parcelaAction(ActionEvent event) {
+    void parcelaAction() {
 
         this.listaParcelas.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
@@ -129,7 +129,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void maquinariaAction(ActionEvent event) {
+    void maquinariaAction() {
 
         this.listaMaquinaria.getChildren().clear();
         this.panelParcelas.setVisible(false);

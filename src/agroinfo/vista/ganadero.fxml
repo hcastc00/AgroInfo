@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
     <children>
@@ -79,15 +72,16 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
+                        <JFXButton fx:id="temp" onAction="#getTemperatura" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 5em;" text="-" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="100.0" />
+                           </HBox.margin>
+                        </JFXButton>
                         <JFXButton fx:id="Alta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta" textFill="WHITE">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="Baja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Baja" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin></JFXButton>
                         <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
                            <font>
                               <Font size="19.0" />

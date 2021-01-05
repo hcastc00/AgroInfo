@@ -3,6 +3,7 @@ package agroinfo.controlador;
 import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.*;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,9 +30,12 @@ public class GanaderoController implements Initializable {
     @FXML
     private VBox listaConejas = null;
 
+    @FXML
+    private JFXButton temp;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.getTemperatura();
         ArrayList<String[]> lista = conejaDAO.listarConEventos();
 
         Node[] nodes = new Node[lista.size()];
@@ -129,8 +133,7 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    void getTemperatura(){
-        sensor.getTemperatura();
+    void getTemperatura() {
+        temp.setText((sensor.getTemperatura()) + "ºC");
     }
-
 }
