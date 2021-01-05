@@ -15,9 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class GanaderoController implements Initializable {
@@ -33,48 +31,34 @@ public class GanaderoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Coneja> conejas = conejaDAO.listar();
-        Node[] nodes = new Node[conejas.size()];
 
-        for(int i=0; i<nodes.length; i++){
+        ArrayList<String[]> lista = conejaDAO.listarConEventos();
+
+        Node[] nodes = new Node[lista.size()];
+
+        int i = 0;
+        for(String[] s: lista){
             try {
                 nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/coneja.fxml"));
 
-                //Id
                 Label id = (Label)nodes[i].lookup("#id");
-                id.setText(String.valueOf(conejas.get(i).getId()));
+                id.setText(s[0]);
 
-                //Inseminacion
                 Label inseminacion = (Label)nodes[i].lookup("#inseminacion");
-                Date ins = this.getProxEvento(conejas.get(i), EventoConeja.TipoEventoConeja.Inseminacion);
-                if(ins != null) inseminacion.setText(ins.toString());
+                if(s[1]!= null)
+                    inseminacion.setText(s[1]);
 
-                //Parto
                 Label parto = (Label)nodes[i].lookup("#parto");
-                Date par = this.getProxEvento(conejas.get(i), EventoConeja.TipoEventoConeja.Parto);
-                if(par != null) parto.setText(par.toString());
+                if(s[2]!= null)
+                    parto.setText(s[2]);
 
             }catch (IOException e){
                 e.printStackTrace();
             }
+
+            i++;
         }
-            listaConejas.getChildren().addAll(nodes);
-
-
-    }
-
-    private Date getProxEvento(Coneja c, EventoConeja.TipoEventoConeja t){
-        List<EventoConeja> listaEventos  = eventoConejaDAO.listar(c.getId(),t);
-
-        if(listaEventos.isEmpty()) return null;
-
-        Date prox = listaEventos.get(0).getFecha();
-        for(EventoConeja e : listaEventos){
-            if(e.getFecha().before(prox))
-                prox = e.getFecha();
-        }
-
-        return prox;
+        listaConejas.getChildren().addAll(nodes);
     }
 
     @FXML
