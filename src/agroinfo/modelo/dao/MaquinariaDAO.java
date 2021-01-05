@@ -1,6 +1,7 @@
 package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
+import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Maquinaria;
 
 import java.sql.PreparedStatement;
@@ -66,6 +67,45 @@ public class MaquinariaDAO extends ConexionBD {
             while (rs.next()){
                 lista.add(new Maquinaria(rs.getString("matricula"),
                         rs.getString("nombre")));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return lista;
+    }
+
+    public ArrayList<String[]> listarConEventos(){
+
+        this.abrirConexion();
+
+        ArrayList<String[]> lista = new ArrayList<>();
+
+
+        String sentencia = "SELECT matricula, MIN(fecha) AS fecha " +
+                "FROM ( " +
+                "(SELECT m.matricula, fecha FROM eventos " +
+                "RIGHT JOIN maquinaria m on eventos.matricula = m.matricula) " +
+                "UNION\n" +
+                "(SELECT m.matricula, fecha FROM eventos " +
+                "LEFT JOIN maquinaria m on eventos.matricula = m.matricula " +
+                ")) AS sub " +
+                "GROUP BY matricula " +
+                "ORDER BY matricula";
+
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
+
+            String[] a = new String[2];
+
+            while (rs.next()){
+
+                a[0] = rs.getString("matricula");
+                a[1] = rs.getDate("fecha").toString();
+                lista.add(a);
             }
 
         } catch (SQLException throwables) {
