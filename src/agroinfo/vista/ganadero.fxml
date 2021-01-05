@@ -46,11 +46,11 @@
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                        <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
+                                <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </JFXButton>
                             </children>
                         </VBox>
                     </children>
@@ -65,40 +65,48 @@
         <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
                 <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-            <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-            <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-            <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-            <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
-                     <children>
-                        <JFXButton fx:id="temp" onAction="#getTemperatura" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 5em;" text="-" textFill="WHITE">
+                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                            <children>
+                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets right="100.0" />
+                              <Insets right="20.0" />
                            </HBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="Alta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </JFXTextField>
-                     </children>
-                  </HBox>
-                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
-                     <content>
-                        <VBox fx:id="listaConejas" prefHeight="0.0" prefWidth="0.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
+                           <image>
+                              <Image url="@/temp.png" />
+                           </image>
+                        </ImageView>
+                                <JFXButton fx:id="temp" onAction="#getTemperatura" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 5em;" text="-">
+                                    <HBox.margin>
+                                        <Insets right="100.0" />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <JFXButton fx:id="Alta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                                    <HBox.margin>
+                                        <Insets right="50.0" />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                                    <font>
+                                        <Font size="19.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets left="20.0" />
+                                    </padding>
+                                </JFXTextField>
+                            </children>
+                        </HBox>
+                        <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                            <content>
+                                <VBox fx:id="listaConejas" prefHeight="0.0" prefWidth="0.0" />
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </Pane>
             </children></StackPane>
     </children>
 </AnchorPane>
