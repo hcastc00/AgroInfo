@@ -37,8 +37,8 @@ public class LoginController {
 
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent ganadero = FXMLLoader.load(getClass().getResource("../vista/ganadero.fxml"));
-        thisStage.setScene(new Scene(ganadero, 1200, 750));
+        Parent agricultor = FXMLLoader.load(getClass().getResource("../vista/agricultor.fxml"));
+        thisStage.setScene(new Scene(agricultor, 1200, 750));
     }
 
     @FXML

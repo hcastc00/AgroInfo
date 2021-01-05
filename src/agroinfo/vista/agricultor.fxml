@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -34,23 +34,26 @@
                         <Insets bottom="20.0" />
                     </VBox.margin>
                 </Label>
-                <StackPane fx:id="labels" prefHeight="490.0" prefWidth="250.0">
+                <StackPane prefHeight="490.0" prefWidth="250.0">
                     <children>
-                        <VBox fx:id="panelAgricultor" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
-                        <VBox fx:id="panelGanadero" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
-                        <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                             <children>
-                                <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Usuarios">
+                                <JFXButton fx:id="botonParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Parcelas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="exitButton11" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                                <JFXButton fx:id="botonMaquinaria" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Maquinaria">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="exitButton111" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Auditoría">
+                                <JFXButton fx:id="botonGastos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </VBox.margin>
+                                </JFXButton>
+                                <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
@@ -59,7 +62,7 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Salir">
+                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Cerrar Sesion">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
@@ -68,38 +71,38 @@
         </VBox>
         <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-                <Pane fx:id="login" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
                     <children>
-                        <Pane layoutX="211.0" layoutY="233.0" prefHeight="285.0" prefWidth="529.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 3.5em;">
-                            <effect>
-                                <Blend />
-                            </effect>
-                        </Pane>
-                        <JFXButton fx:id="exitButton2" layoutX="379.0" layoutY="431.0" onAction="#close" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #86c541; -fx-background-radius: 2em;" text="Entrar" textFill="#3a3a3a">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </JFXButton>
-                        <JFXTextField alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="422.0" layoutY="270.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </JFXTextField>
-                        <Label layoutX="290.0" layoutY="282.0" text="Usuario" textFill="#3a3a3a">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="262.0" layoutY="368.0" prefHeight="25.0" prefWidth="120.0" text="Contraseña" textFill="#3a3a3a">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <JFXPasswordField alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="425.0" layoutY="356.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </JFXPasswordField>
+                        <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                            <children>
+                                <JFXButton fx:id="Alta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                                    <HBox.margin>
+                                        <Insets right="50.0" />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <JFXButton fx:id="Baja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Baja">
+                                    <HBox.margin>
+                                        <Insets right="50.0" />
+                                    </HBox.margin></JFXButton>
+                                <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                                    <font>
+                                        <Font size="19.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets left="20.0" />
+                                    </padding>
+                                </JFXTextField>
+                            </children>
+                        </HBox>
+                        <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                            <content>
+                                <VBox fx:id="listaParcelas" prefHeight="0.0" prefWidth="0.0" />
+                            </content>
+                        </ScrollPane>
                     </children>
                 </Pane>
             </children></StackPane>

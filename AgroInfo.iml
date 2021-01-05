@@ -6,11 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="15" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="JavaFx" level="project" />
     <orderEntry type="library" exported="" name="jfoenix-9.0.10" level="project" />
     <orderEntry type="library" exported="" name="fontawesomefx-8.9" level="project" />
-    <orderEntry type="library" name="mysql-connector" level="project" />
+    <orderEntry type="library" exported="" name="mysql-connector" level="project" />
+    <orderEntry type="library" exported="" name="mysql:mysql-connector-java:5.1.40" level="project" />
   </component>
 </module>
