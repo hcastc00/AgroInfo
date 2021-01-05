@@ -6,22 +6,21 @@ import java.util.Date;
 public class Evento {
 
     private int id;
-    private String referencia;
+    private String matricula;
+    private int identificadorParcela;
     private Date fecha;
     private String descripcion;
 
     //Para Maquinaria
-    public Evento(String referencia, Date fecha, String descripcion) {
-        this.id = new EventoDAO().getSiguienteId();
-        this.referencia = referencia;
+    public Evento(String matricula, Date fecha, String descripcion) {
+        this.matricula = matricula;
         this.fecha = fecha;
         this.descripcion = descripcion;
     }
 
     //Para Parcela
-    public Evento(int referencia, Date fecha, String descripcion) {
-        this.id = new EventoDAO().getSiguienteId();
-        this.referencia = ((Integer)referencia).toString();
+    public Evento(int identificadorParcela, Date fecha, String descripcion) {
+        this.identificadorParcela = identificadorParcela;
         this.fecha = fecha;
         this.descripcion = descripcion;
     }
@@ -30,9 +29,9 @@ public class Evento {
         return id;
     }
 
-    public String getReferencia() {
-        return referencia;
-    }
+    public int getIdentificadorParcela() { return identificadorParcela; }
+
+    public String getMatricula() { return matricula;}
 
     public Date getFecha() {
         return fecha;
