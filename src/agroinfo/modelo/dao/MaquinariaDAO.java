@@ -85,12 +85,12 @@ public class MaquinariaDAO extends ConexionBD {
         ArrayList<String[]> lista = new ArrayList<>();
 
 
-        String sentencia = "SELECT matricula, MIN(fecha) AS fecha " +
+        String sentencia = "SELECT matricula, nombre, MIN(fecha) AS fecha " +
                 "FROM ( " +
-                "(SELECT m.matricula, fecha FROM eventos " +
+                "(SELECT m.matricula, nombre, fecha FROM eventos " +
                 "RIGHT JOIN maquinaria m on eventos.matricula = m.matricula) " +
                 "UNION\n" +
-                "(SELECT m.matricula, fecha FROM eventos " +
+                "(SELECT m.matricula, nombre, fecha FROM eventos " +
                 "LEFT JOIN maquinaria m on eventos.matricula = m.matricula " +
                 ")) AS sub " +
                 "GROUP BY matricula " +
@@ -99,12 +99,13 @@ public class MaquinariaDAO extends ConexionBD {
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
 
-            String[] a = new String[2];
+            String[] a = new String[3];
 
             while (rs.next()){
 
                 a[0] = rs.getString("matricula");
-                a[1] = rs.getDate("fecha").toString();
+                a[1] = rs.getString("nombre");
+                a[2] = rs.getDate("fecha").toString();
                 lista.add(a);
             }
 
