@@ -99,7 +99,7 @@ public class ConejaDAO extends ConexionBD {
         ArrayList<String[]> lista = new ArrayList<>();
 
 
-        String sentencia = "SELECT identificador, DATE_FORMAT(MIN(fecha), '%m/%d/%Y')  AS fecha, tipo " +
+        String sentencia = "SELECT identificador, MIN(fecha) AS fecha, tipo " +
                 "FROM ( " +
                 "(SELECT c.identificador, fecha, tipo FROM evento_conejas " +
                 "RIGHT JOIN conejas c on identificador_coneja = c.identificador) " +

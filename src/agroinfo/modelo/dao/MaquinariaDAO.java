@@ -85,7 +85,7 @@ public class MaquinariaDAO extends ConexionBD {
         ArrayList<String[]> lista = new ArrayList<>();
 
 
-        String sentencia = "SELECT matricula, nombre, DATE_FORMAT(MIN(fecha), '%m/%d/%Y') AS fecha " +
+        String sentencia = "SELECT matricula, nombre, MIN(fecha) AS fecha " +
                 "FROM ( " +
                 "(SELECT m.matricula, nombre, fecha FROM eventos " +
                 "RIGHT JOIN maquinaria m on eventos.matricula = m.matricula) " +
