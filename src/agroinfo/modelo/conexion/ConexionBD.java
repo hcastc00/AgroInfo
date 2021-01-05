@@ -12,18 +12,10 @@ public class ConexionBD {
 
     public ConexionBD(){
 
-        int a = 0;
-        if(a== 0) {
-            this.url = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
-            this.driverName = "com.mysql.jdbc.Driver";
-            this.user = "ugnqzgofv28azyoj";
-            this.pass = "W6ivPw6VjI2fNHD1hB66";
-        }else {
-            this.url = "jdbc:mysql://remotemysql.com:3306/MBRKTOhfGp";
-            this.driverName = "com.mysql.jdbc.Driver";
-            this.user = "MBRKTOhfGp";
-            this.pass = "kopEuWLg8C";
-        }
+        this.url = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
+        this.driverName = "com.mysql.jdbc.Driver";
+        this.user = "ugnqzgofv28azyoj";
+        this.pass = "W6ivPw6VjI2fNHD1hB66";
     }
 
     public String getUrl() {
