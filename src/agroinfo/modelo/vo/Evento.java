@@ -41,6 +41,8 @@ public class Evento {
         return descripcion;
     }
 
+    public void setId(int id) { this.id = id; }
+
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
@@ -48,4 +50,6 @@ public class Evento {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+
 }
