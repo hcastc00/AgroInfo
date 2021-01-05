@@ -74,7 +74,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="422.0" layoutY="270.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                  <JFXTextField fx:id="user" alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="422.0" layoutY="270.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -89,11 +89,16 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXPasswordField alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="425.0" layoutY="356.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                  <JFXPasswordField fx:id="pass" alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="425.0" layoutY="356.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXPasswordField>
+                  <Label fx:id="error" layoutX="223.0" layoutY="170.0" text="El usuario o la contraseña son incorrectos" textFill="#e43c3c" visible="false">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children></StackPane>
