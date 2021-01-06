@@ -6,6 +6,7 @@ import agroinfo.modelo.vo.Maquinaria;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -52,6 +55,9 @@ public class AgricultorController implements Initializable {
     private JFXButton botonSalir;
 
     @FXML
+    private JFXTextField buscar;
+
+    @FXML
     private Pane panelMaquinaria;
 
     @FXML
@@ -87,6 +93,15 @@ public class AgricultorController implements Initializable {
     @FXML
     private VBox listaVentas;
 
+    /*
+     * Esta variable indica en que vista esta el programa para facilitar el metodo de buscar()
+     *      - El 0 es para Parcelas
+     *      - El 1 es para Maquinaria
+     *      - El 2 es para Ventas
+     *      - El 3 es para Gastos
+     */
+    private int panel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { parcelaAction(); }
 
@@ -97,7 +112,7 @@ public class AgricultorController implements Initializable {
 
     @FXML
     void parcelaAction() {
-
+        this.panel = 0;
         this.listaParcelas.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -106,45 +121,12 @@ public class AgricultorController implements Initializable {
 
         List<Parcela> parcelas = parcelaDAO.listar();
         Node[] nodes = new Node[parcelas.size()];
-
-        for (int i = 0; i < nodes.length; i++) {
-            try {
-                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/parcela.fxml"));
-
-                //Id
-                Label id = (Label) nodes[i].lookup("#id");
-                id.setText(String.valueOf(parcelas.get(i).getId()));
-
-                //Tipo Parcela
-                Label tipoParcela = (Label) nodes[i].lookup("#tParcela");
-                String tp = parcelas.get(i).getTipoParcela().toString();
-                if (tp != null) tipoParcela.setText(tp);
-
-                //Tipo Cultivo
-                Label tipoCultivo = (Label) nodes[i].lookup("#tCultivo");
-                String tc = parcelas.get(i).getTipoCultivo().toString();
-                if (tc != null) tipoCultivo.setText(tc);
-
-                //Produccion
-                Label produccion = (Label) nodes[i].lookup("#produccion");
-                String pr = String.valueOf(parcelas.get(i).getProduccion());
-                produccion.setText(pr);
-
-                //Excedente
-                Label excedente = (Label) nodes[i].lookup("#excedente");
-                String ex = String.valueOf(parcelas.get(i).getExcedente());
-                excedente.setText(ex);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        listaParcelas.getChildren().addAll(nodes);
+        this.pintaParcela(parcelas, nodes);
     }
 
     @FXML
     void maquinariaAction() {
-
+        this.panel = 1;
         this.listaMaquinaria.getChildren().clear();
         this.panelParcelas.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -181,6 +163,7 @@ public class AgricultorController implements Initializable {
 
     @FXML
     void ventaAction() {
+        this.panel = 2;
         this.listaVentas.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -219,6 +202,7 @@ public class AgricultorController implements Initializable {
 
     @FXML
     void gastoAction(){
+        this.panel = 3;
         this.listaGastos.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
@@ -249,6 +233,89 @@ public class AgricultorController implements Initializable {
             }
         }
         listaGastos.getChildren().addAll(nodes);
+    }
+
+    @FXML
+    void buscar(KeyEvent event){
+
+        if(event.getCode() == KeyCode.ENTER) {
+
+            switch(this.panel){
+                case 0:
+                    this.listaParcelas.getChildren().clear();
+                    String busqueda = this.buscar.getText();
+                    if(busqueda != "") {
+                        Parcela parcela = parcelaDAO.buscar(Integer.parseInt(busqueda));
+                        List<Parcela> parcelas = new ArrayList<Parcela>(){{add(parcela);}};
+                        Node node = null;
+                        try {
+                            node = FXMLLoader.load(this.getClass().getResource("../vista/parcela.fxml"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Node[] nodes = {node};
+                        this.pintaParcela(parcelas, nodes);
+                    }else{
+                        this.parcelaAction();
+                    }
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        }
+    }
+
+    private void pintaParcela(List<Parcela> parcelas, Node[] nodes){
+
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/parcela.fxml"));
+
+                //Id
+                Label id = (Label) nodes[i].lookup("#id");
+                id.setText(String.valueOf(parcelas.get(i).getId()));
+
+                //Tipo Parcela
+                Label tipoParcela = (Label) nodes[i].lookup("#tParcela");
+                String tp = parcelas.get(i).getTipoParcela().toString();
+                if (tp != null) tipoParcela.setText(tp);
+
+                //Tipo Cultivo
+                Label tipoCultivo = (Label) nodes[i].lookup("#tCultivo");
+                String tc = parcelas.get(i).getTipoCultivo().toString();
+                if (tc != null) tipoCultivo.setText(tc);
+
+                //Produccion
+                Label produccion = (Label) nodes[i].lookup("#produccion");
+                String pr = String.valueOf(parcelas.get(i).getProduccion());
+                produccion.setText(pr);
+
+                //Excedente
+                Label excedente = (Label) nodes[i].lookup("#excedente");
+                String ex = String.valueOf(parcelas.get(i).getExcedente());
+                excedente.setText(ex);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        listaParcelas.getChildren().addAll(nodes);
+    }
+
+    private void pintaMaquinaria(){
+
+    }
+
+    private void pintaVenta(){
+
+    }
+
+    private void pintaGasto(){
+
     }
 
     @FXML
