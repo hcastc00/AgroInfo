@@ -135,30 +135,7 @@ public class AgricultorController implements Initializable {
 
         ArrayList<String[]> lista = maquinariaDAO.listarConEventos();
         Node[] nodes = new Node[lista.size()];
-
-        int i = 0;
-        for(String[] s: lista){
-            try {
-                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/maquinaria.fxml"));
-
-                Label id = (Label)nodes[i].lookup("#id");
-                id.setText(s[0]);
-
-                Label nombre = (Label)nodes[i].lookup("#nombre");
-                if(s[1]!= null)
-                    nombre.setText(s[1]);
-
-                Label evento = (Label)nodes[i].lookup("#evento");
-                if(s[2]!= "null")
-                    evento.setText(s[2]);
-
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-
-            i++;
-        }
-        listaMaquinaria.getChildren().addAll(nodes);
+        this.pintaMaquinaria(lista, nodes);
     }
 
     @FXML
@@ -306,7 +283,31 @@ public class AgricultorController implements Initializable {
         listaParcelas.getChildren().addAll(nodes);
     }
 
-    private void pintaMaquinaria(){
+    private void pintaMaquinaria(ArrayList<String[]> lista, Node[] nodes){
+
+        int i = 0;
+        for(String[] s: lista){
+            try {
+                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/maquinaria.fxml"));
+
+                Label id = (Label)nodes[i].lookup("#id");
+                id.setText(s[0]);
+
+                Label nombre = (Label)nodes[i].lookup("#nombre");
+                if(s[1]!= null)
+                    nombre.setText(s[1]);
+
+                Label evento = (Label)nodes[i].lookup("#evento");
+                if(s[2]!= "null")
+                    evento.setText(s[2]);
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            i++;
+        }
+        listaMaquinaria.getChildren().addAll(nodes);
 
     }
 
