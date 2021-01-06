@@ -43,13 +43,9 @@ public class Evento {
 
     public void setId(int id) { this.id = id; }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+    public void setFecha(Date fecha) {this.fecha = fecha;}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion;}
 
 
 }

@@ -49,28 +49,6 @@ public class ConejaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    /*public void modificar(Coneja coneja, int antiguoIdentificador){
-
-        this.abrirConexion();
-
-        try {
-
-            String sentencia = "UPDATE conejas SET identificador = ? WHERE identificador = ?";
-
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, coneja.getId());
-            pSentencia.setInt(2, antiguoIdentificador);
-            pSentencia.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        this.cerrarConexion();
-    }
-
-     */
-
     public List<Coneja> listar(){
 
         this.abrirConexion();

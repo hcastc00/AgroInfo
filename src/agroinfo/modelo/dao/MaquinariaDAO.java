@@ -120,6 +120,44 @@ public class MaquinariaDAO extends ConexionBD {
         return lista;
     }
 
+    public String[] listarConEventos(String matriculaPar){
+
+        this.abrirConexion();
+        String[] a = new String[3];
+
+        String sentencia = "SELECT matricula, nombre, MIN(fecha) AS fecha " +
+                "FROM ( " +
+                "(SELECT m.matricula, nombre, fecha FROM eventos " +
+                "RIGHT JOIN maquinaria m on eventos.matricula = m.matricula " +
+                "WHERE m.matricula = ?) " +
+                "UNION\n" +
+                "(SELECT m.matricula, nombre, fecha FROM eventos " +
+                "LEFT JOIN maquinaria m on eventos.matricula = m.matricula " +
+                ")) AS sub " +
+                "GROUP BY matricula " +
+                "ORDER BY matricula";
+
+        try {
+
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setString(1, matriculaPar);
+            ResultSet rs = pSentencia.executeQuery();
+
+                a = new String[3];
+                a[0] = rs.getString("matricula");
+                a[1] = rs.getString("nombre");
+                a[2] = String.valueOf(rs.getDate("fecha"));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return a;
+    }
+
+
     public Maquinaria buscar(String matricula){
 
         Maquinaria maquinaria = null;
