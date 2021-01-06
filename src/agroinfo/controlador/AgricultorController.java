@@ -163,28 +163,7 @@ public class AgricultorController implements Initializable {
 
         List<Gasto> gastos = gastoDAO.listar();
         Node[] nodes = new Node[gastos.size()];
-
-        for (int i = 0; i < nodes.length; i++) {
-            try {
-                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/gasto.fxml"));
-
-                //Id
-                Label id = (Label) nodes[i].lookup("#id");
-                id.setText(String.valueOf(gastos.get(i).getId()));
-
-                //Importe
-                Label importe = (Label) nodes[i].lookup("#importe");
-                importe.setText(String.valueOf(gastos.get(i).getImporte()));
-
-                //TipoGasto
-                Label tGasto = (Label) nodes[i].lookup("#tipoGasto");
-                tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        listaGastos.getChildren().addAll(nodes);
+        this.pintaGasto(gastos, nodes);
     }
 
     @FXML
@@ -283,7 +262,6 @@ public class AgricultorController implements Initializable {
             i++;
         }
         listaMaquinaria.getChildren().addAll(nodes);
-
     }
 
     private void pintaVenta(List<Venta> ventas, Node[] nodes){
@@ -316,8 +294,29 @@ public class AgricultorController implements Initializable {
 
     }
 
-    private void pintaGasto(){
+    private void pintaGasto(List<Gasto> gastos, Node[] nodes){
 
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/gasto.fxml"));
+
+                //Id
+                Label id = (Label) nodes[i].lookup("#id");
+                id.setText(String.valueOf(gastos.get(i).getId()));
+
+                //Importe
+                Label importe = (Label) nodes[i].lookup("#importe");
+                importe.setText(String.valueOf(gastos.get(i).getImporte()));
+
+                //TipoGasto
+                Label tGasto = (Label) nodes[i].lookup("#tipoGasto");
+                tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        listaGastos.getChildren().addAll(nodes);
     }
 
     @FXML
