@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="950.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.VentaController">
+    <children>
+        <Pane layoutX="50.0" layoutY="28.0" style="-fx-background-color: #86c541; -fx-background-radius: 1.5em;">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="850.0">
+                    <children>
+                        <ImageView fitHeight="78.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                            <image>
+                                <Image url="@/venta.png" />
+                            </image>
+                            <effect>
+                                <ColorAdjust />
+                            </effect>
+                        </ImageView>
+                        <Label fx:id="id" alignment="CENTER" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: black;" text="Id">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Label>
+                        <VBox prefHeight="100.0" prefWidth="130.0">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: BLACK;" text="Cantidad" />
+                                <Label fx:id="cantidad" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: BLACK;" text="No definido" />
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="100.0" prefWidth="130.0">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: BLACK;" text="Precio Unitario" />
+                                <Label fx:id="pu" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: BLACK;" text="No definido" />
+                            </children>
+                        </VBox>
+                  <VBox prefHeight="200.0" prefWidth="130.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: black;" text="Total" />
+                        <Label fx:id="total" alignment="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: black;" text="No definido" />
+                     </children>
+                  </VBox>
+                        <JFXButton prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ver Descripcion">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton layoutX="645.0" layoutY="42.0" prefHeight="37.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
+                            <HBox.margin>
+                                <Insets left="25.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+            <effect>
+                <DropShadow blurType="GAUSSIAN" height="100.0" radius="49.5" width="100.0" />
+            </effect>
+        </Pane>
+    </children>
+</AnchorPane>

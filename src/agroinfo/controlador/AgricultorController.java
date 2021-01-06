@@ -1,8 +1,10 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.dao.*;
+import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Maquinaria;
 import agroinfo.modelo.vo.Parcela;
+import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,6 +75,18 @@ public class AgricultorController implements Initializable {
     @FXML
     private VBox listaParcelas;
 
+    @FXML
+    private JFXButton altaGasto;
+
+    @FXML
+    private VBox listaGastos;
+
+    @FXML
+    private JFXButton altaVenta;
+
+    @FXML
+    private VBox listaVentas;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { parcelaAction(); }
 
@@ -133,6 +147,8 @@ public class AgricultorController implements Initializable {
 
         this.listaMaquinaria.getChildren().clear();
         this.panelParcelas.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(false);
         this.panelMaquinaria.setVisible(true);
 
         ArrayList<String[]> lista = maquinariaDAO.listarConEventos();
@@ -161,6 +177,78 @@ public class AgricultorController implements Initializable {
             i++;
         }
         listaMaquinaria.getChildren().addAll(nodes);
+    }
+
+    @FXML
+    void ventaAction() {
+        this.listaVentas.getChildren().clear();
+        this.panelMaquinaria.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelParcelas.setVisible(false);
+        this.panelVentas.setVisible(true);
+
+        List<Venta> ventas = ventaDAO.listar();
+        Node[] nodes = new Node[ventas.size()];
+
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/venta.fxml"));
+
+                //Id
+                Label id = (Label) nodes[i].lookup("#id");
+                id.setText(String.valueOf(ventas.get(i).getId()));
+
+                //Cantidad
+                Label cant = (Label) nodes[i].lookup("#cantidad");
+                cant.setText(String.valueOf(ventas.get(i).getCantidad()));
+
+                //Precio Unitario
+                Label pu = (Label) nodes[i].lookup("#pu");
+                pu.setText(String.valueOf(ventas.get(i).getPrecioUnitario()));
+
+                //Total
+                Label total = (Label) nodes[i].lookup("#total");
+                total.setText(String.valueOf((ventas.get(i).getCantidad())*(ventas.get(i).getPrecioUnitario())));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        listaVentas.getChildren().addAll(nodes);
+    }
+
+    @FXML
+    void gastoAction(){
+        this.listaGastos.getChildren().clear();
+        this.panelMaquinaria.setVisible(false);
+        this.panelParcelas.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelGastos.setVisible(true);
+
+        List<Gasto> gastos = gastoDAO.listar();
+        Node[] nodes = new Node[gastos.size()];
+
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/gasto.fxml"));
+
+                //Id
+                Label id = (Label) nodes[i].lookup("#id");
+                id.setText(String.valueOf(gastos.get(i).getId()));
+
+                //Importe
+                Label importe = (Label) nodes[i].lookup("#importe");
+                importe.setText(String.valueOf(gastos.get(i).getImporte()));
+
+                //TipoGasto
+                Label tGasto = (Label) nodes[i].lookup("#tipoGasto");
+                tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        listaGastos.getChildren().addAll(nodes);
     }
 
     @FXML

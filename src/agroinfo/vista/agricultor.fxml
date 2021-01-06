@@ -48,12 +48,12 @@
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonGastos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                                <JFXButton fx:id="botonVentas" onAction="#ventaAction" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
+                                <JFXButton fx:id="botonGastos" onAction="#gastoAction" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
@@ -71,8 +71,58 @@
         </VBox>
         <StackPane fx:id="sp" layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
+            <Pane fx:id="panelGastos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                     <children>
+                        <JFXButton fx:id="altaGasto" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="listaGastos" prefHeight="0.0" prefWidth="0.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+            <Pane fx:id="panelVentas" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                     <children>
+                        <JFXButton fx:id="altaVenta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXTextField focusColor="#86c541" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="listaVentas" prefHeight="0.0" prefWidth="0.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
             <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
@@ -99,7 +149,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
