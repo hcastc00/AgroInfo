@@ -14,5 +14,6 @@
     <orderEntry type="library" exported="" name="mysql-connector" level="project" />
     <orderEntry type="library" exported="" name="mysql:mysql-connector-java:5.1.40" level="project" />
     <orderEntry type="library" name="animateFX-1.2.2" level="project" />
+    <orderEntry type="library" name="lib" level="application" />
   </component>
 </module>

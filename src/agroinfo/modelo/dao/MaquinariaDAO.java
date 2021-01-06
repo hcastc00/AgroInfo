@@ -125,13 +125,13 @@ public class MaquinariaDAO extends ConexionBD {
         this.abrirConexion();
         String[] a = new String[3];
 
-        String sentencia = "SELECT matricula, nombre, MIN(fecha) AS fecha " +
+        String sentencia = "SELECT matricula, nombre, fecha " +
                 "FROM ( " +
                 "(SELECT m.matricula, nombre, fecha FROM eventos " +
                 "RIGHT JOIN maquinaria m on eventos.matricula = m.matricula " +
                 "WHERE m.matricula = ?) " +
                 "UNION\n" +
-                "(SELECT m.matricula, nombre, fecha FROM eventos " +
+                "(SELECT m.matricula, nombre, MIN(fecha) AS fecha FROM eventos " +
                 "LEFT JOIN maquinaria m on eventos.matricula = m.matricula " +
                 ")) AS sub " +
                 "GROUP BY matricula " +
