@@ -149,32 +149,7 @@ public class AgricultorController implements Initializable {
 
         List<Venta> ventas = ventaDAO.listar();
         Node[] nodes = new Node[ventas.size()];
-
-        for (int i = 0; i < nodes.length; i++) {
-            try {
-                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/venta.fxml"));
-
-                //Id
-                Label id = (Label) nodes[i].lookup("#id");
-                id.setText(String.valueOf(ventas.get(i).getId()));
-
-                //Cantidad
-                Label cant = (Label) nodes[i].lookup("#cantidad");
-                cant.setText(String.valueOf(ventas.get(i).getCantidad()));
-
-                //Precio Unitario
-                Label pu = (Label) nodes[i].lookup("#pu");
-                pu.setText(String.valueOf(ventas.get(i).getPrecioUnitario()));
-
-                //Total
-                Label total = (Label) nodes[i].lookup("#total");
-                total.setText(String.valueOf((ventas.get(i).getCantidad())*(ventas.get(i).getPrecioUnitario())));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        listaVentas.getChildren().addAll(nodes);
+        this.pintaVenta(ventas, nodes);
     }
 
     @FXML
@@ -311,7 +286,33 @@ public class AgricultorController implements Initializable {
 
     }
 
-    private void pintaVenta(){
+    private void pintaVenta(List<Venta> ventas, Node[] nodes){
+
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/venta.fxml"));
+
+                //Id
+                Label id = (Label) nodes[i].lookup("#id");
+                id.setText(String.valueOf(ventas.get(i).getId()));
+
+                //Cantidad
+                Label cant = (Label) nodes[i].lookup("#cantidad");
+                cant.setText(String.valueOf(ventas.get(i).getCantidad()));
+
+                //Precio Unitario
+                Label pu = (Label) nodes[i].lookup("#pu");
+                pu.setText(String.valueOf(ventas.get(i).getPrecioUnitario()));
+
+                //Total
+                Label total = (Label) nodes[i].lookup("#total");
+                total.setText(String.valueOf((ventas.get(i).getCantidad())*(ventas.get(i).getPrecioUnitario())));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        listaVentas.getChildren().addAll(nodes);
 
     }
 
