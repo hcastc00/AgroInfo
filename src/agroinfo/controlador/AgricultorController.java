@@ -118,7 +118,7 @@ public class AgricultorController implements Initializable {
     private int panel;
 
     // Lista de las parcelas
-    private List<Parcela> parcelas = new ArrayList<Parcela>();
+    private List<Parcela> parcelas = new ArrayList<>();
 
     private List<Parcela> listarP(){
         return parcelaDAO.listar();
@@ -127,7 +127,7 @@ public class AgricultorController implements Initializable {
     private Node[] nodesP;
 
     // Lista de las maquinas
-    private ArrayList<String[]> lista = new ArrayList<String[]>();
+    private ArrayList<String[]> lista = new ArrayList<>();
 
     private ArrayList<String[]> listarM(){
         return maquinariaDAO.listarConEventos();
@@ -136,7 +136,7 @@ public class AgricultorController implements Initializable {
     private Node[] nodesM;
 
     // Lista de las ventas
-    private List<Venta> ventas = new ArrayList<Venta>();
+    private List<Venta> ventas = new ArrayList<>();
 
     private List<Venta> listarV(){
         return ventaDAO.listar();
@@ -145,7 +145,7 @@ public class AgricultorController implements Initializable {
     private Node[] nodesV;
 
     // Lista de los gastos
-    private List<Gasto> gastos = new ArrayList<Gasto>();
+    private List<Gasto> gastos = new ArrayList<>();
 
     private List<Gasto> listarG(){
         return gastoDAO.listar();
@@ -230,51 +230,39 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void buscar(KeyEvent event){
+    void buscar(){
 
         switch (this.panel) {
             case 0 -> {
                 this.listaParcelas.getChildren().clear();
                 this.listaParcelas.getChildren().addAll(nodesP);
-                this.listaParcelas.getChildren().removeIf(new Predicate<Node>() {
-                    @Override
-                    public boolean test(Node node) {
-                        Label id = (Label) node.lookup("#id");
-                        return !id.getText().matches(buscarP.getText() + ".*");
-                    }
+                this.listaParcelas.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarP.getText() + ".*");
                 });
             }
             case 1 -> {
                 this.listaMaquinaria.getChildren().clear();
                 this.listaMaquinaria.getChildren().addAll(nodesM);
-                this.listaMaquinaria.getChildren().removeIf(new Predicate<Node>() {
-                    @Override
-                    public boolean test(Node node) {
-                        Label id = (Label) node.lookup("#id");
-                        return !id.getText().matches(buscarM.getText() + ".*");
-                    }
+                this.listaMaquinaria.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarM.getText() + ".*");
                 });
             }
             case 2 -> {
                 this.listaVentas.getChildren().clear();
                 this.listaVentas.getChildren().addAll(nodesV);
-                this.listaVentas.getChildren().removeIf(new Predicate<Node>() {
-                    @Override
-                    public boolean test(Node node) {
-                        Label id = (Label) node.lookup("#id");
-                        return !id.getText().matches(buscarV.getText() + ".*");
-                    }
+                this.listaVentas.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarV.getText() + ".*");
                 });
             }
             case 3 -> {
                 this.listaGastos.getChildren().clear();
                 this.listaGastos.getChildren().addAll(nodesG);
-                this.listaGastos.getChildren().removeIf(new Predicate<Node>() {
-                    @Override
-                    public boolean test(Node node) {
-                        Label id = (Label) node.lookup("#id");
-                        return !id.getText().matches(buscarG.getText() + ".*");
-                    }
+                this.listaGastos.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarG.getText() + ".*");
                 });
             }
         }
@@ -398,6 +386,35 @@ public class AgricultorController implements Initializable {
             }
         }
         listaGastos.getChildren().addAll(nodes);
+    }
+
+    @FXML
+    private void recargar(){
+        switch (this.panel) {
+            case 0 -> {
+                this.listaParcelas.getChildren().clear();
+                this.parcelas = listarP();
+                this.nodesP = new Node[parcelas.size()];
+                this.pintaParcela(parcelas, nodesP);
+            }
+            case 1 -> {
+                this.listaMaquinaria.getChildren().clear();
+                this.lista = listarM();
+                this.nodesM = new Node[lista.size()];
+                this.pintaMaquinaria(lista, nodesM);
+            }
+            case 2 -> {
+                this.listaVentas.getChildren().clear();
+                this.ventas = listarV();
+                this.nodesV = new Node[ventas.size()];
+                this.pintaVenta(ventas, nodesV);
+            }
+            case 3 -> {
+                this.listaGastos.getChildren().clear();
+                this.gastos = listarG();
+                this.nodesG = new Node[gastos.size()];
+            }
+        }
     }
 
     @FXML
