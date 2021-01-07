@@ -56,15 +56,16 @@ public class LoginController {
             protected Boolean call() throws Exception {
                 boolean res = false;
                 usuarioActual = usuarioDAO.iniciarSesion(user.getText(),pass.getText());
-                if(usuarioActual!=null) res = true;
-                return res;
+                return usuarioActual != null;
             }
         };
+
         t.setOnSucceeded(workerStateEvent -> {
             if(t.getValue()){
                 Node node = (Node) event.getSource();
                 Stage thisStage = (Stage) node.getScene().getWindow();
                 Parent ventana = null;
+
                 if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Administrador)){
                     try {
                         ventana = FXMLLoader.load(getClass().getResource("../vista/admin.fxml"));
