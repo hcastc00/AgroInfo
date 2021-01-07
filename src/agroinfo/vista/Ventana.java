@@ -18,7 +18,7 @@ public class Ventana extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("AgroInfo");
-        primaryStage.setScene(new Scene(root, 1200  , 750));
+        primaryStage.setScene(new Scene(root));
 
         //Quitar barra
         primaryStage.initStyle(StageStyle.UNDECORATED);
