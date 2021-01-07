@@ -19,7 +19,7 @@
                   <Image url="@/agricultor.png" />
                </image>
                 </ImageView>
-                <Label text="AgroInfo">
+                <Label fx:id="nombre" text="AgroInfo">
                     <font>
                         <Font name="DejaVu Sans" size="18.0" />
                     </font>
@@ -41,6 +41,11 @@
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
+                        <JFXButton fx:id="botonAlmacen" layoutX="39.0" layoutY="88.0" onAction="#almacenAction" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Almacen">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
                                 <JFXButton fx:id="botonVentas" onAction="#ventaAction" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
@@ -132,6 +137,40 @@
                   </ScrollPane>
                </children>
             </Pane>
+            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="75.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@/recargar.png" />
+                           </image>
+                        </ImageView>
+                        <JFXButton onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXTextField fx:id="buscarG1" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="listaAlmacen" prefHeight="600.0" prefWidth="950.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
             <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
@@ -166,7 +205,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>

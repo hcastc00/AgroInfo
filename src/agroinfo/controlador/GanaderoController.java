@@ -31,10 +31,20 @@ public class GanaderoController implements Initializable {
     private final GastoDAO gastoDAO = new GastoDAO();
     private final ConexionSensor sensor = new ConexionSensor();
 
+    private ArrayList<String[]> lista = conejaDAO.listarConEventos();
     private Node[] nodes;
 
     @FXML
     private VBox listaConejas = null;
+
+    /*
+     * Esta variable indica en que vista esta el programa para facilitar metodos
+     *      - El 0 es para Coneja
+     *      - El 1 es para Almacen
+     *      - El 2 es para Ventas
+     *      - El 3 es para Gastos
+     */
+    private int panel;
 
     @FXML
     private JFXButton temp;
@@ -43,11 +53,21 @@ public class GanaderoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.panel = 0;
         this.getTemperatura();
-        ArrayList<String[]> lista = conejaDAO.listarConEventos();
+        this.listaConejas.getChildren().clear();
+
+        if(this.lista.isEmpty()) {
+            this.lista = conejaDAO.listarConEventos();
+            this.nodes = new Node[lista.size()];
+        }
 
         nodes = new Node[lista.size()];
 
+        pintaConejas();
+    }
+
+    private void pintaConejas() {
         int i = 0;
         for(String[] s: lista){
             try {
@@ -67,7 +87,6 @@ public class GanaderoController implements Initializable {
             }catch (IOException e){
                 e.printStackTrace();
             }
-
             i++;
         }
         listaConejas.getChildren().addAll(nodes);
@@ -83,7 +102,7 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    void buscar(KeyEvent e){
+    void buscar(){
         //Limpio y vuelvo a meter todos los nodos para evitar duplicados
         listaConejas.getChildren().clear();
         listaConejas.getChildren().addAll(nodes);
@@ -157,5 +176,22 @@ public class GanaderoController implements Initializable {
     @FXML
     void getTemperatura() {
         temp.setText((sensor.getTemperatura()) + "ºC");
+    }
+
+    @FXML
+    private void recargar(){
+        switch (this.panel) {
+            case 0:
+                this.listaConejas.getChildren().clear();
+                this.lista = conejaDAO.listarConEventos();
+                this.nodes = new Node[lista.size()];
+                pintaConejas();
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+        }
     }
 }
