@@ -16,11 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.function.Predicate;
 
 
 public class GanaderoController implements Initializable {
@@ -71,7 +69,7 @@ public class GanaderoController implements Initializable {
         int i = 0;
         for(String[] s: lista){
             try {
-                nodes[i] = FXMLLoader.load(this.getClass().getResource("../vista/coneja.fxml"));
+                nodes[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/coneja.fxml"));
 
                 Label id = (Label)nodes[i].lookup("#id");
                 id.setText(s[0]);
@@ -96,7 +94,7 @@ public class GanaderoController implements Initializable {
     void salir(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent ganadero = FXMLLoader.load(getClass().getResource("../vista/login.fxml"));
+        Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxmllogin.fxml"));
         thisStage.setScene(new Scene(ganadero, 1200  , 750));
 
     }

@@ -2,16 +2,10 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.Gasto;
-import agroinfo.modelo.vo.Maquinaria;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,7 +24,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 public class AgricultorController implements Initializable {
     private final ParcelaDAO parcelaDAO = new ParcelaDAO();
@@ -275,7 +266,7 @@ public class AgricultorController implements Initializable {
 
         for (int i = 0; i < nodesP.length; i++) {
             try {
-                nodesP[i] = FXMLLoader.load(this.getClass().getResource("../vista/parcela.fxml"));
+                nodesP[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/parcela.fxml"));
 
                 //Id
                 Label id = (Label) nodesP[i].lookup("#id");
@@ -313,7 +304,7 @@ public class AgricultorController implements Initializable {
         int i = 0;
         for(String[] s: lista){
             try {
-                nodesM[i] = FXMLLoader.load(this.getClass().getResource("../vista/maquinaria.fxml"));
+                nodesM[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/maquinaria.fxml"));
 
                 Label id = (Label)nodesM[i].lookup("#id");
                 id.setText(s[0]);
@@ -339,7 +330,7 @@ public class AgricultorController implements Initializable {
 
         for (int i = 0; i < nodesV.length; i++) {
             try {
-                nodesV[i] = FXMLLoader.load(this.getClass().getResource("../vista/venta.fxml"));
+                nodesV[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/venta.fxml"));
 
                 //Id
                 Label id = (Label) nodesV[i].lookup("#id");
@@ -368,7 +359,7 @@ public class AgricultorController implements Initializable {
 
         for (int i = 0; i < gastos.size(); i++) {
             try {
-                nodesG[i] = FXMLLoader.load(this.getClass().getResource("../vista/gasto.fxml"));
+                nodesG[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/gasto.fxml"));
 
                 //Id
                 Label id = (Label) nodesG[i].lookup("#id");
@@ -423,7 +414,7 @@ public class AgricultorController implements Initializable {
     void salir(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent agricultor = FXMLLoader.load(getClass().getResource("../vista/login.fxml"));
+        Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         thisStage.setScene(new Scene(agricultor, 1200  , 750));
 
     }

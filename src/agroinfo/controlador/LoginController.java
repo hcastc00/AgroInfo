@@ -6,21 +6,15 @@ import animatefx.animation.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -68,7 +62,7 @@ public class LoginController {
 
                 if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Administrador)){
                     try {
-                        ventana = FXMLLoader.load(getClass().getResource("../vista/admin.fxml"));
+                        ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/admin.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -76,7 +70,7 @@ public class LoginController {
 
                 if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Ganadero)){
                     try {
-                        ventana = FXMLLoader.load(getClass().getResource("../vista/ganadero.fxml"));
+                        ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/ganadero.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -84,7 +78,7 @@ public class LoginController {
 
                 if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Agricultor)){
                     try {
-                        ventana = FXMLLoader.load(getClass().getResource("../vista/agricultor.fxml"));
+                        ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/agricultor.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
