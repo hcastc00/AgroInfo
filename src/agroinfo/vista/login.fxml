@@ -34,17 +34,7 @@
                   <VBox fx:id="panelGanadero" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
                   <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                      <children>
-                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Usuarios">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="exitButton11" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="exitButton111" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Auditoría">
+                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ayuda">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>

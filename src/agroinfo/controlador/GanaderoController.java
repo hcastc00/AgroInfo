@@ -4,6 +4,7 @@ import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +15,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Predicate;
 
 
 public class GanaderoController implements Initializable {
@@ -27,18 +31,22 @@ public class GanaderoController implements Initializable {
     private final GastoDAO gastoDAO = new GastoDAO();
     private final ConexionSensor sensor = new ConexionSensor();
 
+    private Node[] nodes;
+
     @FXML
     private VBox listaConejas = null;
 
     @FXML
     private JFXButton temp;
+    @FXML
+    private JFXTextField buscarConejas;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.getTemperatura();
         ArrayList<String[]> lista = conejaDAO.listarConEventos();
 
-        Node[] nodes = new Node[lista.size()];
+        nodes = new Node[lista.size()];
 
         int i = 0;
         for(String[] s: lista){
@@ -73,6 +81,20 @@ public class GanaderoController implements Initializable {
         thisStage.setScene(new Scene(ganadero, 1200  , 750));
 
     }
+
+    @FXML
+    void buscar(KeyEvent e){
+        //Limpio y vuelvo a meter todos los nodos para evitar duplicados
+        listaConejas.getChildren().clear();
+        listaConejas.getChildren().addAll(nodes);
+
+        //Predicate para la busqueda
+        listaConejas.getChildren().removeIf(node -> {
+            Label id = (Label)node.lookup("#id");
+            return !id.getText().matches(buscarConejas.getText() + ".*");
+        });
+    }
+
 
     @FXML
     void altaConeja(ActionEvent event) {
