@@ -1,10 +1,6 @@
 # AgroInfo 
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6b04a9c74d7f49008b36d948094017e0)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hcastc00/AgroInfo&amp;utm_campaign=Badge_Grade)   
-
-[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
-
-[![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6b04a9c74d7f49008b36d948094017e0)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hcastc00/AgroInfo&amp;utm_campaign=Badge_Grade)  ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/hcastc00/AgroInfo?include_prereleases&style=flat-square) [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
 
 <p>
   <img width="200" height="200" src="resources/ico.png">
