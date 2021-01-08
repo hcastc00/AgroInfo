@@ -1,12 +1,7 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionOpenWheatherAPI;
-import agroinfo.modelo.dao.AlmacenDAO;
-import agroinfo.modelo.dao.EventoDAO;
-import agroinfo.modelo.dao.MaquinariaDAO;
-import agroinfo.modelo.dao.ParcelaDAO;
-import agroinfo.modelo.dao.VentaDAO;
-import agroinfo.modelo.dao.GastoDAO;
+import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Venta;
@@ -211,7 +206,6 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void buscar() {
-
         switch (this.panel) {
             case 0 -> {
                 this.listaParcelas.getChildren().clear();

@@ -1,7 +1,11 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionSensor;
-import agroinfo.modelo.dao.*;
+import agroinfo.modelo.dao.AlmacenDAO;
+import agroinfo.modelo.dao.ConejaDAO;
+import agroinfo.modelo.dao.EventoConejaDAO;
+import agroinfo.modelo.dao.VentaDAO;
+import agroinfo.modelo.dao.GastoDAO;
 import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Gasto;
 import com.jfoenix.controls.JFXButton;
@@ -20,8 +24,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -32,15 +36,21 @@ public class GanaderoController implements Initializable {
     private final VentaDAO ventaDAO = new VentaDAO();
     private final GastoDAO gastoDAO = new GastoDAO();
     private final ConexionSensor sensor = new ConexionSensor();
-
-    private ArrayList<String[]> lista = conejaDAO.listarConEventos();
-    private Node[] nodes;
-
+    
     @FXML
-    private VBox listaConejas = null;
+    private final VBox listaConejas = null;
 
     @FXML
     private AnchorPane root;
+    
+    @FXML
+    private JFXButton temp;
+    @FXML
+    private JFXTextField buscarConejas;
+
+    //Lista de conejas
+    private List<String[]> conejas = conejaDAO.listarConEventos();
+    private Node[] nodesC;
 
     /*
      * Esta variable indica en que vista esta el programa para facilitar metodos
@@ -51,11 +61,6 @@ public class GanaderoController implements Initializable {
      */
     private int panel;
 
-    @FXML
-    private JFXButton temp;
-    @FXML
-    private JFXTextField buscarConejas;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.moverVentana();
@@ -63,43 +68,18 @@ public class GanaderoController implements Initializable {
         this.getTemperatura();
         this.listaConejas.getChildren().clear();
 
-        if (this.lista.isEmpty()) {
-            this.lista = conejaDAO.listarConEventos();
-            this.nodes = new Node[lista.size()];
+        if (this.conejas.isEmpty()) {
+            this.conejas = conejaDAO.listarConEventos();
+            this.nodesC = new Node[conejas.size()];
         }
 
-        nodes = new Node[lista.size()];
+        nodesC = new Node[conejas.size()];
 
         pintaConejas();
     }
-
-    private void pintaConejas() {
-        int i = 0;
-        for (String[] s : lista) {
-            try {
-                nodes[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/coneja.fxml"));
-
-                Label id = (Label) nodes[i].lookup("#id");
-                id.setText(s[0]);
-
-                Label inseminacion = (Label) nodes[i].lookup("#inseminacion");
-                if (s[1] != null)
-                    inseminacion.setText(s[1]);
-
-                Label parto = (Label) nodes[i].lookup("#parto");
-                if (s[2] != null)
-                    parto.setText(s[2]);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            i++;
-        }
-        listaConejas.getChildren().addAll(nodes);
-    }
-
+    
     @FXML
-    void salir(ActionEvent event) throws IOException {
+    private void salir(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
@@ -108,10 +88,10 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    void buscar() {
+    private void buscar() {
         //Limpio y vuelvo a meter todos los nodos para evitar duplicados
         listaConejas.getChildren().clear();
-        listaConejas.getChildren().addAll(nodes);
+        listaConejas.getChildren().addAll(nodesC);
 
         //Predicate para la busqueda
         listaConejas.getChildren().removeIf(node -> {
@@ -119,68 +99,60 @@ public class GanaderoController implements Initializable {
             return !id.getText().matches(buscarConejas.getText() + ".*");
         });
     }
-
-
+    
     @FXML
-    void altaConeja(ActionEvent event) {
+    private void altaConeja(ActionEvent event) {
 
     }
 
     @FXML
-    void bajaConeja(ActionEvent event) {
+    private void bajaConeja(ActionEvent event) {
 
 
     }
-
+    
     @FXML
-    void venta(ActionEvent event) {
-
-
-    }
-
-    @FXML
-    void crearGasto(ActionEvent event) {
+    private void crearGasto(ActionEvent event) {
         Gasto gasto = new Gasto(1, "Pienso", Gasto.TipoGasto.Ganaderia, "pepe");
     }
 
     @FXML
-    void eliminarGasto(ActionEvent event) {
+    private void eliminarGasto(ActionEvent event) {
 
     }
 
     @FXML
-    void modificarGasto(ActionEvent event) {
+    private void modificarGasto(ActionEvent event) {
 
     }
 
-
     @FXML
-    void crearEventoConeja(ActionEvent event) {
+    private void crearEventoConeja(ActionEvent event) {
         EventoConeja eventoConeja = new EventoConeja(1, new Date("Hoy"), EventoConeja.TipoEventoConeja.Inseminacion);
     }
 
     @FXML
-    void eliminarEventoConeja(ActionEvent event) {
+    private void eliminarEventoConeja(ActionEvent event) {
 
     }
 
     @FXML
-    void modificarEventoConeja(ActionEvent event) {
+    private void modificarEventoConeja(ActionEvent event) {
 
     }
 
     @FXML
-    void crearVenta(ActionEvent event) {
+    private void crearVenta(ActionEvent event) {
         //Venta venta = new Venta(1,60,"El perro");
         this.almacenDAO.getAlmacen().setConejos(10);
     }
 
     @FXML
-    void eliminarVenta(ActionEvent event) {
+    private void eliminarVenta(ActionEvent event) {
     }
 
     @FXML
-    void getTemperatura() {
+    private void getTemperatura() {
         temp.setText((sensor.getTemperatura()) + "ºC");
     }
 
@@ -189,8 +161,8 @@ public class GanaderoController implements Initializable {
         switch (this.panel) {
             case 0:
                 this.listaConejas.getChildren().clear();
-                this.lista = conejaDAO.listarConEventos();
-                this.nodes = new Node[lista.size()];
+                this.conejas = conejaDAO.listarConEventos();
+                this.nodesC = new Node[conejas.size()];
                 pintaConejas();
                 break;
             case 1:
@@ -199,6 +171,33 @@ public class GanaderoController implements Initializable {
                 break;
             case 3:
         }
+    }
+
+    //METODOS AUXILIARES
+    
+    private void pintaConejas() {
+        int i = 0;
+        for (String[] s : conejas) {
+            try {
+                nodesC[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/coneja.fxml"));
+
+                Label id = (Label) nodesC[i].lookup("#id");
+                id.setText(s[0]);
+
+                Label inseminacion = (Label) nodesC[i].lookup("#inseminacion");
+                if (s[1] != null)
+                    inseminacion.setText(s[1]);
+
+                Label parto = (Label) nodesC[i].lookup("#parto");
+                if (s[2] != null)
+                    parto.setText(s[2]);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        listaConejas.getChildren().addAll(nodesC);
     }
 
     private void moverVentana() {
