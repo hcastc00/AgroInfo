@@ -14,5 +14,7 @@ Se ha utilizado Java con JavaFx para la UI, además de librerías como JFoenix y
 
 ### Capturas
 <p align="center">
-  <img  src="resources/example.png">
+  <img  src="git/example.png">
+  <img  src="git/exampleAgri.png">
+  <img  src="git/exampleGan.png">
 </p>
