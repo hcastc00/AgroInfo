@@ -5,7 +5,6 @@ import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Venta;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,13 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,16 +39,16 @@ public class AgricultorController implements Initializable {
     private Pane panelAlmacen;
 
     @FXML
-    private JFXTextField buscarP;
+    private JFXTextField buscarParcelas;
 
     @FXML
-    private JFXTextField buscarM;
+    private JFXTextField buscarMaquinaria;
 
     @FXML
-    private JFXTextField buscarV;
+    private JFXTextField buscarVentas;
 
     @FXML
-    private JFXTextField buscarG;
+    private JFXTextField buscarGastos;
 
     @FXML
     private Pane panelMaquinaria;
@@ -91,29 +88,42 @@ public class AgricultorController implements Initializable {
     private int panel;
 
     // Lista de las parcelas
-    private List<Parcela> parcelas = new ArrayList<>();
-    private List<Parcela> listarP(){ return parcelaDAO.listar(); }
+    private List<Parcela> parcelas;
     private Node[] nodesP;
 
     // Lista de las maquinas
-    private ArrayList<String[]> lista = new ArrayList<>();
-    private ArrayList<String[]> listarM(){ return maquinariaDAO.listarConEventos(); }
+    private List<String[]> lista;
     private Node[] nodesM;
 
     // Lista de las ventas
-    private List<Venta> ventas = new ArrayList<>();
-    private List<Venta> listarV(){ return ventaDAO.listar(); }
+    private List<Venta> ventas;
     private Node[] nodesV;
 
     // Lista de los gastos
-    private List<Gasto> gastos = new ArrayList<>();
-    private List<Gasto> listarG(){ return gastoDAO.listar(); }
+    private List<Gasto> gastos;
     private Node[] nodesG;
+
+    private List<Parcela> listarParcelas() {
+        return parcelaDAO.listar();
+    }
+
+    private List<String[]> listarMaquinaria() {
+        return maquinariaDAO.listarConEventos();
+    }
+
+    private List<Venta> listarVentas() {
+        return ventaDAO.listar();
+    }
+
+    private List<Gasto> listarGastos() {
+        return gastoDAO.listar();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         moverVentana();
-        parcelaAction();
+        mostrarParcelas();
     }
 
     @FXML
@@ -122,7 +132,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void parcelaAction() {
+    void mostrarParcelas() {
         this.panel = 0;
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -130,8 +140,8 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelParcelas.setVisible(true);
 
-        if(this.parcelas.isEmpty()) {
-            this.parcelas = this.listarP();
+        if (this.parcelas.isEmpty()) {
+            this.parcelas = this.listarParcelas();
             this.nodesP = new Node[parcelas.size()];
             this.pintaParcela();
         }
@@ -139,7 +149,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void maquinariaAction() {
+    void mostrarMaquinaria() {
         this.panel = 1;
         this.panelParcelas.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -147,8 +157,8 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelMaquinaria.setVisible(true);
 
-        if(this.lista.isEmpty()) {
-            this.lista = this.listarM();
+        if (this.lista.isEmpty()) {
+            this.lista = this.listarMaquinaria();
             this.nodesM = new Node[lista.size()];
             this.pintaMaquinaria();
 
@@ -157,7 +167,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void ventaAction() {
+    void mostrarVentas() {
         this.panel = 2;
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -165,8 +175,8 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelVentas.setVisible(true);
 
-        if(this.ventas.isEmpty()) {
-            this.ventas = this.listarV();
+        if (this.ventas.isEmpty()) {
+            this.ventas = this.listarVentas();
             this.nodesV = new Node[ventas.size()];
             this.pintaVenta();
         }
@@ -174,7 +184,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void gastoAction(){
+    void mostrarGastos() {
         this.panel = 3;
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
@@ -182,20 +192,20 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelGastos.setVisible(true);
 
-        if(this.gastos.isEmpty()) {
-            this.gastos = this.listarG();
+        if (this.gastos.isEmpty()) {
+            this.gastos = this.listarGastos();
             this.nodesG = new Node[gastos.size()];
             this.pintaGasto();
         }
     }
 
     @FXML
-    void almacenAction() {
+    void mostrarAlmacen() {
         this.panel = 4;
     }
 
     @FXML
-    void buscar(){
+    void buscar() {
 
         switch (this.panel) {
             case 0 -> {
@@ -203,7 +213,7 @@ public class AgricultorController implements Initializable {
                 this.listaParcelas.getChildren().addAll(nodesP);
                 this.listaParcelas.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
-                    return !id.getText().matches(buscarP.getText() + ".*");
+                    return !id.getText().matches(buscarParcelas.getText() + ".*");
                 });
             }
             case 1 -> {
@@ -211,7 +221,7 @@ public class AgricultorController implements Initializable {
                 this.listaMaquinaria.getChildren().addAll(nodesM);
                 this.listaMaquinaria.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
-                    return !id.getText().matches(buscarM.getText() + ".*");
+                    return !id.getText().matches(buscarMaquinaria.getText() + ".*");
                 });
             }
             case 2 -> {
@@ -219,7 +229,7 @@ public class AgricultorController implements Initializable {
                 this.listaVentas.getChildren().addAll(nodesV);
                 this.listaVentas.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
-                    return !id.getText().matches(buscarV.getText() + ".*");
+                    return !id.getText().matches(buscarVentas.getText() + ".*");
                 });
             }
             case 3 -> {
@@ -227,13 +237,54 @@ public class AgricultorController implements Initializable {
                 this.listaGastos.getChildren().addAll(nodesG);
                 this.listaGastos.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
-                    return !id.getText().matches(buscarG.getText() + ".*");
+                    return !id.getText().matches(buscarGastos.getText() + ".*");
                 });
             }
         }
     }
 
-    private void pintaParcela(){
+    @FXML
+    private void recargar() {
+        switch (this.panel) {
+            case 0 -> {
+                this.listaParcelas.getChildren().clear();
+                this.parcelas = this.listarParcelas();
+                this.nodesP = new Node[parcelas.size()];
+                this.pintaParcela();
+            }
+            case 1 -> {
+                this.listaMaquinaria.getChildren().clear();
+                this.lista = listarMaquinaria();
+                this.nodesM = new Node[lista.size()];
+                this.pintaMaquinaria();
+            }
+            case 2 -> {
+                this.listaVentas.getChildren().clear();
+                this.ventas = listarVentas();
+                this.nodesV = new Node[ventas.size()];
+                this.pintaVenta();
+            }
+            case 3 -> {
+                this.listaGastos.getChildren().clear();
+                this.gastos = listarGastos();
+                this.nodesG = new Node[gastos.size()];
+                this.pintaGasto();
+            }
+        }
+    }
+
+    @FXML
+    void salir(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage thisStage = (Stage) node.getScene().getWindow();
+        Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
+        thisStage.setScene(new Scene(agricultor, 1200, 750));
+
+    }
+
+    //METODOS AUXILIARES
+
+    private void pintaParcela() {
         this.listaParcelas.getChildren().clear();
         for (int i = 0; i < nodesP.length; i++) {
             try {
@@ -267,11 +318,11 @@ public class AgricultorController implements Initializable {
                 ImageView image = (ImageView) nodesP[i].lookup("#image");
                 String[] ico = new String[2];
                 try {
-                    ico = tiempo.getTiempo(parcelas.get(i).getLatitud(),parcelas.get(i).getLongitud());
+                    ico = tiempo.getTiempo(parcelas.get(i).getLatitud(), parcelas.get(i).getLongitud());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                image.setImage(new Image("http://openweathermap.org/img/wn/" +ico[0]));
+                image.setImage(new Image("http://openweathermap.org/img/wn/" + ico[0]));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -280,25 +331,25 @@ public class AgricultorController implements Initializable {
         this.listaParcelas.getChildren().addAll(nodesP);
     }
 
-    private void pintaMaquinaria(){
+    private void pintaMaquinaria() {
         this.listaMaquinaria.getChildren().clear();
         int i = 0;
-        for(String[] s: lista){
+        for (String[] s : lista) {
             try {
                 nodesM[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/maquinaria.fxml"));
 
-                Label id = (Label)nodesM[i].lookup("#id");
+                Label id = (Label) nodesM[i].lookup("#id");
                 id.setText(s[0]);
 
-                Label nombre = (Label)nodesM[i].lookup("#nombre");
-                if(s[1]!= null)
+                Label nombre = (Label) nodesM[i].lookup("#nombre");
+                if (s[1] != null)
                     nombre.setText(s[1]);
 
-                Label evento = (Label)nodesM[i].lookup("#evento");
-                if(!s[2].equals("null"))
+                Label evento = (Label) nodesM[i].lookup("#evento");
+                if (!s[2].equals("null"))
                     evento.setText(s[2]);
 
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -307,7 +358,7 @@ public class AgricultorController implements Initializable {
         this.listaMaquinaria.getChildren().addAll(nodesM);
     }
 
-    private void pintaVenta(){
+    private void pintaVenta() {
         this.listaVentas.getChildren().clear();
         for (int i = 0; i < nodesV.length; i++) {
             try {
@@ -327,7 +378,7 @@ public class AgricultorController implements Initializable {
 
                 //Total
                 Label total = (Label) nodesV[i].lookup("#total");
-                total.setText(String.valueOf((ventas.get(i).getCantidad())*(ventas.get(i).getPrecioUnitario())));
+                total.setText(String.valueOf((ventas.get(i).getCantidad()) * (ventas.get(i).getPrecioUnitario())));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -336,7 +387,7 @@ public class AgricultorController implements Initializable {
         this.listaVentas.getChildren().addAll(nodesV);
     }
 
-    private void pintaGasto(){
+    private void pintaGasto() {
         this.listaGastos.getChildren().clear();
         for (int i = 0; i < gastos.size(); i++) {
             try {
@@ -359,45 +410,6 @@ public class AgricultorController implements Initializable {
             }
         }
         this.listaGastos.getChildren().addAll(nodesG);
-    }
-
-    @FXML
-    private void recargar(){
-        switch (this.panel) {
-            case 0 -> {
-                this.listaParcelas.getChildren().clear();
-                this.parcelas = this.listarP();
-                this.nodesP = new Node[parcelas.size()];
-                this.pintaParcela();
-            }
-            case 1 -> {
-                this.listaMaquinaria.getChildren().clear();
-                this.lista = listarM();
-                this.nodesM = new Node[lista.size()];
-                this.pintaMaquinaria();
-            }
-            case 2 -> {
-                this.listaVentas.getChildren().clear();
-                this.ventas = listarV();
-                this.nodesV = new Node[ventas.size()];
-                this.pintaVenta();
-            }
-            case 3 -> {
-                this.listaGastos.getChildren().clear();
-                this.gastos = listarG();
-                this.nodesG = new Node[gastos.size()];
-                this.pintaGasto();
-            }
-        }
-    }
-
-    @FXML
-    void salir(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
-        thisStage.setScene(new Scene(agricultor, 1200  , 750));
-
     }
 
     private void moverVentana() {
