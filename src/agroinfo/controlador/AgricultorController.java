@@ -265,10 +265,9 @@ public class AgricultorController implements Initializable {
 
                 //Imagen
                 ImageView image = (ImageView) nodesP[i].lookup("#image");
-                Parcela p = parcelaDAO.buscar(Integer.parseInt(id.getText()));
                 String[] ico = new String[2];
                 try {
-                    ico = tiempo.getTiempo(p.getLatitud(),p.getLongitud());
+                    ico = tiempo.getTiempo(parcelas.get(i).getLatitud(),parcelas.get(i).getLongitud());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -367,7 +366,7 @@ public class AgricultorController implements Initializable {
         switch (this.panel) {
             case 0 -> {
                 this.listaParcelas.getChildren().clear();
-                this.parcelas = listarP();
+                this.parcelas = this.listarP();
                 this.nodesP = new Node[parcelas.size()];
                 this.pintaParcela();
             }

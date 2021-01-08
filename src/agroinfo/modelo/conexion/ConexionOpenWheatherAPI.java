@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ConexionOpenWheatherAPI {
@@ -22,14 +23,10 @@ public class ConexionOpenWheatherAPI {
     }
 
     private JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        try (InputStream is = new URL(url).openStream()) {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
-            System.out.println(jsonText);
             return new JSONObject(jsonText);
-        } finally {
-            is.close();
         }
     }
 
