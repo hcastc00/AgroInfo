@@ -14,7 +14,6 @@ public class ParcelaDAO extends ConexionBD {
     public ParcelaDAO(){
     }
 
-    //TODO Se puede cambiar los metodos void para que devuelvan un boolean false si alguo va mal, para que se muestre el error desde la interfaz
 
     public void crear(Parcela parcela){
 
