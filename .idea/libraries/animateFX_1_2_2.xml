@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="animate">
+  <library name="animateFX-1.2.2">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/animateFX-1.2.2.jar!/" />
     </CLASSES>

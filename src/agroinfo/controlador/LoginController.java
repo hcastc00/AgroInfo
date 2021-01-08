@@ -10,15 +10,21 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     public Usuario usuarioActual;
 
@@ -34,6 +40,10 @@ public class LoginController {
     @FXML
     private JFXButton botonEntrar;
 
+    @FXML
+    private AnchorPane root;
+
+
 
     @FXML
     void close(ActionEvent event) {
@@ -44,7 +54,6 @@ public class LoginController {
 
     @FXML
     void entrar(ActionEvent event) throws IOException, InterruptedException {
-
         Task<Boolean> t = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
@@ -99,5 +108,15 @@ public class LoginController {
     }
 
 
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        root.setOnMousePressed(pressEvent -> {
+            root.setOnMouseDragged(dragEvent -> {
+                if (pressEvent.getSceneY() < 75) {
+                    root.getScene().getWindow().setX(dragEvent.getScreenX() - pressEvent.getSceneX());
+                    root.getScene().getWindow().setY(dragEvent.getScreenY() - pressEvent.getSceneY());
+                }
+            });
+        });
+    }
 }

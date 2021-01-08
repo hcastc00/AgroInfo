@@ -24,18 +24,6 @@ public class Ventana extends Application {
         //Icono
         primaryStage.getIcons().add(new Image("/ico.png"));
 
-        //Mover ventana
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-
-        root.setOnMouseDragged(event -> {
-            if( y < 75) {
-                primaryStage.setX(event.getScreenX() - x);
-                primaryStage.setY(event.getScreenY() - y);
-            }
-        });
 
         primaryStage.show();
     }

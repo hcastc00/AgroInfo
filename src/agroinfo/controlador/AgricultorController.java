@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -34,31 +35,7 @@ public class AgricultorController implements Initializable {
     private final GastoDAO gastoDAO = new GastoDAO();
 
     @FXML
-    private StackPane sp;
-
-    @FXML
-    private Label nombre;
-
-    @FXML
-    private JFXButton botonAlmacen;
-
-    @FXML
     private Pane panelAlmacen;
-
-    @FXML
-    private JFXButton botonParcela;
-
-    @FXML
-    private JFXButton botonMaquinaria;
-
-    @FXML
-    private JFXButton botonGastos;
-
-    @FXML
-    private JFXButton botonVentas;
-
-    @FXML
-    private JFXButton botonSalir;
 
     @FXML
     private JFXTextField buscarP;
@@ -85,28 +62,19 @@ public class AgricultorController implements Initializable {
     private Pane panelParcelas;
 
     @FXML
-    private JFXButton altaParcela;
-
-    @FXML
-    private JFXButton altaMaquinaria;
-
-    @FXML
     private VBox listaMaquinaria;
 
     @FXML
     private VBox listaParcelas;
 
     @FXML
-    private JFXButton altaGasto;
-
-    @FXML
     private VBox listaGastos;
 
     @FXML
-    private JFXButton altaVenta;
+    private VBox listaVentas;
 
     @FXML
-    private VBox listaVentas;
+    private AnchorPane root;
 
     /*
      * Esta variable indica en que vista esta el programa para facilitar el metodo de buscar()
@@ -139,7 +107,10 @@ public class AgricultorController implements Initializable {
     private Node[] nodesG;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { parcelaAction(); }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        moverVentana();
+        parcelaAction();
+    }
 
     @FXML
     void altaParcela(ActionEvent event) {
@@ -417,5 +388,16 @@ public class AgricultorController implements Initializable {
         Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         thisStage.setScene(new Scene(agricultor, 1200  , 750));
 
+    }
+
+    private void moverVentana() {
+        root.setOnMousePressed(pressEvent -> {
+            root.setOnMouseDragged(dragEvent -> {
+                if (pressEvent.getSceneY() < 75) {
+                    root.getScene().getWindow().setX(dragEvent.getScreenX() - pressEvent.getSceneX());
+                    root.getScene().getWindow().setY(dragEvent.getScreenY() - pressEvent.getSceneY());
+                }
+            });
+        });
     }
 }

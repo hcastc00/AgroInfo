@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.LoginController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.LoginController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
          <children>
@@ -64,7 +64,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="user" alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="422.0" layoutY="270.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                  <JFXTextField fx:id="user" alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="422.0" layoutY="270.0" onAction="#entrar" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -79,7 +79,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXPasswordField fx:id="pass" alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="425.0" layoutY="356.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                  <JFXPasswordField fx:id="pass" alignment="BOTTOM_LEFT" focusColor="#86c541" layoutX="425.0" layoutY="356.0" onAction="#entrar" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
                      <font>
                         <Font size="20.0" />
                      </font>
