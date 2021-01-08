@@ -14,7 +14,7 @@ public class Parcela {
     private double excedente;
 
     //CONTRUCTOR
-    public Parcela(int id, double longitud, double latitud, double tam, TipoParcela tipoParcela, TipoCultivo tipoCultivo) {
+    public Parcela(int id, double latitud, double longitud, double tam, TipoParcela tipoParcela, TipoCultivo tipoCultivo) {
         this.id = id;
         this.longitud = longitud;
         this.latitud = latitud;

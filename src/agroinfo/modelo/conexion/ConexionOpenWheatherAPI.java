@@ -33,20 +33,18 @@ public class ConexionOpenWheatherAPI {
         }
     }
 
-    public String[] getTiempo(long lat, long lon) throws IOException, JSONException {
+    public String[] getTiempo(double lat, double lon) throws IOException, JSONException {
 
         String[] lista = new String[2];
 
-        StringBuilder url = new StringBuilder("http://api.openweathermap.org/data/2.5/weather?lat=");
-        url.append(lat);
-        url.append("&long=");
-        url.append(lon);
-        url.append("&appid="+ this.APIKEY +"&units=metric&andlang=es");
+        String url = "http://api.openweathermap.org/data/2.5/weather?lat=" +
+                lat +
+                "&lon=" +
+                lon +
+                "&appid=" + this.APIKEY + "&units=metric&andlang=es";
+        JSONObject json = readJsonFromUrl(url);
 
-        JSONObject json = readJsonFromUrl(url.toString());
-
-        lista[0] = json.getJSONArray("weather").getJSONObject(0).getString("icon") + ".svg";
-        lista[1] = json.getJSONArray("main").getJSONObject(0).getString("temp");
+        lista[0] = json.getJSONArray("weather").getJSONObject(0).getString("icon") + "@4x.png";
 
         return lista;
     }

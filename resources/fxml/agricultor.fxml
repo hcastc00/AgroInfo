@@ -175,7 +175,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/recargar.png" />
                            </image>
@@ -209,7 +209,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/recargar.png" />
                            </image>

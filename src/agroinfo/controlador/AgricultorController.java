@@ -1,5 +1,6 @@
 package agroinfo.controlador;
 
+import agroinfo.modelo.conexion.ConexionOpenWheatherAPI;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
@@ -14,6 +15,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -33,6 +36,7 @@ public class AgricultorController implements Initializable {
     private final AlmacenDAO almacenDAO = new AlmacenDAO();
     private final VentaDAO ventaDAO = new VentaDAO();
     private final GastoDAO gastoDAO = new GastoDAO();
+    private final ConexionOpenWheatherAPI tiempo = new ConexionOpenWheatherAPI();
 
     @FXML
     private Pane panelAlmacen;
@@ -120,7 +124,6 @@ public class AgricultorController implements Initializable {
     @FXML
     void parcelaAction() {
         this.panel = 0;
-        this.listaParcelas.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
@@ -130,15 +133,14 @@ public class AgricultorController implements Initializable {
         if(this.parcelas.isEmpty()) {
             this.parcelas = this.listarP();
             this.nodesP = new Node[parcelas.size()];
+            this.pintaParcela();
         }
 
-        this.pintaParcela();
     }
 
     @FXML
     void maquinariaAction() {
         this.panel = 1;
-        this.listaMaquinaria.getChildren().clear();
         this.panelParcelas.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
@@ -148,15 +150,15 @@ public class AgricultorController implements Initializable {
         if(this.lista.isEmpty()) {
             this.lista = this.listarM();
             this.nodesM = new Node[lista.size()];
+            this.pintaMaquinaria();
+
         }
 
-        this.pintaMaquinaria();
     }
 
     @FXML
     void ventaAction() {
         this.panel = 2;
-        this.listaVentas.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelParcelas.setVisible(false);
@@ -166,15 +168,14 @@ public class AgricultorController implements Initializable {
         if(this.ventas.isEmpty()) {
             this.ventas = this.listarV();
             this.nodesV = new Node[ventas.size()];
+            this.pintaVenta();
         }
 
-        this.pintaVenta();
     }
 
     @FXML
     void gastoAction(){
         this.panel = 3;
-        this.listaGastos.getChildren().clear();
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
         this.panelVentas.setVisible(false);
@@ -184,9 +185,8 @@ public class AgricultorController implements Initializable {
         if(this.gastos.isEmpty()) {
             this.gastos = this.listarG();
             this.nodesG = new Node[gastos.size()];
+            this.pintaGasto();
         }
-
-        this.pintaGasto();
     }
 
     @FXML
@@ -234,7 +234,7 @@ public class AgricultorController implements Initializable {
     }
 
     private void pintaParcela(){
-
+        this.listaParcelas.getChildren().clear();
         for (int i = 0; i < nodesP.length; i++) {
             try {
                 nodesP[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/parcela.fxml"));
@@ -263,6 +263,17 @@ public class AgricultorController implements Initializable {
                 String ex = String.valueOf(parcelas.get(i).getExcedente());
                 excedente.setText(ex);
 
+                //Imagen
+                ImageView image = (ImageView) nodesP[i].lookup("#image");
+                Parcela p = parcelaDAO.buscar(Integer.parseInt(id.getText()));
+                String[] ico = new String[2];
+                try {
+                    ico = tiempo.getTiempo(p.getLatitud(),p.getLongitud());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                image.setImage(new Image("http://openweathermap.org/img/wn/" +ico[0]));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -271,7 +282,7 @@ public class AgricultorController implements Initializable {
     }
 
     private void pintaMaquinaria(){
-
+        this.listaMaquinaria.getChildren().clear();
         int i = 0;
         for(String[] s: lista){
             try {
@@ -298,7 +309,7 @@ public class AgricultorController implements Initializable {
     }
 
     private void pintaVenta(){
-
+        this.listaVentas.getChildren().clear();
         for (int i = 0; i < nodesV.length; i++) {
             try {
                 nodesV[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/venta.fxml"));
@@ -327,7 +338,7 @@ public class AgricultorController implements Initializable {
     }
 
     private void pintaGasto(){
-
+        this.listaGastos.getChildren().clear();
         for (int i = 0; i < gastos.size(); i++) {
             try {
                 nodesG[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/gasto.fxml"));
