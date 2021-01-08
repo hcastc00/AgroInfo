@@ -1,5 +1,5 @@
 # AgroInfo
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6b04a9c74d7f49008b36d948094017e0#center)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=hcastc00/AgroInfo&utm_campaign=Badge_Grade)  ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/hcastc00/AgroInfo?include_prereleases&style=flat-square#center) [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg#center)](https://forthebadge.com)
+<p align=center><a href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hcastc00/AgroInfo&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/6b04a9c74d7f49008b36d948094017e0" alt="Codacy Badge" /></a>  <img src="https://img.shields.io/github/v/release/hcastc00/AgroInfo?include_prereleases&amp;style=flat-square" alt="GitHub release (latest by date including pre-releases)" /> <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/works-on-my-machine.svg" alt="forthebadge" /></a></p>
 
 <p align=center>
   <img width="200" height="200" src="resources/ico.png" >
