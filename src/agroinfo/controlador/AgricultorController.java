@@ -1,7 +1,12 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionOpenWheatherAPI;
-import agroinfo.modelo.dao.*;
+import agroinfo.modelo.dao.AlmacenDAO;
+import agroinfo.modelo.dao.EventoDAO;
+import agroinfo.modelo.dao.MaquinariaDAO;
+import agroinfo.modelo.dao.ParcelaDAO;
+import agroinfo.modelo.dao.VentaDAO;
+import agroinfo.modelo.dao.GastoDAO;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Venta;
@@ -127,12 +132,12 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void altaParcela(ActionEvent event) {
+    private void altaParcela(ActionEvent event) {
 
     }
 
     @FXML
-    void mostrarParcelas() {
+    private void mostrarParcelas() {
         this.panel = 0;
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -149,7 +154,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void mostrarMaquinaria() {
+    private void mostrarMaquinaria() {
         this.panel = 1;
         this.panelParcelas.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -167,7 +172,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void mostrarVentas() {
+    private void mostrarVentas() {
         this.panel = 2;
         this.panelMaquinaria.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -184,7 +189,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void mostrarGastos() {
+    private void mostrarGastos() {
         this.panel = 3;
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
@@ -200,12 +205,12 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void mostrarAlmacen() {
+    private void mostrarAlmacen() {
         this.panel = 4;
     }
 
     @FXML
-    void buscar() {
+    private void buscar() {
 
         switch (this.panel) {
             case 0 -> {
@@ -274,7 +279,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    void salir(ActionEvent event) throws IOException {
+    private void salir(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
