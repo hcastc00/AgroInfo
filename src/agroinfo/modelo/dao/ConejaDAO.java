@@ -21,7 +21,7 @@ public class ConejaDAO extends ConexionBD {
         this.abrirConexion();
 
         try {
-            String sentencia = "INSERT into conejas(identificador)" + "VALUES (?)";
+            String sentencia = "INSERT into conejas(identificador) VALUES (?)";
 
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, coneja.getId());
