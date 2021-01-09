@@ -31,6 +31,7 @@ public class VentaDAO extends ConexionBD {
             pSentencia.setDouble(2, venta.getPrecioUnitario());
             pSentencia.setString(3, venta.getUsuarioRegistrador());
             pSentencia.setString(4, venta.getDescripcion());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -47,6 +48,7 @@ public class VentaDAO extends ConexionBD {
             String sentencia = "DELETE FROM ventas WHERE id = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, venta.getId());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

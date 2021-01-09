@@ -43,6 +43,7 @@ public class ConejaDAO extends ConexionBD {
             String sentencia = "DELETE FROM conejas WHERE identificador = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, coneja.getId());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

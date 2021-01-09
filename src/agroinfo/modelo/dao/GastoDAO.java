@@ -31,6 +31,7 @@ public class GastoDAO extends ConexionBD {
             pSentencia.setString(2, gasto.getDescripcion());
             pSentencia.setString(3, gasto.getTipoGasto().toString());
             pSentencia.setString (4, gasto.getUsuarioRegistrador());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -47,6 +48,7 @@ public class GastoDAO extends ConexionBD {
             String sentencia = "DELETE FROM gastos WHERE id = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, gasto.getId());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

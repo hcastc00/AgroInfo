@@ -31,6 +31,7 @@ public class EventoConejaDAO extends ConexionBD {
             pSentencia.setDouble(1, evento.getIdConeja());
             pSentencia.setDate  (2, (Date) evento.getFecha());
             pSentencia.setString(3, evento.getTipoEventoConeja().toString());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -47,6 +48,7 @@ public class EventoConejaDAO extends ConexionBD {
             String sentencia = "DELETE FROM evento_conejas WHERE evento_id = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, evento.getId());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -93,6 +95,7 @@ public class EventoConejaDAO extends ConexionBD {
 
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, id);
+            pSentencia.execute();
 
             crearLista(lista, pSentencia);
 
@@ -118,6 +121,8 @@ public class EventoConejaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, id);
             pSentencia.setString(2, tipo.toString());
+
+            pSentencia.execute();
 
             crearLista(lista, pSentencia);
 

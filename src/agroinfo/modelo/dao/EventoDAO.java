@@ -34,6 +34,7 @@ public class EventoDAO extends ConexionBD {
                 pSentencia.setInt(1, evento.getIdentificadorParcela());
                 pSentencia.setDate  (2, (Date) evento.getFecha());
                 pSentencia.setString(3, evento.getDescripcion());
+                pSentencia.execute();
 
             //Si el evento tiene matricula, el evento es de Maquinaria
             }else{
@@ -47,8 +48,10 @@ public class EventoDAO extends ConexionBD {
                 pSentencia.setString(1, evento.getMatricula());
                 pSentencia.setDate  (2, (Date) evento.getFecha());
                 pSentencia.setString(3, evento.getDescripcion());
+                pSentencia.execute();
 
             }
+
 
 
         } catch (SQLException throwables) {
@@ -67,6 +70,7 @@ public class EventoDAO extends ConexionBD {
             String sentencia = "DELETE FROM eventos WHERE evento_id = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, evento.getId());
+            pSentencia.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
