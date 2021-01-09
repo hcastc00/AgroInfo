@@ -22,7 +22,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@/coneja.png" />
+                        <Image url="@/img/coneja.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="id" prefHeight="17.0" prefWidth="56.0" style="-fx-text-fill: black;" text="Coneja: ">

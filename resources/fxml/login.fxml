@@ -17,7 +17,7 @@
                   <Insets bottom="10.0" top="25.0" />
                </VBox.margin>
                <image>
-                  <Image url="@/logo.png" />
+                  <Image url="@/img/logo.png" />
                </image>
             </ImageView>
             <Label text="AgroInfo">
@@ -52,7 +52,7 @@
       </VBox>
       <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
          <children>
-            <Pane fx:id="login" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+            <Pane fx:id="login" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);">
                <children>
                   <Pane layoutX="211.0" layoutY="233.0" prefHeight="285.0" prefWidth="529.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 3.5em;">
                      <effect>

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
     <children>
@@ -16,7 +23,7 @@
                         <Insets bottom="10.0" top="25.0" />
                     </VBox.margin>
                     <image>
-                        <Image url="@/logo.png" />
+                        <Image url="@/img/logo.png" />
                     </image>
                 </ImageView>
                 <Label fx:id="nombre" text="AgroInfo">
@@ -64,27 +71,27 @@
         </VBox>
         <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" />
-                <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
+                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
+                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
+                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
+                <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/recargar.png" />
+                              <Image url="@/img/recargar.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin></ImageView>
-                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="75.0" fitWidth="75.0" onMousePressed="#recargar" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@/temp.png" />
+                              <Image url="@/img/temp.png" />
                            </image>
                         </ImageView>
                                 <JFXButton fx:id="temp" onAction="#getTemperatura" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 5em;" text="-">

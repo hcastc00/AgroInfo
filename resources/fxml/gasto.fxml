@@ -23,7 +23,7 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                             <image>
-                                <Image url="@/gasto.png" />
+                                <Image url="@/img/gasto.png" />
                             </image>
                             <effect>
                                 <ColorAdjust />

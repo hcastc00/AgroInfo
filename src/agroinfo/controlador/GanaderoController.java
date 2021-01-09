@@ -20,7 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.paint.Color;
+import javafx.stage.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +39,7 @@ public class GanaderoController implements Initializable {
     private final ConexionSensor sensor = new ConexionSensor();
     
     @FXML
-    private final VBox listaConejas = null;
+    private VBox listaConejas;
 
     @FXML
     private AnchorPane root;
@@ -66,7 +67,6 @@ public class GanaderoController implements Initializable {
         this.moverVentana();
         this.panel = 0;
         this.getTemperatura();
-        this.listaConejas.getChildren().clear();
 
         if (this.conejas.isEmpty()) {
             this.conejas = conejaDAO.listarConEventos();
@@ -84,7 +84,6 @@ public class GanaderoController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         thisStage.setScene(new Scene(ganadero, 1200, 750));
-
     }
 
     @FXML
@@ -101,8 +100,21 @@ public class GanaderoController implements Initializable {
     }
     
     @FXML
-    private void altaConeja(ActionEvent event) {
+    private void altaConeja(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaConejas.fxml"));
+        Parent root = (Parent) loader.load();
 
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
     }
 
     @FXML

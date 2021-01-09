@@ -23,7 +23,7 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                             <image>
-                                <Image url="@/venta.png" />
+                                <Image url="@/img/venta.png" />
                             </image>
                             <effect>
                                 <ColorAdjust />

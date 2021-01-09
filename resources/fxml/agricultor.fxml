@@ -16,7 +16,7 @@
                         <Insets bottom="10.0" top="25.0" />
                     </VBox.margin>
                <image>
-                  <Image url="@/agricultor.png" />
+                  <Image url="@/img/agricultor.png" />
                </image>
                 </ImageView>
                 <Label fx:id="nombre" text="AgroInfo">
@@ -69,7 +69,7 @@
         </VBox>
         <StackPane fx:id="sp" layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-            <Pane fx:id="panelGastos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
+            <Pane fx:id="panelGastos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -78,7 +78,7 @@
                               <Insets right="75.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@/recargar.png" />
+                              <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
                         <JFXButton fx:id="altaGasto" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
@@ -103,7 +103,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="panelVentas" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
+            <Pane fx:id="panelVentas" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -112,7 +112,7 @@
                               <Insets right="75.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@/recargar.png" />
+                              <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
                         <JFXButton fx:id="altaVenta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
@@ -137,7 +137,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);">
+            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -146,7 +146,7 @@
                               <Insets right="75.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@/recargar.png" />
+                              <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
                         <JFXButton onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
@@ -171,13 +171,13 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
+            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/recargar.png" />
+                              <Image url="@/img/recargar.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="75.0" />
@@ -205,13 +205,13 @@
                   </ScrollPane>
                </children>
             </Pane>
-                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(fondoLogin.jpg);" visible="false">
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/recargar.png" />
+                              <Image url="@/img/recargar.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="75.0" />

@@ -22,7 +22,7 @@ public class Ventana extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
         //Icono
-        primaryStage.getIcons().add(new Image("/ico.png"));
+        primaryStage.getIcons().add(new Image("/img/ico.png"));
 
 
         primaryStage.show();
