@@ -92,7 +92,7 @@ public class AgricultorController implements Initializable {
     private Node[] nodesP;
 
     // Lista de las maquinas
-    private List<String[]> lista;
+    private List<String[]> maquinas;
     private Node[] nodesM;
 
     // Lista de las ventas
@@ -140,7 +140,7 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelParcelas.setVisible(true);
 
-        if (this.parcelas.isEmpty()) {
+        if (this.parcelas == null || this.parcelas.isEmpty()) {
             this.parcelas = this.listarParcelas();
             this.nodesP = new Node[parcelas.size()];
             this.pintaParcela();
@@ -157,9 +157,9 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelMaquinaria.setVisible(true);
 
-        if (this.lista.isEmpty()) {
-            this.lista = this.listarMaquinaria();
-            this.nodesM = new Node[lista.size()];
+        if (this.maquinas == null || this.maquinas.isEmpty()) {
+            this.maquinas = this.listarMaquinaria();
+            this.nodesM = new Node[maquinas.size()];
             this.pintaMaquinaria();
 
         }
@@ -175,7 +175,7 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelVentas.setVisible(true);
 
-        if (this.ventas.isEmpty()) {
+        if (this.ventas == null || this.ventas.isEmpty()) {
             this.ventas = this.listarVentas();
             this.nodesV = new Node[ventas.size()];
             this.pintaVenta();
@@ -192,7 +192,7 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelGastos.setVisible(true);
 
-        if (this.gastos.isEmpty()) {
+        if (this.gastos == null || this.gastos.isEmpty()) {
             this.gastos = this.listarGastos();
             this.nodesG = new Node[gastos.size()];
             this.pintaGasto();
@@ -253,8 +253,8 @@ public class AgricultorController implements Initializable {
             }
             case 1 -> {
                 this.listaMaquinaria.getChildren().clear();
-                this.lista = listarMaquinaria();
-                this.nodesM = new Node[lista.size()];
+                this.maquinas = listarMaquinaria();
+                this.nodesM = new Node[maquinas.size()];
                 this.pintaMaquinaria();
             }
             case 2 -> {
@@ -333,7 +333,7 @@ public class AgricultorController implements Initializable {
     private void pintaMaquinaria() {
         this.listaMaquinaria.getChildren().clear();
         int i = 0;
-        for (String[] s : lista) {
+        for (String[] s : maquinas) {
             try {
                 nodesM[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/maquinaria.fxml"));
 
