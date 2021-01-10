@@ -118,6 +118,10 @@ public class ConejaDAO extends ConexionBD {
                         a[2] = rs.getDate("fecha").toString();
                     }
                 }
+
+                if(rs.isLast()){
+                    lista.add(a);
+                }
             }
 
         } catch (SQLException throwables) {
