@@ -35,14 +35,14 @@ public class ConejaDAO extends ConexionBD {
 
     }
 
-    public void eliminar(Coneja coneja){
+    public void eliminar(int id){
 
         this.abrirConexion();
 
         try {
             String sentencia = "DELETE FROM conejas WHERE identificador = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, coneja.getId());
+            pSentencia.setInt(1, id);
             pSentencia.execute();
 
         } catch (SQLException throwables) {
