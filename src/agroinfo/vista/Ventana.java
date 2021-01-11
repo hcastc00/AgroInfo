@@ -10,20 +10,23 @@ import javafx.stage.StageStyle;
 
 public class Ventana extends Application {
     private double x,y;
+    private String verde = "css/darkGreen.css";
+    private String naranja = "css/darkOrange.css";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         primaryStage.setTitle("AgroInfo");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(verde);
+        primaryStage.setScene(scene);
 
         //Quitar barra
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
         //Icono
         primaryStage.getIcons().add(new Image("/img/ico.png"));
-
 
         primaryStage.show();
     }

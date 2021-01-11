@@ -1,0 +1,33 @@
+.root{
+    -fx-font-family: "System";
+    -fx-background-color: "#3a3a3a"
+}
+
+.VBox{
+    -fx-background-color: "#F7AA3E";
+}
+
+.button{
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 2em;
+}
+
+.fondo{
+    -fx-background-image: url("../img/fondoLogin.jpg");
+}
+
+.login-pane{
+    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-background-radius: 3.5em;
+}
+
+.button-entrar{
+    -fx-background-color: "#F7AA3E";
+    -fx-background-radius: 2em;
+}
+
+.text{
+    -fx-text-inner-color: "#3a3a3a";
+    -jfx-focus-color: "#F7AA3E";
+    -jfx-unfocus-color: "#3a3a3a";
+}
