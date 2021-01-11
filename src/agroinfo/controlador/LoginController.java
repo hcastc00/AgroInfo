@@ -25,7 +25,8 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    public Usuario usuarioActual;
+
+    private static Usuario usuarioActual;
 
     @FXML
     private JFXTextField user;
@@ -45,9 +46,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private void close(ActionEvent event) {
+
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         thisStage.close();
+
+
     }
 
     @FXML
@@ -117,4 +121,7 @@ public class LoginController implements Initializable {
             });
         });
     }
+
+
+    public static Usuario getUsuarioActual() { return usuarioActual; }
 }
