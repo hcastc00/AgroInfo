@@ -39,7 +39,7 @@ public class AlmacenDAO extends ConexionBD {
         return almacen;
     }
 
-    public void modificar(Almacen almacen){
+    public void modificar(Almacen almacen, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -59,9 +59,11 @@ public class AlmacenDAO extends ConexionBD {
             pSentencia.setDouble(3, almacen.getPiensoMedicado());
             pSentencia.setDouble(4, almacen.getPiensoRemate());
             pSentencia.setInt   (5, almacen.getExcedenteTotal());
-
-
             pSentencia.executeUpdate();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha modificado elementos del almacen",
+                    "Modificacion del almacen");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

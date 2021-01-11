@@ -15,7 +15,7 @@ public class GastoDAO extends ConexionBD {
     public GastoDAO(){
     }
 
-    public void crear(Gasto gasto){
+    public void crear(Gasto gasto, String usuario_identificador){
         this.abrirConexion();
 
         try {
@@ -33,6 +33,10 @@ public class GastoDAO extends ConexionBD {
             pSentencia.setString (4, gasto.getUsuarioRegistrador());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha registrado gasto",
+                    "Creacion de registro de gasto");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -40,7 +44,7 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Gasto gasto){
+    public void eliminar(Gasto gasto, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -50,13 +54,18 @@ public class GastoDAO extends ConexionBD {
             pSentencia.setInt(1, gasto.getId());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha eliminado un registro de gasto",
+                    "Eliminacion de registro de gasto");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         this.cerrarConexion();
     }
 
-    public void modificar(Gasto gasto){
+    public void modificar(Gasto gasto, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -73,8 +82,11 @@ public class GastoDAO extends ConexionBD {
             pSentencia.setString(2, gasto.getDescripcion());
             pSentencia.setString(3, gasto.getTipoGasto().toString());
             pSentencia.setInt(4, gasto.getId());
-
             pSentencia.executeUpdate();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha modificado un registro de gasto",
+                    "Modificacion de registro de gasto");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

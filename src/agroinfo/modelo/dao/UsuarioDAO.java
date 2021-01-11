@@ -16,7 +16,7 @@ public class UsuarioDAO extends ConexionBD {
     public UsuarioDAO(){
     }
 
-    public void crear(Usuario usuario){
+    public void crear(Usuario usuario,String usuario_identificador){
 
         this.abrirConexion();
 
@@ -31,6 +31,10 @@ public class UsuarioDAO extends ConexionBD {
             pSentencia.setString(3, usuario.getTipo().toString());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha creado un nuevo usuario",
+                    "Creacion de usuario");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -38,7 +42,7 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Usuario usuario){
+    public void eliminar(Usuario usuario, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -49,6 +53,10 @@ public class UsuarioDAO extends ConexionBD {
 
             pSentencia.setString(1, usuario.getNombreUsuario());
             pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha eliminado un usuario",
+                    "Eliminacion de usuario");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -66,6 +74,10 @@ public class UsuarioDAO extends ConexionBD {
         if(u == null || !u.getContrasenya().equals(contrasenya)){
             return null;
         }else {
+
+            RegistroDAO.registrar(this.getConnection(), nombreUsuario,
+                    "El usuario ha iniciado sesion",
+                    "Inicio de sesion");
             return u;
         }
 

@@ -222,4 +222,7 @@ public class GanaderoController implements Initializable {
             });
         });
     }
+
+    //TODO en el crear pasar GanaderoController.getUsuarioActual.getNombreActual()
+
 }

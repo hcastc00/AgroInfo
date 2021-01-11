@@ -15,7 +15,7 @@ public class EventoConejaDAO extends ConexionBD {
     public EventoConejaDAO(){
     }
 
-    public void crear(EventoConeja evento){
+    public void crear(EventoConeja evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -33,6 +33,10 @@ public class EventoConejaDAO extends ConexionBD {
             pSentencia.setString(3, evento.getTipoEventoConeja().toString());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha creado un evento para la coneja "+evento.getIdConeja(),
+                    "Creacion de evento de coneja");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -40,7 +44,7 @@ public class EventoConejaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(EventoConeja evento){
+    public void eliminar(EventoConeja evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -50,13 +54,17 @@ public class EventoConejaDAO extends ConexionBD {
             pSentencia.setInt(1, evento.getId());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha elininado un evento de la coneja "+evento.getIdConeja(),
+                    "Eliminacion de evento de coneja");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         this.cerrarConexion();
     }
 
-    public void modificar(EventoConeja evento){
+    public void modificar(EventoConeja evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -73,8 +81,11 @@ public class EventoConejaDAO extends ConexionBD {
             pSentencia.setDate  (2, (Date)evento.getFecha()) ;
             pSentencia.setString(3, evento.getTipoEventoConeja().toString());
             pSentencia.setInt   (4, evento.getId());
-
             pSentencia.executeUpdate();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha modificado un evento para la coneja "+evento.getIdConeja(),
+                    "Modificacion de evento de coneja");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
