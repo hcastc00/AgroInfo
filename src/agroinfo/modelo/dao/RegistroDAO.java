@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistroDAO{
+public class RegistroDAO extends ConexionBD{
 
     public RegistroDAO(){
 
@@ -25,5 +25,17 @@ public class RegistroDAO{
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public ArrayList<String[]> buscar(String usuario_id){
+        return null;
+    }
+
+    public ArrayList<String[]> buscar(String usuario_id, String tipo){
+        return null;
+    }
+
+    public ArrayList<String[]> listar(){
+        return null;
     }
 }

@@ -16,7 +16,7 @@ public class EventoDAO extends ConexionBD {
     public EventoDAO(){
     }
 
-    public void crear(Evento evento){
+    public void crear(Evento evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -36,6 +36,10 @@ public class EventoDAO extends ConexionBD {
                 pSentencia.setString(3, evento.getDescripcion());
                 pSentencia.execute();
 
+                RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                        "El usuario ha creado un evento para la parcela con id: " + evento.getIdentificadorParcela(),
+                        "Creacion de parcela");
+
             //Si el evento tiene matricula, el evento es de Maquinaria
             }else{
                 //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
@@ -50,9 +54,11 @@ public class EventoDAO extends ConexionBD {
                 pSentencia.setString(3, evento.getDescripcion());
                 pSentencia.execute();
 
+                RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                        "El usuario ha creado un evento para la maquina con matricula: " + evento.getMatricula(),
+                        "Creacion de parcela");
+
             }
-
-
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -62,7 +68,7 @@ public class EventoDAO extends ConexionBD {
     }
 
 
-    public void eliminar(Evento evento){
+    public void eliminar(Evento evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -72,13 +78,17 @@ public class EventoDAO extends ConexionBD {
             pSentencia.setInt(1, evento.getId());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de baja el evento con el id: " + evento.getId(),
+                    "Eliminacion de evento");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         this.cerrarConexion();
     }
 
-    public void modificar(Evento evento){
+    public void modificar(Evento evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -99,8 +109,12 @@ public class EventoDAO extends ConexionBD {
 
                pSentencia.executeUpdate();
 
+               RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                       "El usuario ha modificado el evento de la parcela con id: " + evento.getIdentificadorParcela(),
+                       "Modificacion de evento");
+
             //Si el evento tiene matricula, el evento es de maquinaria
-            }else{
+           }else{
 
                String sentencia = "UPDATE eventos SET " +
                        " matricula = ?," +
@@ -115,6 +129,10 @@ public class EventoDAO extends ConexionBD {
                pSentencia.setInt   (4, evento.getId());
 
                pSentencia.executeUpdate();
+
+               RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                       "El usuario ha modificado el evento de la maquina con matricula: " + evento.getMatricula(),
+                       "Modificacion de evento");
 
            }
 

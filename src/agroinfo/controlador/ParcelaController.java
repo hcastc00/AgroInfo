@@ -20,4 +20,6 @@ public class ParcelaController {
     @FXML
     private Label excedente;
 
+    //TODO en el crear pasar LoginController.getUsuarioActual.getNombreActual()
+
 }

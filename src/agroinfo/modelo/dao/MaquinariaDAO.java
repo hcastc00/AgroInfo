@@ -15,7 +15,7 @@ public class MaquinariaDAO extends ConexionBD {
     public MaquinariaDAO(){
     }
 
-    public void crear(Maquinaria maquinaria){
+    public void crear(Maquinaria maquinaria, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -28,6 +28,9 @@ public class MaquinariaDAO extends ConexionBD {
             pSentencia.setString(1, maquinaria.getMatricula());
             pSentencia.setString(2, maquinaria.getNombre());
             pSentencia.execute();
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de alta una nueva maquina con matricula: " + maquinaria.getMatricula(),
+                    "Creacion de maquinaria");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -36,7 +39,7 @@ public class MaquinariaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Maquinaria maquinaria){
+    public void eliminar(Maquinaria maquinaria, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -47,6 +50,10 @@ public class MaquinariaDAO extends ConexionBD {
 
             pSentencia.setString(1, maquinaria.getMatricula());
             pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de baja la maquina con matricula: " + maquinaria.getMatricula(),
+                    "Eliminacion de maquinaria");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

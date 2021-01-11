@@ -15,7 +15,7 @@ public class VentaDAO extends ConexionBD {
     public VentaDAO(){
     }
 
-    public void crear(Venta venta){
+    public void crear(Venta venta, String usuario_identificador){
         this.abrirConexion();
 
         try {
@@ -33,6 +33,10 @@ public class VentaDAO extends ConexionBD {
             pSentencia.setString(4, venta.getDescripcion());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha registrado una venta." ,
+                    "Creacion de venta");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -40,7 +44,7 @@ public class VentaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Venta venta){
+    public void eliminar(Venta venta, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -49,6 +53,10 @@ public class VentaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, venta.getId());
             pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha eliminado una venta." ,
+                    "Eliminacion de venta");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

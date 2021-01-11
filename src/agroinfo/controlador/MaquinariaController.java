@@ -14,4 +14,6 @@ public class MaquinariaController {
     @FXML
     private Label evento;
 
+    //TODO en el crear pasar LoginController.getUsuarioActual.getNombreActual()
+
 }

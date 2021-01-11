@@ -15,7 +15,7 @@ public class ParcelaDAO extends ConexionBD {
     }
 
 
-    public void crear(Parcela parcela){
+    public void crear(Parcela parcela, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -35,6 +35,11 @@ public class ParcelaDAO extends ConexionBD {
             pSentencia.setString(8, parcela.getTipoCultivo().toString());
             pSentencia.execute();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de alta una nueva parcela con id: " + parcela.getId(),
+                    "Creacion de parcela");
+
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -42,7 +47,7 @@ public class ParcelaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(Parcela parcela){
+    public void modificar(Parcela parcela, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -69,6 +74,10 @@ public class ParcelaDAO extends ConexionBD {
             pSentencia.setInt   (8, parcela.getId());
             pSentencia.executeUpdate();
 
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado modificado la parcela con id: " + parcela.getId(),
+                    "Modificacion de parcela");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -77,7 +86,7 @@ public class ParcelaDAO extends ConexionBD {
 
     }
 
-    public void eliminar(Parcela parcela){
+    public void eliminar(Parcela parcela, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -88,6 +97,10 @@ public class ParcelaDAO extends ConexionBD {
 
             pSentencia.setInt(1, parcela.getId());
             pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de baja la parcela con id: " + parcela.getId(),
+                    "Eliminacion de parcela");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
