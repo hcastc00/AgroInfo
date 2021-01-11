@@ -3,13 +3,12 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Coneja;
 import agroinfo.modelo.vo.EventoConeja;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+import java.util.logging.Logger;
 
 public class ConejaDAO extends ConexionBD {
 
@@ -26,10 +25,13 @@ public class ConejaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, coneja.getId());
             pSentencia.execute();
+            RegistroDAO.registrar(this.getConnection(), "pepe", "prueba", "pito");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
 
         this.cerrarConexion();
 
