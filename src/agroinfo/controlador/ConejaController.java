@@ -2,6 +2,7 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.dao.ConejaDAO;
 import agroinfo.modelo.vo.Coneja;
+import agroinfo.modelo.vo.Usuario;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ public class ConejaController {
 
     @FXML
     private void guardar(ActionEvent event) {
-       conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))));
+       conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))), LoginController.getUsuarioActual().getNombreUsuario());
        this.close(event);
     }
 }

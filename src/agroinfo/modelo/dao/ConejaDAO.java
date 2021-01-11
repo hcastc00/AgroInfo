@@ -15,7 +15,7 @@ public class ConejaDAO extends ConexionBD {
     public ConejaDAO(){
     }
 
-    public void crear(Coneja coneja) {
+    public void crear(Coneja coneja, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -25,7 +25,9 @@ public class ConejaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, coneja.getId());
             pSentencia.execute();
-            RegistroDAO.registrar(this.getConnection(), "pepe", "prueba", "pito");
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de alta una nueva coneja con id: "+ coneja.getId(),
+                    "Creacion de coneja");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -37,7 +39,7 @@ public class ConejaDAO extends ConexionBD {
 
     }
 
-    public void eliminar(int id){
+    public void eliminar(int id, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -46,6 +48,10 @@ public class ConejaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, id);
             pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de alta una nueva coneja con id: "+ id,
+                    "Creacion de coneja");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

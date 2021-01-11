@@ -57,7 +57,7 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public Usuario iniciarSesion(String nombreUsuario, String contrasenya){
+    public Usuario iniciarSesion(String nombreUsuario, String contrasenya) throws SQLException {
 
         Usuario u = this.buscar(nombreUsuario);
 
@@ -68,6 +68,8 @@ public class UsuarioDAO extends ConexionBD {
         }else {
             return u;
         }
+
+
 
     }
 
