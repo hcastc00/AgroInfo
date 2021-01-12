@@ -12,8 +12,7 @@
     <orderEntry type="library" exported="" name="jfoenix-9.0.10" level="project" />
     <orderEntry type="library" exported="" name="fontawesomefx-8.9" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector" level="project" />
-    <orderEntry type="library" exported="" name="mysql:mysql-connector-java:5.1.40" level="project" />
-    <orderEntry type="library" exported="" name="lib" level="application" />
     <orderEntry type="library" exported="" name="animateFX-1.2.2" level="project" />
+    <orderEntry type="library" exported="" name="commons-codec-1.15" level="project" />
   </component>
 </module>

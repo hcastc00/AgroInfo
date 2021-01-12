@@ -3,8 +3,7 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Usuario;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.digest.DigestUtils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,8 +19,7 @@ public class UsuarioDAO extends ConexionBD {
 
         Usuario u = this.buscar(nombreUsuario);
 
-        //TODO encriptacion y comparacion encriptada
-
+        //if(u == null || !u.getContrasenya().equals(DigestUtils.md5Hex(contrasenya))){
         if(u == null || !u.getContrasenya().equals(contrasenya)){
             return null;
         }else {
@@ -53,7 +51,7 @@ public class UsuarioDAO extends ConexionBD {
         PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
         pSentencia.setString(1, usuario.getNombreUsuario());
-        pSentencia.setString(2, usuario.getContrasenya());
+        pSentencia.setString(2, DigestUtils.md5Hex(usuario.getContrasenya()));
         pSentencia.setString(3, usuario.getTipo().toString());
         pSentencia.execute();
 
