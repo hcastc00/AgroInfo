@@ -19,8 +19,6 @@ import java.sql.SQLException;
 
 public class ConejaController {
 
-    private String userName = LoginController.getUsuarioActual().getNombreUsuario();
-
     @FXML
     private JFXTextField idAlta;
 
@@ -44,19 +42,19 @@ public class ConejaController {
 
     @FXML
     private void guardar(ActionEvent event) {
-        if(!idAlta.getText().isBlank() && idAlta.getText().matches("^[0-9]*$")){
+
+        boolean idError = idAlta.getText().isBlank() || !idAlta.getText().matches("^[0-9]*$");
+
+        if(!idError){
 
             try {
-                conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))), userName);
+                conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))),
+                        LoginController.getUsuarioActual().getNombreUsuario());
                 this.close(event);
             } catch (SQLException e) {
 
                 if (e.getClass() == MySQLIntegrityConstraintViolationException.class){
                     error.setText("La coneja con el id " + idAlta.getText() + " ya existe.");
-                }
-
-                if(e.getClass() == CommunicationsException.class){
-                    error.setText("Ha ocurrido un error al conectarse con la base de datos.");
                 }
 
                 error.setVisible(true);
@@ -73,6 +71,7 @@ public class ConejaController {
 
     @FXML
     private void borrar(ActionEvent event) {
-        conejaDAO.eliminar(Integer.parseInt(id.getText()), userName);
+        conejaDAO.eliminar(Integer.parseInt(id.getText()),
+                LoginController.getUsuarioActual().getNombreUsuario());
     }
 }

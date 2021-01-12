@@ -19,7 +19,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -128,8 +131,21 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void altaParcela(ActionEvent event) {
+    private void altaParcela(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcelas.fxml"));
+        Parent root = (Parent) loader.load();
 
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
     }
 
     @FXML
@@ -147,6 +163,24 @@ public class AgricultorController implements Initializable {
             this.pintaParcela();
         }
 
+    }
+
+    @FXML
+    private void altaMaquinaria(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaMaquinaria.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
     }
 
     @FXML
