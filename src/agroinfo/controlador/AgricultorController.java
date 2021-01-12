@@ -132,7 +132,7 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void altaParcela(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcelas.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcela.fxml"));
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
