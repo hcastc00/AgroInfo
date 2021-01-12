@@ -38,14 +38,19 @@ public class VentaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Venta venta, String usuario_identificador) throws SQLException {
+    public void eliminar(Venta venta, String usuario_identificador) {
 
         this.abrirConexion();
 
         String sentencia = "DELETE FROM ventas WHERE id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, venta.getId());
-        pSentencia.execute();
+
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, venta.getId());
+            pSentencia.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha eliminado una venta." ,

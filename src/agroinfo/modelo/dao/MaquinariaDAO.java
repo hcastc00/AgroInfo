@@ -33,34 +33,43 @@ public class MaquinariaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Maquinaria maquinaria, String usuario_identificador) throws SQLException {
+    public void eliminar(Maquinaria maquinaria, String usuario_identificador){
 
         this.abrirConexion();
 
         String sentencia = "DELETE FROM maquinaria WHERE matricula = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setString(1, maquinaria.getMatricula());
-        pSentencia.execute();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha dado de baja la maquina con matricula: " + maquinaria.getMatricula(),
-                "Eliminacion de maquinaria");
+            pSentencia.setString(1, maquinaria.getMatricula());
+            pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de baja la maquina con matricula: " + maquinaria.getMatricula(),
+                    "Eliminacion de maquinaria");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
     }
 
-    public List<Maquinaria> listar() throws SQLException {
+    public List<Maquinaria> listar() {
 
         List<Maquinaria> lista = new ArrayList<>();
 
         this.abrirConexion();
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM maquinaria");
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM maquinaria");
 
-        while (rs.next()){
-            lista.add(new Maquinaria(rs.getString("matricula"),
-                    rs.getString("nombre")));
+            while (rs.next()){
+                lista.add(new Maquinaria(rs.getString("matricula"),
+                        rs.getString("nombre")));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();

@@ -40,7 +40,7 @@ public class ParcelaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(Parcela parcela, String usuario_identificador) throws SQLException {
+    public void modificar(Parcela parcela, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -54,16 +54,20 @@ public class ParcelaDAO extends ConexionBD {
                 "tipo_cultivo   = ? " +
                 "WHERE identificador = ?";
 
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setDouble(1, parcela.getLatitud());
-        pSentencia.setDouble(2, parcela.getLongitud());
-        pSentencia.setDouble(3, parcela.getTam());
-        pSentencia.setDouble(4, parcela.getProduccion());
-        pSentencia.setDouble(5, parcela.getExcedente());
-        pSentencia.setString(6, parcela.getTipoParcela().toString());
-        pSentencia.setString(7, parcela.getTipoCultivo().toString());
-        pSentencia.setInt   (8, parcela.getId());
-        pSentencia.executeUpdate();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setDouble(1, parcela.getLatitud());
+            pSentencia.setDouble(2, parcela.getLongitud());
+            pSentencia.setDouble(3, parcela.getTam());
+            pSentencia.setDouble(4, parcela.getProduccion());
+            pSentencia.setDouble(5, parcela.getExcedente());
+            pSentencia.setString(6, parcela.getTipoParcela().toString());
+            pSentencia.setString(7, parcela.getTipoCultivo().toString());
+            pSentencia.setInt   (8, parcela.getId());
+            pSentencia.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha dado modificado la parcela con id: " + parcela.getId(),
@@ -73,15 +77,20 @@ public class ParcelaDAO extends ConexionBD {
 
     }
 
-    public void eliminar(Parcela parcela, String usuario_identificador) throws SQLException {
+    public void eliminar(Parcela parcela, String usuario_identificador) {
 
         this.abrirConexion();
 
         String sentencia = "DELETE FROM parcelas WHERE identificador = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setInt(1, parcela.getId());
-        pSentencia.execute();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+            pSentencia.setInt(1, parcela.getId());
+            pSentencia.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha dado de baja la parcela con id: " + parcela.getId(),
@@ -127,7 +136,7 @@ public class ParcelaDAO extends ConexionBD {
         this.abrirConexion();
 
         String sentencia = "SELECT * FROM parcelas WHERE identificador = ?";
-        
+
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 

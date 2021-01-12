@@ -16,6 +16,25 @@ public class UsuarioDAO extends ConexionBD {
     public UsuarioDAO(){
     }
 
+    public Usuario iniciarSesion(String nombreUsuario, String contrasenya) {
+
+        Usuario u = this.buscar(nombreUsuario);
+
+        //TODO encriptacion y comparacion encriptada
+
+        if(u == null || !u.getContrasenya().equals(contrasenya)){
+            return null;
+        }else {
+
+            this.abrirConexion();
+            RegistroDAO.registrar(this.getConnection(), nombreUsuario,
+                    "El usuario ha iniciado sesion",
+                    "Inicio de sesion");
+            this.cerrarConexion();
+            return u;
+        }
+    }
+
     public void crear(Usuario usuario,String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
@@ -36,43 +55,26 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Usuario usuario, String usuario_identificador) throws SQLException {
+    public void eliminar(Usuario usuario, String usuario_identificador) {
 
         this.abrirConexion();
 
         String sentencia = "DELETE FROM usuarios WHERE nombre_usuario = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setString(1, usuario.getNombreUsuario());
-        pSentencia.execute();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+            pSentencia.setString(1, usuario.getNombreUsuario());
+            pSentencia.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha eliminado un usuario",
                 "Eliminacion de usuario");
 
         this.cerrarConexion();
-    }
-
-    public Usuario iniciarSesion(String nombreUsuario, String contrasenya) {
-
-        Usuario u = this.buscar(nombreUsuario);
-
-        //TODO encriptacion y comparacion encriptada
-
-        if(u == null || !u.getContrasenya().equals(contrasenya)){
-            return null;
-        }else {
-
-            this.abrirConexion();
-            RegistroDAO.registrar(this.getConnection(), nombreUsuario,
-                    "El usuario ha iniciado sesion",
-                    "Inicio de sesion");
-            this.cerrarConexion();
-            return u;
-        }
-
-
-
     }
 
     public List<Usuario> listar(){
