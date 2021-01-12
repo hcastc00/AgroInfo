@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
@@ -183,7 +183,7 @@
                               <Insets right="75.0" />
                            </HBox.margin>
                         </ImageView>
-                        <JFXButton fx:id="altaMaquinaria" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
+                        <JFXButton fx:id="altaMaquinaria" onAction="#altaMaquinaria" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>

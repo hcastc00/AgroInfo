@@ -50,8 +50,6 @@ public class LoginController implements Initializable {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         thisStage.close();
-
-
     }
 
     @FXML
