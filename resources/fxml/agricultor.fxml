@@ -81,7 +81,7 @@
                               <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="altaGasto" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
+                        <JFXButton fx:id="altaGasto" onAction="#altaGasto" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
@@ -115,7 +115,7 @@
                               <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="altaVenta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
+                        <JFXButton fx:id="altaVenta" onAction="#altaVenta" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>

@@ -149,6 +149,48 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
+    public void altaVenta(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
+    }
+
+    @FXML
+    public void verDescripcionVenta(ActionEvent actionEvent){
+
+    }
+
+    @FXML
+    public void altaGasto(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaGasto.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setUserData(Gasto.TipoGasto.Agricultura);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
+    }
+
+    @FXML
     private void mostrarParcelas() {
         this.panel = 0;
         this.panelMaquinaria.setVisible(false);
@@ -460,4 +502,6 @@ public class AgricultorController implements Initializable {
             });
         });
     }
+
+
 }
