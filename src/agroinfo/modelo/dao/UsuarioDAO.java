@@ -35,6 +35,15 @@ public class UsuarioDAO extends ConexionBD {
         }
     }
 
+    public void cerrarSesion(String nombreUsuario) {
+
+        this.abrirConexion();
+        RegistroDAO.registrar(this.getConnection(), nombreUsuario,
+                "El usuario ha cerrado sesion",
+                "Fin de sesion");
+        this.cerrarConexion();
+    }
+
     public void crear(Usuario usuario,String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
