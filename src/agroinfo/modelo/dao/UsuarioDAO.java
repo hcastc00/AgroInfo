@@ -16,51 +16,39 @@ public class UsuarioDAO extends ConexionBD {
     public UsuarioDAO(){
     }
 
-    public void crear(Usuario usuario,String usuario_identificador){
+    public void crear(Usuario usuario,String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-        try {
+        String sentencia = "INSERT into usuarios (nombre_usuario, contrasenya, tipo, id_almacen)" +
+                "VALUES (?, ?, ?, 1)";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            String sentencia = "INSERT into usuarios (nombre_usuario, contrasenya, tipo, id_almacen)" +
-                    "VALUES (?, ?, ?, 1)";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setString(1, usuario.getNombreUsuario());
+        pSentencia.setString(2, usuario.getContrasenya());
+        pSentencia.setString(3, usuario.getTipo().toString());
+        pSentencia.execute();
 
-            pSentencia.setString(1, usuario.getNombreUsuario());
-            pSentencia.setString(2, usuario.getContrasenya());
-            pSentencia.setString(3, usuario.getTipo().toString());
-            pSentencia.execute();
-
-            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha creado un nuevo usuario",
-                    "Creacion de usuario");
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha creado un nuevo usuario",
+                "Creacion de usuario");
 
         this.cerrarConexion();
     }
 
-    public void eliminar(Usuario usuario, String usuario_identificador){
+    public void eliminar(Usuario usuario, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-        try {
+        String sentencia = "DELETE FROM usuarios WHERE nombre_usuario = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            String sentencia = "DELETE FROM usuarios WHERE nombre_usuario = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setString(1, usuario.getNombreUsuario());
+        pSentencia.execute();
 
-            pSentencia.setString(1, usuario.getNombreUsuario());
-            pSentencia.execute();
-
-            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha eliminado un usuario",
-                    "Eliminacion de usuario");
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha eliminado un usuario",
+                "Eliminacion de usuario");
 
         this.cerrarConexion();
     }
@@ -87,23 +75,18 @@ public class UsuarioDAO extends ConexionBD {
 
     }
 
-    public List<Usuario> listar(){
+    public List<Usuario> listar() throws SQLException {
 
         List<Usuario> lista = new ArrayList<>();
 
         this.abrirConexion();
 
-        try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios");
+        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios");
 
-            while (rs.next()){
-                lista.add(new Usuario(rs.getString(1),
-                        rs.getString(2),
-                        Usuario.TipoUsuario.valueOf(rs.getString(3))));
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        while (rs.next()){
+            lista.add(new Usuario(rs.getString(1),
+                    rs.getString(2),
+                    Usuario.TipoUsuario.valueOf(rs.getString(3))));
         }
 
         this.cerrarConexion();
@@ -111,25 +94,20 @@ public class UsuarioDAO extends ConexionBD {
         return lista;
     }
 
-    public Usuario buscar(String nombreUsuario){
+    public Usuario buscar(String nombreUsuario) throws SQLException {
 
         Usuario usuario = null;
 
         this.abrirConexion();
 
-        try {
-            String sentencia = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        String sentencia = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            pSentencia.setString(1, nombreUsuario);
-            ResultSet rs = pSentencia.executeQuery();
-            rs.next();
+        pSentencia.setString(1, nombreUsuario);
+        ResultSet rs = pSentencia.executeQuery();
+        rs.next();
 
-            usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
-
-        } catch (SQLException throwables) {
-            return usuario;
-        }
+        usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
 
         this.cerrarConexion();
 

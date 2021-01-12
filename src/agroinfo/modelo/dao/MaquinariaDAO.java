@@ -15,69 +15,52 @@ public class MaquinariaDAO extends ConexionBD {
     public MaquinariaDAO(){
     }
 
-    public void crear(Maquinaria maquinaria, String usuario_identificador){
+    public void crear(Maquinaria maquinaria, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-        try {
+        String sentencia = "INSERT into maquinaria (matricula, nombre)" +
+                "VALUES (?, ?)";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            String sentencia = "INSERT into maquinaria (matricula, nombre)" +
-                    "VALUES (?, ?)";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-
-            pSentencia.setString(1, maquinaria.getMatricula());
-            pSentencia.setString(2, maquinaria.getNombre());
-            pSentencia.execute();
-            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha dado de alta una nueva maquina con matricula: " + maquinaria.getMatricula(),
-                    "Creacion de maquinaria");
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        pSentencia.setString(1, maquinaria.getMatricula());
+        pSentencia.setString(2, maquinaria.getNombre());
+        pSentencia.execute();
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha dado de alta una nueva maquina con matricula: " + maquinaria.getMatricula(),
+                "Creacion de maquinaria");
 
         this.cerrarConexion();
     }
 
-    public void eliminar(Maquinaria maquinaria, String usuario_identificador){
+    public void eliminar(Maquinaria maquinaria, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-        try {
+        String sentencia = "DELETE FROM maquinaria WHERE matricula = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            String sentencia = "DELETE FROM maquinaria WHERE matricula = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setString(1, maquinaria.getMatricula());
+        pSentencia.execute();
 
-            pSentencia.setString(1, maquinaria.getMatricula());
-            pSentencia.execute();
-
-            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha dado de baja la maquina con matricula: " + maquinaria.getMatricula(),
-                    "Eliminacion de maquinaria");
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha dado de baja la maquina con matricula: " + maquinaria.getMatricula(),
+                "Eliminacion de maquinaria");
 
         this.cerrarConexion();
     }
 
-    public List<Maquinaria> listar(){
+    public List<Maquinaria> listar() throws SQLException {
 
         List<Maquinaria> lista = new ArrayList<>();
 
         this.abrirConexion();
 
-        try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM maquinaria");
+        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM maquinaria");
 
-            while (rs.next()){
-                lista.add(new Maquinaria(rs.getString("matricula"),
-                        rs.getString("nombre")));
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        while (rs.next()){
+            lista.add(new Maquinaria(rs.getString("matricula"),
+                    rs.getString("nombre")));
         }
 
         this.cerrarConexion();
@@ -85,12 +68,11 @@ public class MaquinariaDAO extends ConexionBD {
         return lista;
     }
 
-    public ArrayList<String[]> listarConEventos(){
+    public ArrayList<String[]> listarConEventos() throws SQLException {
 
         this.abrirConexion();
 
         ArrayList<String[]> lista = new ArrayList<>();
-
 
         String sentencia = "SELECT matricula, nombre, MIN(fecha) AS fecha " +
                 "FROM ( " +
@@ -103,23 +85,18 @@ public class MaquinariaDAO extends ConexionBD {
                 "GROUP BY matricula " +
                 "ORDER BY matricula";
 
-        try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
+        ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
 
-            String[] a = new String[3];
+        String[] a;
 
-            while (rs.next()){
+        while (rs.next()){
 
-                a = new String[3];
+            a = new String[3];
 
-                a[0] = rs.getString("matricula");
-                a[1] = rs.getString("nombre");
-                a[2] = String.valueOf(rs.getDate("fecha"));
-                lista.add(a);
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            a[0] = rs.getString("matricula");
+            a[1] = rs.getString("nombre");
+            a[2] = String.valueOf(rs.getDate("fecha"));
+            lista.add(a);
         }
 
         this.cerrarConexion();
@@ -127,10 +104,10 @@ public class MaquinariaDAO extends ConexionBD {
         return lista;
     }
 
-    public String[] listarConEventos(String matriculaPar){
+    public String[] listarConEventos(String matriculaPar) throws SQLException {
 
         this.abrirConexion();
-        String[] a = new String[3];
+        String[] a;
 
         String sentencia = "SELECT matricula, nombre, fecha " +
                 "FROM ( " +
@@ -144,20 +121,14 @@ public class MaquinariaDAO extends ConexionBD {
                 "GROUP BY matricula " +
                 "ORDER BY matricula";
 
-        try {
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setString(1, matriculaPar);
+        ResultSet rs = pSentencia.executeQuery();
 
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setString(1, matriculaPar);
-            ResultSet rs = pSentencia.executeQuery();
-
-                a = new String[3];
-                a[0] = rs.getString("matricula");
-                a[1] = rs.getString("nombre");
-                a[2] = String.valueOf(rs.getDate("fecha"));
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        a = new String[3];
+        a[0] = rs.getString("matricula");
+        a[1] = rs.getString("nombre");
+        a[2] = String.valueOf(rs.getDate("fecha"));
 
         this.cerrarConexion();
 
@@ -165,24 +136,19 @@ public class MaquinariaDAO extends ConexionBD {
     }
 
 
-    public Maquinaria buscar(String matricula){
+    public Maquinaria buscar(String matricula) throws SQLException {
 
         Maquinaria maquinaria = null;
 
         this.abrirConexion();
 
-        try {
-            String sentencia = "SELECT * FROM maquinaria WHERE matricula = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        String sentencia = "SELECT * FROM maquinaria WHERE matricula = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            ResultSet rs = pSentencia.executeQuery();
-            rs.next();
+        ResultSet rs = pSentencia.executeQuery();
+        rs.next();
 
-            maquinaria = new Maquinaria(rs.getString("matricula"), rs.getString("nombre"));
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        maquinaria = new Maquinaria(rs.getString("matricula"), rs.getString("nombre"));
 
         this.cerrarConexion();
 

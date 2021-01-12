@@ -15,16 +15,12 @@ public class RegistroDAO extends ConexionBD{
 
     public static void registrar(Connection conexion,String usuario_identificador, String mensaje, String tipo) throws SQLException {
         String sentencia = "INSERT into registro(usuario_id, fecha, tipo, mensaje) VALUES (?,NOW(),?,?)" ;
-        try {
-            PreparedStatement pSentencia = conexion.prepareStatement(sentencia);
-            pSentencia.setString(1, usuario_identificador);
-            pSentencia.setString(2, tipo);
-            pSentencia.setString(3, mensaje);
-            pSentencia.execute();
 
-        }catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        PreparedStatement pSentencia = conexion.prepareStatement(sentencia);
+        pSentencia.setString(1, usuario_identificador);
+        pSentencia.setString(2, tipo);
+        pSentencia.setString(3, mensaje);
+        pSentencia.execute();
     }
 
     public ArrayList<String[]> buscar(String usuario_id){

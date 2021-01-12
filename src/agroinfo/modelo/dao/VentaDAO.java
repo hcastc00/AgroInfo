@@ -15,100 +15,54 @@ public class VentaDAO extends ConexionBD {
     public VentaDAO(){
     }
 
-    public void crear(Venta venta, String usuario_identificador){
+    public void crear(Venta venta, String usuario_identificador) throws SQLException {
         this.abrirConexion();
 
-        try {
+        //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
+        String sentencia = "INSERT into ventas(cantidad, precio_unitario, usuario_registrador, descripcion)"
+                + "VALUES (?, ?, ?, ?)";
 
-            //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
-            String sentencia = "INSERT into ventas(cantidad, precio_unitario, usuario_registrador, descripcion)"
-                    + "VALUES (?, ?, ?, ?)";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        //El id al ser incremental, no se settea nada en el primer parametro
+        pSentencia.setDouble(1, venta.getCantidad());
+        pSentencia.setDouble(2, venta.getPrecioUnitario());
+        pSentencia.setString(3, venta.getUsuarioRegistrador());
+        pSentencia.setString(4, venta.getDescripcion());
+        pSentencia.execute();
 
-            //El id al ser incremental, no se settea nada en el primer parametro
-            pSentencia.setDouble(1, venta.getCantidad());
-            pSentencia.setDouble(2, venta.getPrecioUnitario());
-            pSentencia.setString(3, venta.getUsuarioRegistrador());
-            pSentencia.setString(4, venta.getDescripcion());
-            pSentencia.execute();
-
-            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha registrado una venta." ,
-                    "Creacion de venta");
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha registrado una venta." ,
+                "Creacion de venta");
 
         this.cerrarConexion();
     }
 
-    public void eliminar(Venta venta, String usuario_identificador){
+    public void eliminar(Venta venta, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-        try {
-            String sentencia = "DELETE FROM ventas WHERE id = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, venta.getId());
-            pSentencia.execute();
+        String sentencia = "DELETE FROM ventas WHERE id = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setInt(1, venta.getId());
+        pSentencia.execute();
 
-            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha eliminado una venta." ,
-                    "Eliminacion de venta");
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha eliminado una venta." ,
+                "Eliminacion de venta");
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         this.cerrarConexion();
     }
 
-    public List<Venta> listar(){
+    public List<Venta> listar() throws SQLException {
 
         this.abrirConexion();
 
         List<Venta> lista = new ArrayList<>();
 
-        try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM ventas");
-            while(rs.next()){
-                Venta v = new Venta(
-                        rs.getInt("cantidad"),
-                        rs.getDouble("precio_unitario"),
-                        rs.getString("usuario_registrador"),
-                        rs.getString("descripcion")
-                );
-
-                v.setId(rs.getInt("id"));
-                lista.add(v);
-
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        this.cerrarConexion();
-
-        return lista;
-    }
-
-    public Venta buscar(int id){
-
-        Venta v = null;
-
-        this.abrirConexion();
-
-        try {
-            String sentencia = "SELECT * FROM ventas WHERE id = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-
-            pSentencia.setInt(1, id);
-            ResultSet rs = pSentencia.executeQuery();
-            rs.next();
-
-            v = new Venta(
+        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM ventas");
+        while(rs.next()){
+            Venta v = new Venta(
                     rs.getInt("cantidad"),
                     rs.getDouble("precio_unitario"),
                     rs.getString("usuario_registrador"),
@@ -116,11 +70,36 @@ public class VentaDAO extends ConexionBD {
             );
 
             v.setId(rs.getInt("id"));
+            lista.add(v);
 
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
+
+        this.cerrarConexion();
+
+        return lista;
+    }
+
+    public Venta buscar(int id) throws SQLException {
+
+        Venta v = null;
+
+        this.abrirConexion();
+
+        String sentencia = "SELECT * FROM ventas WHERE id = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+        pSentencia.setInt(1, id);
+        ResultSet rs = pSentencia.executeQuery();
+        rs.next();
+
+        v = new Venta(
+                rs.getInt("cantidad"),
+                rs.getDouble("precio_unitario"),
+                rs.getString("usuario_registrador"),
+                rs.getString("descripcion")
+        );
+
+        v.setId(rs.getInt("id"));
 
         this.cerrarConexion();
 
