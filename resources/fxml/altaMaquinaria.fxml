@@ -2,24 +2,21 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaMaquinariaController">
     <children>
         <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" style="-fx-background-color: #86c541; -fx-background-radius: 3em;">
             <children>
-                <Label layoutX="341.0" layoutY="213.0" text="Nueva Maquina" textFill="#3a3a3a">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-                <Label layoutX="255.0" layoutY="279.0" text="Matricula:" textFill="#3a3a3a">
+                <Label layoutX="255.0" layoutY="347.0" text="Matricula:" textFill="#3a3a3a">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -29,32 +26,50 @@
                         <Font size="20.0" />
                     </font>
                 </JFXButton>
-                <JFXTextField fx:id="matricula" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="364.0" layoutY="257.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                <JFXTextField fx:id="matricula" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="364.0" layoutY="325.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </JFXTextField>
                 <JFXButton layoutX="812.0" layoutY="14.0" onAction="#close" text="X" />
-                <Label fx:id="error" layoutX="71.0" layoutY="297.0" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-            <Label layoutX="265.0" layoutY="343.0" text="Nombre:" textFill="#3a3a3a">
+            <Label layoutX="265.0" layoutY="411.0" text="Nombre:" textFill="#3a3a3a">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="nombre" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="364.0" layoutY="321.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+            <JFXTextField fx:id="nombre" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="364.0" layoutY="389.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
                <font>
                   <Font size="20.0" />
                </font>
             </JFXTextField>
-            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="350.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/img/tractor.png" />
-               </image>
-            </ImageView>
+            <VBox alignment="CENTER" layoutY="5.0" prefHeight="334.0" prefWidth="850.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@/img/tractor.png" />
+                     </image>
+                  </ImageView>
+                      <Label text="Nueva Maquina" textFill="#3a3a3a">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="40.0" />
+                     </VBox.margin>
+                      </Label>
+                      <Label fx:id="error" alignment="CENTER" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                      </Label>
+               </children>
+            </VBox>
             </children>
             <effect>
                 <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
