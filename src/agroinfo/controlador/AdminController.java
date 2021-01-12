@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class AdminController {
 
+    private final UsuarioDAO usuarioActual = new UsuarioDAO();
+
     @FXML
     private AnchorPane root;
     private UsuarioDAO usuarioDAO;
@@ -29,6 +31,8 @@ public class AdminController {
         Scene scene = new Scene(admin, 1200, 750);
         scene.getStylesheets().add("css/darkGreen.css");
         thisStage.setScene(scene);
+
+        usuarioActual.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
     }
 
     @FXML

@@ -1,11 +1,7 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionSensor;
-import agroinfo.modelo.dao.AlmacenDAO;
-import agroinfo.modelo.dao.ConejaDAO;
-import agroinfo.modelo.dao.EventoConejaDAO;
-import agroinfo.modelo.dao.VentaDAO;
-import agroinfo.modelo.dao.GastoDAO;
+import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Gasto;
 import com.jfoenix.controls.JFXButton;
@@ -36,6 +32,7 @@ public class GanaderoController implements Initializable {
     private final AlmacenDAO almacenDAO = new AlmacenDAO();
     private final VentaDAO ventaDAO = new VentaDAO();
     private final GastoDAO gastoDAO = new GastoDAO();
+    private final UsuarioDAO usuarioActual = new UsuarioDAO();
     private final ConexionSensor sensor = new ConexionSensor();
     
     @FXML
@@ -86,6 +83,8 @@ public class GanaderoController implements Initializable {
         Scene scene = new Scene(ganadero, 1200, 750);
         scene.getStylesheets().add("css/darkGreen.css");
         thisStage.setScene(scene);
+
+        usuarioActual.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
     }
 
     @FXML

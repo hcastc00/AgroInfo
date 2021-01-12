@@ -34,6 +34,7 @@ public class AgricultorController implements Initializable {
     private final VentaDAO ventaDAO = new VentaDAO();
     private final GastoDAO gastoDAO = new GastoDAO();
     private final ConexionOpenWheatherAPI tiempo = new ConexionOpenWheatherAPI();
+    private final UsuarioDAO usuarioActual = new UsuarioDAO();
 
     @FXML
     private Pane panelAlmacen;
@@ -280,6 +281,8 @@ public class AgricultorController implements Initializable {
         Scene scene = new Scene(agricultor, 1200, 750);
         scene.getStylesheets().add("css/darkGreen.css");
         thisStage.setScene(scene);
+
+        usuarioActual.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
 
     }
 
