@@ -16,151 +16,134 @@ public class EventoDAO extends ConexionBD {
     public EventoDAO(){
     }
 
-    public void crear(Evento evento, String usuario_identificador){
+    public void crear(Evento evento, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-        try {
 
-            //Si el evento no tiene matrícula, el evento es de Parcela
-            if(evento.getMatricula() == null){
-                //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
-                String sentencia = "INSERT into eventos(identificador_parcela, fecha, descripcion) "
-                        + "VALUES (?, ?, ?)";
+        //Si el evento no tiene matrícula, el evento es de Parcela
+        if(evento.getMatricula() == null){
+            //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
+            String sentencia = "INSERT into eventos(identificador_parcela, fecha, descripcion) "
+                    + "VALUES (?, ?, ?)";
 
-                PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-
-                //El id al ser incremental, no se settea nada en el primer parametro
-                pSentencia.setInt(1, evento.getIdentificadorParcela());
-                pSentencia.setDate  (2, (Date) evento.getFecha());
-                pSentencia.setString(3, evento.getDescripcion());
-                pSentencia.execute();
-
-                RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                        "El usuario ha creado un evento para la parcela con id: " + evento.getIdentificadorParcela(),
-                        "Creacion de parcela");
-
-            //Si el evento tiene matricula, el evento es de Maquinaria
-            }else{
-                //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
-                String sentencia = "INSERT into eventos(matricula, fecha, descripcion) "
-                        + "VALUES (?, ?, ?)";
-
-                PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-
-                //El id al ser incremental, no se settea nada en el primer parametro
-                pSentencia.setString(1, evento.getMatricula());
-                pSentencia.setDate  (2, (Date) evento.getFecha());
-                pSentencia.setString(3, evento.getDescripcion());
-                pSentencia.execute();
-
-                RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                        "El usuario ha creado un evento para la maquina con matricula: " + evento.getMatricula(),
-                        "Creacion de parcela");
-
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        this.cerrarConexion();
-    }
-
-
-    public void eliminar(Evento evento, String usuario_identificador){
-
-        this.abrirConexion();
-
-        try {
-            String sentencia = "DELETE FROM eventos WHERE evento_id = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, evento.getId());
+
+            //El id al ser incremental, no se settea nada en el primer parametro
+            pSentencia.setInt(1, evento.getIdentificadorParcela());
+            pSentencia.setDate  (2, (Date) evento.getFecha());
+            pSentencia.setString(3, evento.getDescripcion());
             pSentencia.execute();
 
             RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha dado de baja el evento con el id: " + evento.getId(),
-                    "Eliminacion de evento");
+                    "El usuario ha creado un evento para la parcela con id: " + evento.getIdentificadorParcela(),
+                    "Creacion de parcela");
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            //Si el evento tiene matricula, el evento es de Maquinaria
+        }else{
+            //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
+            String sentencia = "INSERT into eventos(matricula, fecha, descripcion) "
+                    + "VALUES (?, ?, ?)";
+
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+
+            //El id al ser incremental, no se settea nada en el primer parametro
+            pSentencia.setString(1, evento.getMatricula());
+            pSentencia.setDate  (2, (Date) evento.getFecha());
+            pSentencia.setString(3, evento.getDescripcion());
+            pSentencia.execute();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha creado un evento para la maquina con matricula: " + evento.getMatricula(),
+                    "Creacion de parcela");
+
         }
+
         this.cerrarConexion();
     }
 
-    public void modificar(Evento evento, String usuario_identificador){
+
+    public void eliminar(Evento evento, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
-       try {
-           //Si el evento no tiene matrícula, el evento es de Parcela
-           if(evento.getMatricula() == null) {
-               String sentencia = "UPDATE eventos SET " +
-                       " identificador_parcela = ?," +
-                       " fecha = ?," +
-                       " descripcion = ?" +
-                       " WHERE evento_id = ?";
+        String sentencia = "DELETE FROM eventos WHERE evento_id = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setInt(1, evento.getId());
+        pSentencia.execute();
 
-               PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-               pSentencia.setInt   (1, evento.getIdentificadorParcela());
-               pSentencia.setDate  (2, (Date) evento.getFecha());
-               pSentencia.setString(3, evento.getDescripcion());
-               pSentencia.setInt   (4, evento.getId());
+        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                "El usuario ha dado de baja el evento con el id: " + evento.getId(),
+                "Eliminacion de evento");
 
-               pSentencia.executeUpdate();
 
-               RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                       "El usuario ha modificado el evento de la parcela con id: " + evento.getIdentificadorParcela(),
-                       "Modificacion de evento");
+        this.cerrarConexion();
+    }
+
+    public void modificar(Evento evento, String usuario_identificador) throws SQLException {
+
+        this.abrirConexion();
+
+        //Si el evento no tiene matrícula, el evento es de Parcela
+        if(evento.getMatricula() == null) {
+            String sentencia = "UPDATE eventos SET " +
+                    " identificador_parcela = ?," +
+                    " fecha = ?," +
+                    " descripcion = ?" +
+                    " WHERE evento_id = ?";
+
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt   (1, evento.getIdentificadorParcela());
+            pSentencia.setDate  (2, (Date) evento.getFecha());
+            pSentencia.setString(3, evento.getDescripcion());
+            pSentencia.setInt   (4, evento.getId());
+
+            pSentencia.executeUpdate();
+
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha modificado el evento de la parcela con id: " + evento.getIdentificadorParcela(),
+                    "Modificacion de evento");
 
             //Si el evento tiene matricula, el evento es de maquinaria
-           }else{
+        }else{
 
-               String sentencia = "UPDATE eventos SET " +
-                       " matricula = ?," +
-                       " fecha = ?," +
-                       " descripcion = ?" +
-                       " WHERE evento_id = ?";
+            String sentencia = "UPDATE eventos SET " +
+                    " matricula = ?," +
+                    " fecha = ?," +
+                    " descripcion = ?" +
+                    " WHERE evento_id = ?";
 
-               PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-               pSentencia.setString(1, evento.getMatricula());
-               pSentencia.setDate  (2, (Date) evento.getFecha());
-               pSentencia.setString(3, evento.getDescripcion());
-               pSentencia.setInt   (4, evento.getId());
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setString(1, evento.getMatricula());
+            pSentencia.setDate  (2, (Date) evento.getFecha());
+            pSentencia.setString(3, evento.getDescripcion());
+            pSentencia.setInt   (4, evento.getId());
 
-               pSentencia.executeUpdate();
+            pSentencia.executeUpdate();
 
-               RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                       "El usuario ha modificado el evento de la maquina con matricula: " + evento.getMatricula(),
-                       "Modificacion de evento");
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha modificado el evento de la maquina con matricula: " + evento.getMatricula(),
+                    "Modificacion de evento");
 
-           }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
+
     }
 
-    public List<Evento> listarEventosMaquinaria(String matricula){
+    public List<Evento> listarEventosMaquinaria(String matricula) throws SQLException {
 
         this.abrirConexion();
 
         List<Evento> lista = new ArrayList<>();
 
-        try {
-            String sentencia = "SELECT * FROM eventos WHERE matricula = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setString(1, matricula);
-            ResultSet rs = pSentencia.executeQuery();
-            while(rs.next()){
-                lista.add(new Evento(rs.getString("matricula"),
-                        rs.getDate("fecha"),
-                        rs.getString("descripcion"))
-                        );
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        String sentencia = "SELECT * FROM eventos WHERE matricula = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setString(1, matricula);
+        ResultSet rs = pSentencia.executeQuery();
+        while(rs.next()){
+            lista.add(new Evento(rs.getString("matricula"),
+                    rs.getDate("fecha"),
+                    rs.getString("descripcion"))
+            );
         }
 
         this.cerrarConexion();
@@ -168,26 +151,21 @@ public class EventoDAO extends ConexionBD {
         return lista;
     }
 
-    public List<Evento> listarEventosParcela(int identificadorParcela){
+    public List<Evento> listarEventosParcela(int identificadorParcela) throws SQLException {
 
         this.abrirConexion();
 
         List<Evento> lista = new ArrayList<>();
 
-        try {
-            String sentencia = "SELECT * FROM eventos WHERE identificador_parcela = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, identificadorParcela);
-            ResultSet rs = pSentencia.executeQuery();
-            while(rs.next()){
-                lista.add(new Evento(rs.getString("identificador_parcela"),
-                        rs.getDate("fecha"),
-                        rs.getString("descripcion"))
-                );
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        String sentencia = "SELECT * FROM eventos WHERE identificador_parcela = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setInt(1, identificadorParcela);
+        ResultSet rs = pSentencia.executeQuery();
+        while(rs.next()){
+            lista.add(new Evento(rs.getString("identificador_parcela"),
+                    rs.getDate("fecha"),
+                    rs.getString("descripcion"))
+            );
         }
 
         this.cerrarConexion();
@@ -195,32 +173,26 @@ public class EventoDAO extends ConexionBD {
         return lista;
     }
 
-    public Evento buscar(int id){
+    public Evento buscar(int id) throws SQLException {
 
         Evento e = null;
 
         this.abrirConexion();
 
-        try {
-            String sentencia = "SELECT * FROM eventos WHERE evento_id = ?";
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, id);
-            ResultSet rs = pSentencia.executeQuery();
-            rs.next();
+        String sentencia = "SELECT * FROM eventos WHERE evento_id = ?";
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setInt(1, id);
+        ResultSet rs = pSentencia.executeQuery();
+        rs.next();
 
-            //Si no tiene matricula, el evento es de Parcela
-            if(rs.getString("matricula") == null){
-                e = new Evento(rs.getInt("identificadorParcela"),
-                        rs.getDate("fecha"),
-                        rs.getString("descripcion"));
-            }
-
-            e.setId(rs.getInt("evento_id"));
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        //Si no tiene matricula, el evento es de Parcela
+        if(rs.getString("matricula") == null){
+            e = new Evento(rs.getInt("identificadorParcela"),
+                    rs.getDate("fecha"),
+                    rs.getString("descripcion"));
         }
+
+        e.setId(rs.getInt("evento_id"));
 
         this.cerrarConexion();
 
