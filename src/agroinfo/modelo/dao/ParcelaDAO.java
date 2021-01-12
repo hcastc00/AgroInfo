@@ -90,25 +90,29 @@ public class ParcelaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Parcela> listar() throws SQLException {
+    public List<Parcela> listar() {
 
         List<Parcela> lista = new ArrayList<>();
 
         this.abrirConexion();
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM parcelas");
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM parcelas");
 
-        while (rs.next()){
-            Parcela p = new Parcela(rs.getInt("identificador"),
-                    rs.getDouble("latitud"),
-                    rs.getDouble("longitud"),
-                    rs.getDouble("tamanyo"),
-                    Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
-                    Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
+            while (rs.next()){
+                Parcela p = new Parcela(rs.getInt("identificador"),
+                        rs.getDouble("latitud"),
+                        rs.getDouble("longitud"),
+                        rs.getDouble("tamanyo"),
+                        Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
+                        Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
 
-            p.setProduccion(rs.getDouble("produccion"));
+                p.setProduccion(rs.getDouble("produccion"));
 
-            lista.add(p);
+                lista.add(p);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -116,27 +120,32 @@ public class ParcelaDAO extends ConexionBD {
         return lista;
     }
 
-    public Parcela buscar(int id) throws SQLException {
+    public Parcela buscar(int id) {
 
         Parcela parcela = null;
 
         this.abrirConexion();
 
         String sentencia = "SELECT * FROM parcelas WHERE identificador = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setInt(1, id);
-        ResultSet rs = pSentencia.executeQuery();
-        rs.next();
+            pSentencia.setInt(1, id);
+            ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
-        parcela = new Parcela(rs.getInt("identificador"),
-                rs.getDouble("latitud"),
-                rs.getDouble("longitud"),
-                rs.getDouble("tamanyo"),
-                Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
-                Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
+            parcela = new Parcela(rs.getInt("identificador"),
+                    rs.getDouble("latitud"),
+                    rs.getDouble("longitud"),
+                    rs.getDouble("tamanyo"),
+                    Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
+                    Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
 
-        parcela.setProduccion(rs.getDouble("produccion"));
+            parcela.setProduccion(rs.getDouble("produccion"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 

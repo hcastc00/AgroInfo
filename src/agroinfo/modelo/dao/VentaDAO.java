@@ -54,24 +54,28 @@ public class VentaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Venta> listar() throws SQLException {
+    public List<Venta> listar(){
 
         this.abrirConexion();
 
         List<Venta> lista = new ArrayList<>();
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM ventas");
-        while(rs.next()){
-            Venta v = new Venta(
-                    rs.getInt("cantidad"),
-                    rs.getDouble("precio_unitario"),
-                    rs.getString("usuario_registrador"),
-                    rs.getString("descripcion")
-            );
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM ventas");
+            while(rs.next()){
+                Venta v = new Venta(
+                        rs.getInt("cantidad"),
+                        rs.getDouble("precio_unitario"),
+                        rs.getString("usuario_registrador"),
+                        rs.getString("descripcion")
+                );
 
-            v.setId(rs.getInt("id"));
-            lista.add(v);
+                v.setId(rs.getInt("id"));
+                lista.add(v);
 
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -79,27 +83,31 @@ public class VentaDAO extends ConexionBD {
         return lista;
     }
 
-    public Venta buscar(int id) throws SQLException {
+    public Venta buscar(int id){
 
         Venta v = null;
 
         this.abrirConexion();
 
         String sentencia = "SELECT * FROM ventas WHERE id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setInt(1, id);
-        ResultSet rs = pSentencia.executeQuery();
-        rs.next();
+            pSentencia.setInt(1, id);
+            ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
-        v = new Venta(
-                rs.getInt("cantidad"),
-                rs.getDouble("precio_unitario"),
-                rs.getString("usuario_registrador"),
-                rs.getString("descripcion")
-        );
+            v = new Venta(
+                    rs.getInt("cantidad"),
+                    rs.getDouble("precio_unitario"),
+                    rs.getString("usuario_registrador"),
+                    rs.getString("descripcion")
+            );
 
-        v.setId(rs.getInt("id"));
+            v.setId(rs.getInt("id"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 

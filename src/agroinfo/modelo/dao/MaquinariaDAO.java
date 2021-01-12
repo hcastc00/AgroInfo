@@ -68,7 +68,7 @@ public class MaquinariaDAO extends ConexionBD {
         return lista;
     }
 
-    public ArrayList<String[]> listarConEventos() throws SQLException {
+    public ArrayList<String[]> listarConEventos() {
 
         this.abrirConexion();
 
@@ -85,18 +85,22 @@ public class MaquinariaDAO extends ConexionBD {
                 "GROUP BY matricula " +
                 "ORDER BY matricula";
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
 
-        String[] a;
+            String[] a;
 
-        while (rs.next()){
+            while (rs.next()){
 
-            a = new String[3];
+                a = new String[3];
 
-            a[0] = rs.getString("matricula");
-            a[1] = rs.getString("nombre");
-            a[2] = String.valueOf(rs.getDate("fecha"));
-            lista.add(a);
+                a[0] = rs.getString("matricula");
+                a[1] = rs.getString("nombre");
+                a[2] = String.valueOf(rs.getDate("fecha"));
+                lista.add(a);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -104,10 +108,11 @@ public class MaquinariaDAO extends ConexionBD {
         return lista;
     }
 
-    public String[] listarConEventos(String matriculaPar) throws SQLException {
+    public ArrayList<String[]> listarConEventos(String matriculaPar) {
 
         this.abrirConexion();
-        String[] a;
+
+        ArrayList<String[]> lista = new ArrayList<>();
 
         String sentencia = "SELECT matricula, nombre, fecha " +
                 "FROM ( " +
@@ -121,18 +126,30 @@ public class MaquinariaDAO extends ConexionBD {
                 "GROUP BY matricula " +
                 "ORDER BY matricula";
 
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setString(1, matriculaPar);
-        ResultSet rs = pSentencia.executeQuery();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setString(1, matriculaPar);
+            ResultSet rs = pSentencia.executeQuery();
 
-        a = new String[3];
-        a[0] = rs.getString("matricula");
-        a[1] = rs.getString("nombre");
-        a[2] = String.valueOf(rs.getDate("fecha"));
+            String[] a;
+
+            while (rs.next()){
+
+                a = new String[3];
+
+                a[0] = rs.getString("matricula");
+                a[1] = rs.getString("nombre");
+                a[2] = String.valueOf(rs.getDate("fecha"));
+                lista.add(a);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 
-        return a;
+        return lista;
     }
 
 

@@ -53,7 +53,7 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public Usuario iniciarSesion(String nombreUsuario, String contrasenya) throws SQLException {
+    public Usuario iniciarSesion(String nombreUsuario, String contrasenya) {
 
         Usuario u = this.buscar(nombreUsuario);
 
@@ -75,18 +75,22 @@ public class UsuarioDAO extends ConexionBD {
 
     }
 
-    public List<Usuario> listar() throws SQLException {
+    public List<Usuario> listar(){
 
         List<Usuario> lista = new ArrayList<>();
 
         this.abrirConexion();
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios");
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios");
 
-        while (rs.next()){
-            lista.add(new Usuario(rs.getString(1),
-                    rs.getString(2),
-                    Usuario.TipoUsuario.valueOf(rs.getString(3))));
+            while (rs.next()){
+                lista.add(new Usuario(rs.getString(1),
+                        rs.getString(2),
+                        Usuario.TipoUsuario.valueOf(rs.getString(3))));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -94,20 +98,25 @@ public class UsuarioDAO extends ConexionBD {
         return lista;
     }
 
-    public Usuario buscar(String nombreUsuario) throws SQLException {
+    public Usuario buscar(String nombreUsuario) {
 
         Usuario usuario = null;
 
         this.abrirConexion();
 
         String sentencia = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setString(1, nombreUsuario);
-        ResultSet rs = pSentencia.executeQuery();
-        rs.next();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
+            pSentencia.setString(1, nombreUsuario);
+            ResultSet rs = pSentencia.executeQuery();
+            rs.next();
+
+            usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 
