@@ -2,8 +2,11 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.dao.ConejaDAO;
 import agroinfo.modelo.vo.Coneja;
-import agroinfo.modelo.vo.Usuario;
+import animatefx.animation.FadeIn;
+import animatefx.animation.Shake;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RegexValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,10 +15,21 @@ import javafx.stage.Stage;
 
 public class ConejaController {
 
+    private String userName = LoginController.getUsuarioActual().getNombreUsuario();
+
     @FXML
     private JFXTextField idAlta;
 
     ConejaDAO conejaDAO = new ConejaDAO();
+
+    @FXML
+    private Label error;
+
+    @FXML
+    private Label id;
+
+    @FXML
+    private JFXButton botonGuardar;
 
     @FXML
     private void close(ActionEvent event) {
@@ -26,7 +40,18 @@ public class ConejaController {
 
     @FXML
     private void guardar(ActionEvent event) {
-       conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))), LoginController.getUsuarioActual().getNombreUsuario());
-       this.close(event);
+        if(!idAlta.getText().isBlank() && idAlta.getText().matches("^[0-9]*$")){
+            conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))), userName);
+            this.close(event);
+        }else{
+            error.setVisible(true);
+            new Shake(botonGuardar).play();
+            new FadeIn(error).play();
+        }
+    }
+
+    @FXML
+    private void borrar(ActionEvent event) {
+        conejaDAO.eliminar(Integer.parseInt(id.getText()), userName);
     }
 }

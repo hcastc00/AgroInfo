@@ -29,7 +29,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <JFXButton layoutX="129.0" layoutY="431.0" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #3a3a3a; -fx-background-radius: 2em;" text="Guardar" textFill="#86c541">
+            <JFXButton fx:id="botonGuardar" layoutX="129.0" layoutY="431.0" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #3a3a3a; -fx-background-radius: 2em;" text="Guardar" textFill="#86c541">
                <font>
                   <Font size="20.0" />
                </font>
@@ -40,6 +40,11 @@
                </font>
             </JFXTextField>
             <JFXButton layoutX="392.0" layoutY="31.0" onAction="#close" text="X" />
+            <Label fx:id="error" layoutX="71.0" layoutY="297.0" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
