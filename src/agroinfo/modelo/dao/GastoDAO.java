@@ -78,24 +78,28 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Gasto> listar() throws SQLException {
+    public List<Gasto> listar(){
 
         this.abrirConexion();
 
         List<Gasto> lista = new ArrayList<>();
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM gastos");
-        while(rs.next()){
-            Gasto g = new Gasto(
-                    rs.getInt("importe"),
-                    rs.getString("descripcion"),
-                    Gasto.TipoGasto.valueOf(rs.getString("tipo")),
-                    rs.getString("usuario_registrador")
-            );
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM gastos");
+            while(rs.next()){
+                Gasto g = new Gasto(
+                        rs.getInt("importe"),
+                        rs.getString("descripcion"),
+                        Gasto.TipoGasto.valueOf(rs.getString("tipo")),
+                        rs.getString("usuario_registrador")
+                );
 
-            g.setId(rs.getInt("id"));
-            lista.add(g);
+                g.setId(rs.getInt("id"));
+                lista.add(g);
 
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();

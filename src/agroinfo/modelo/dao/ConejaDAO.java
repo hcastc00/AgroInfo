@@ -44,18 +44,24 @@ public class ConejaDAO extends ConexionBD {
                 "El usuario ha dado de alta una nueva coneja con id: "+ id,
                 "Creacion de coneja");
 
+
         this.cerrarConexion();
     }
 
-    public List<Coneja> listar() throws SQLException {
+    public List<Coneja> listar(){
 
         this.abrirConexion();
 
         List<Coneja> lista = new ArrayList<>();
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM conejas");
-        while(rs.next()){
-               lista.add(new Coneja(rs.getInt(1)));
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM conejas");
+            while(rs.next()){
+                lista.add(new Coneja(rs.getInt(1)));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -63,11 +69,12 @@ public class ConejaDAO extends ConexionBD {
         return lista;
     }
 
-    public ArrayList<String[]> listarConEventos() throws SQLException {
+    public ArrayList<String[]> listarConEventos(){
 
         this.abrirConexion();
 
         ArrayList<String[]> lista = new ArrayList<>();
+
 
         String sentencia = "SELECT identificador, MIN(fecha) AS fecha, tipo " +
                 "FROM ( " +
@@ -80,37 +87,42 @@ public class ConejaDAO extends ConexionBD {
                 "GROUP BY identificador, tipo " +
                 "ORDER BY identificador";
 
-        ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
 
-        int idAnt = -1;
-        int idNuevo;
-        String[] a = new String[3];
+            int idAnt = -1;
+            int idNuevo;
+            String[] a = new String[3];
 
-        while (rs.next()){
+            while (rs.next()){
 
-            idNuevo = rs.getInt("identificador");
+                idNuevo = rs.getInt("identificador");
 
-            if(idAnt != idNuevo ){
-                if (rs.getRow() != 1)
+                if(idAnt != idNuevo ){
+                    if (rs.getRow() != 1)
+                        lista.add(a);
+                    a = new String[3];
+                    idAnt = idNuevo;
+                    a[0] = String.valueOf(idNuevo);
+                }
+
+               String tipo = rs.getString("tipo");
+
+                if (tipo!=null) {
+                    if (tipo.equals(EventoConeja.TipoEventoConeja.Inseminacion.toString())) {
+                        a[1] = rs.getDate("fecha").toString();
+                    } else if (tipo.equals(EventoConeja.TipoEventoConeja.Parto.toString())) {
+                        a[2] = rs.getDate("fecha").toString();
+                    }
+                }
+
+                if(rs.isLast()){
                     lista.add(a);
-                a = new String[3];
-                idAnt = idNuevo;
-                a[0] = String.valueOf(idNuevo);
-            }
-
-            String tipo = rs.getString("tipo");
-
-            if (tipo!=null) {
-                if (tipo.equals(EventoConeja.TipoEventoConeja.Inseminacion.toString())) {
-                    a[1] = rs.getDate("fecha").toString();
-                } else if (tipo.equals(EventoConeja.TipoEventoConeja.Parto.toString())) {
-                    a[2] = rs.getDate("fecha").toString();
                 }
             }
 
-            if(rs.isLast()){
-                lista.add(a);
-            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -118,20 +130,25 @@ public class ConejaDAO extends ConexionBD {
         return lista;
     }
 
-    public Coneja buscar(int id) throws SQLException {
+    public Coneja buscar(int id){
 
         Coneja coneja = null;
 
         this.abrirConexion();
 
-        String sentencia = "SELECT * FROM conejas WHERE identificador = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        try {
+            String sentencia = "SELECT * FROM conejas WHERE identificador = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setInt(1, id);
-        ResultSet rs = pSentencia.executeQuery();
-        rs.next();
+            pSentencia.setInt(1, id);
+            ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
-        coneja = new Coneja(rs.getInt(1));
+            coneja = new Coneja(rs.getInt(1));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 

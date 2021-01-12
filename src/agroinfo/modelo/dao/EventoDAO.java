@@ -129,21 +129,25 @@ public class EventoDAO extends ConexionBD {
 
     }
 
-    public List<Evento> listarEventosMaquinaria(String matricula) throws SQLException {
+    public List<Evento> listarEventosMaquinaria(String matricula){
 
         this.abrirConexion();
 
         List<Evento> lista = new ArrayList<>();
 
-        String sentencia = "SELECT * FROM eventos WHERE matricula = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setString(1, matricula);
-        ResultSet rs = pSentencia.executeQuery();
-        while(rs.next()){
-            lista.add(new Evento(rs.getString("matricula"),
-                    rs.getDate("fecha"),
-                    rs.getString("descripcion"))
-            );
+        try {
+            String sentencia = "SELECT * FROM eventos WHERE matricula = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setString(1, matricula);
+            ResultSet rs = pSentencia.executeQuery();
+            while(rs.next()){
+                lista.add(new Evento(rs.getString("matricula"),
+                        rs.getDate("fecha"),
+                        rs.getString("descripcion"))
+                );
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -151,21 +155,25 @@ public class EventoDAO extends ConexionBD {
         return lista;
     }
 
-    public List<Evento> listarEventosParcela(int identificadorParcela) throws SQLException {
+    public List<Evento> listarEventosParcela(int identificadorParcela) {
 
         this.abrirConexion();
 
         List<Evento> lista = new ArrayList<>();
 
-        String sentencia = "SELECT * FROM eventos WHERE identificador_parcela = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, identificadorParcela);
-        ResultSet rs = pSentencia.executeQuery();
-        while(rs.next()){
-            lista.add(new Evento(rs.getString("identificador_parcela"),
-                    rs.getDate("fecha"),
-                    rs.getString("descripcion"))
-            );
+        try {
+            String sentencia = "SELECT * FROM eventos WHERE identificador_parcela = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, identificadorParcela);
+            ResultSet rs = pSentencia.executeQuery();
+            while(rs.next()){
+                lista.add(new Evento(rs.getString("identificador_parcela"),
+                        rs.getDate("fecha"),
+                        rs.getString("descripcion"))
+                );
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         this.cerrarConexion();
@@ -173,26 +181,30 @@ public class EventoDAO extends ConexionBD {
         return lista;
     }
 
-    public Evento buscar(int id) throws SQLException {
+    public Evento buscar(int id){
 
         Evento e = null;
 
         this.abrirConexion();
 
-        String sentencia = "SELECT * FROM eventos WHERE evento_id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, id);
-        ResultSet rs = pSentencia.executeQuery();
-        rs.next();
+        try {
+            String sentencia = "SELECT * FROM eventos WHERE evento_id = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, id);
+            ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
-        //Si no tiene matricula, el evento es de Parcela
-        if(rs.getString("matricula") == null){
-            e = new Evento(rs.getInt("identificadorParcela"),
-                    rs.getDate("fecha"),
-                    rs.getString("descripcion"));
+            //Si no tiene matricula, el evento es de Parcela
+            if(rs.getString("matricula") == null){
+                e = new Evento(rs.getInt("identificadorParcela"),
+                        rs.getDate("fecha"),
+                        rs.getString("descripcion"));
+            }
+
+            e.setId(rs.getInt("evento_id"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
-        e.setId(rs.getInt("evento_id"));
 
         this.cerrarConexion();
 

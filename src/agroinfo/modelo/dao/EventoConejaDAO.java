@@ -42,6 +42,7 @@ public class EventoConejaDAO extends ConexionBD {
 
         this.abrirConexion();
 
+
         String sentencia = "DELETE FROM evento_conejas WHERE evento_id = ?";
         PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
         pSentencia.setInt(1, evento.getId());
@@ -58,7 +59,6 @@ public class EventoConejaDAO extends ConexionBD {
     public void modificar(EventoConeja evento, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
-
 
         String sentencia = "UPDATE evento_conejas SET " +
                 " identificador_coneja = ?," +
@@ -77,83 +77,105 @@ public class EventoConejaDAO extends ConexionBD {
                 "El usuario ha modificado un evento para la coneja "+evento.getIdConeja(),
                 "Modificacion de evento de coneja");
 
-
-
     }
 
-    public List<EventoConeja> listar(int id) throws SQLException {
+    public List<EventoConeja> listar(int id){
 
         this.abrirConexion();
 
         List<EventoConeja> lista = new ArrayList<>();
 
-        String sentencia = "SELECT * FROM evento_conejas WHERE identificador_coneja = ?";
+        try {
 
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, id);
-        pSentencia.execute();
+            String sentencia = "SELECT * FROM evento_conejas WHERE identificador_coneja = ?";
 
-        crearLista(lista, pSentencia);
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, id);
+            pSentencia.execute();
+
+            crearLista(lista, pSentencia);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 
         return lista;
     }
 
-    public List<EventoConeja> listar(int id, EventoConeja.TipoEventoConeja tipo) throws SQLException {
+    public List<EventoConeja> listar(int id, EventoConeja.TipoEventoConeja tipo){
 
         this.abrirConexion();
 
         List<EventoConeja> lista = new ArrayList<>();
 
-        String sentencia = "SELECT * FROM evento_conejas WHERE identificador_coneja = ? AND tipo = ?";
+        try {
 
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, id);
-        pSentencia.setString(2, tipo.toString());
-        pSentencia.execute();
+            String sentencia = "SELECT * FROM evento_conejas WHERE identificador_coneja = ? AND tipo = ?";
 
-        crearLista(lista, pSentencia);
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, id);
+            pSentencia.setString(2, tipo.toString());
+
+            pSentencia.execute();
+
+            crearLista(lista, pSentencia);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 
         return lista;
     }
 
-    private void crearLista(List<EventoConeja> lista, PreparedStatement pSentencia) throws SQLException {
-        ResultSet rs = pSentencia.executeQuery();
+    private void crearLista(List<EventoConeja> lista, PreparedStatement pSentencia) {
 
-        while(rs.next()){
-            EventoConeja ec = new EventoConeja(
-                    rs.getInt("identificador_coneja"),
-                    rs.getDate("fecha"),
-                    EventoConeja.TipoEventoConeja.valueOf(rs.getString("tipo"))
-            );
 
-            ec.setId(rs.getInt("evento_id"));
-            lista.add(ec);
+        try {
+            ResultSet rs = pSentencia.executeQuery();
+
+            while(rs.next()){
+                EventoConeja ec = new EventoConeja(
+                        rs.getInt("identificador_coneja"),
+                        rs.getDate("fecha"),
+                        EventoConeja.TipoEventoConeja.valueOf(rs.getString("tipo"))
+                );
+
+                ec.setId(rs.getInt("evento_id"));
+                lista.add(ec);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
-    public EventoConeja buscar(int id) throws SQLException {
+    public EventoConeja buscar(int id){
         EventoConeja ec = null;
 
         this.abrirConexion();
 
-        String sentencia = "SELECT * FROM evento_conejas WHERE evento_id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        try {
+            String sentencia = "SELECT * FROM evento_conejas WHERE evento_id = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setInt(1, id);
-        ResultSet rs = pSentencia.executeQuery();
-        rs.next();
+            pSentencia.setInt(1, id);
+            ResultSet rs = pSentencia.executeQuery();
+            rs.next();
 
-        ec = new EventoConeja(
-                rs.getInt("identificador_coneja"),
-                rs.getDate("fecha"),
-                EventoConeja.TipoEventoConeja.valueOf(rs.getString("tipo"))
-        );
-        ec.setId(rs.getInt("id"));
+            ec = new EventoConeja(
+                    rs.getInt("identificador_coneja"),
+                    rs.getDate("fecha"),
+                    EventoConeja.TipoEventoConeja.valueOf(rs.getString("tipo"))
+            );
+            ec.setId(rs.getInt("id"));
 
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         this.cerrarConexion();
 
