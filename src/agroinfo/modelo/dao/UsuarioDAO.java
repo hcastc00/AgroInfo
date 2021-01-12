@@ -75,9 +75,11 @@ public class UsuarioDAO extends ConexionBD {
             return null;
         }else {
 
+            this.abrirConexion();
             RegistroDAO.registrar(this.getConnection(), nombreUsuario,
                     "El usuario ha iniciado sesion",
                     "Inicio de sesion");
+            this.cerrarConexion();
             return u;
         }
 
