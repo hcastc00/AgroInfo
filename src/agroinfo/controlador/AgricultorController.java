@@ -277,7 +277,9 @@ public class AgricultorController implements Initializable {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
-        thisStage.setScene(new Scene(agricultor, 1200, 750));
+        Scene scene = new Scene(agricultor, 1200, 750);
+        scene.getStylesheets().add("css/darkGreen.css");
+        thisStage.setScene(scene);
 
     }
 

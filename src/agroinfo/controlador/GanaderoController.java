@@ -83,7 +83,9 @@ public class GanaderoController implements Initializable {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
-        thisStage.setScene(new Scene(ganadero, 1200, 750));
+        Scene scene = new Scene(ganadero, 1200, 750);
+        scene.getStylesheets().add("css/darkGreen.css");
+        thisStage.setScene(scene);
     }
 
     @FXML
