@@ -38,25 +38,29 @@ public class EventoConejaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(EventoConeja evento, String usuario_identificador) throws SQLException {
+    public void eliminar(EventoConeja evento, String usuario_identificador) {
 
         this.abrirConexion();
 
 
-        String sentencia = "DELETE FROM evento_conejas WHERE evento_id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, evento.getId());
-        pSentencia.execute();
+        try {
+            String sentencia = "DELETE FROM evento_conejas WHERE evento_id = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, evento.getId());
+            pSentencia.execute();
 
-        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha elininado un evento de la coneja "+evento.getIdConeja(),
-                "Eliminacion de evento de coneja");
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha elininado un evento de la coneja "+evento.getIdConeja(),
+                    "Eliminacion de evento de coneja");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
 
         this.cerrarConexion();
     }
 
-    public void modificar(EventoConeja evento, String usuario_identificador) throws SQLException {
+    public void modificar(EventoConeja evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -66,12 +70,16 @@ public class EventoConejaDAO extends ConexionBD {
                 " tipo = ?" +
                 " WHERE evento_id = ?";
 
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt   (1, evento.getIdConeja());
-        pSentencia.setDate  (2, (Date)evento.getFecha()) ;
-        pSentencia.setString(3, evento.getTipoEventoConeja().toString());
-        pSentencia.setInt   (4, evento.getId());
-        pSentencia.executeUpdate();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt   (1, evento.getIdConeja());
+            pSentencia.setDate  (2, (Date)evento.getFecha()) ;
+            pSentencia.setString(3, evento.getTipoEventoConeja().toString());
+            pSentencia.setInt   (4, evento.getId());
+            pSentencia.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha modificado un evento para la coneja "+evento.getIdConeja(),

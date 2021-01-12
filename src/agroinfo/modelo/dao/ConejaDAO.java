@@ -32,17 +32,21 @@ public class ConejaDAO extends ConexionBD {
 
     }
 
-    public void eliminar(int id, String usuario_identificador) throws SQLException {
+    public void eliminar(int id, String usuario_identificador){
 
         this.abrirConexion();
 
-        String sentencia = "DELETE FROM conejas WHERE identificador = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, id);
-        pSentencia.execute();
-        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha dado de alta una nueva coneja con id: "+ id,
-                "Creacion de coneja");
+        try {
+            String sentencia = "DELETE FROM conejas WHERE identificador = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, id);
+            pSentencia.execute();
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de alta una nueva coneja con id: "+ id,
+                    "Creacion de coneja");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
 
         this.cerrarConexion();

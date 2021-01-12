@@ -63,24 +63,28 @@ public class EventoDAO extends ConexionBD {
     }
 
 
-    public void eliminar(Evento evento, String usuario_identificador) throws SQLException {
+    public void eliminar(Evento evento, String usuario_identificador){
 
         this.abrirConexion();
 
-        String sentencia = "DELETE FROM eventos WHERE evento_id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, evento.getId());
-        pSentencia.execute();
+        try {
+            String sentencia = "DELETE FROM eventos WHERE evento_id = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, evento.getId());
+            pSentencia.execute();
 
-        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha dado de baja el evento con el id: " + evento.getId(),
-                "Eliminacion de evento");
+            RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+                    "El usuario ha dado de baja el evento con el id: " + evento.getId(),
+                    "Eliminacion de evento");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
 
         this.cerrarConexion();
     }
 
-    public void modificar(Evento evento, String usuario_identificador) throws SQLException {
+    public void modificar(Evento evento, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -92,13 +96,17 @@ public class EventoDAO extends ConexionBD {
                     " descripcion = ?" +
                     " WHERE evento_id = ?";
 
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt   (1, evento.getIdentificadorParcela());
-            pSentencia.setDate  (2, (Date) evento.getFecha());
-            pSentencia.setString(3, evento.getDescripcion());
-            pSentencia.setInt   (4, evento.getId());
+            try {
+                PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+                pSentencia.setInt   (1, evento.getIdentificadorParcela());
+                pSentencia.setDate  (2, (Date) evento.getFecha());
+                pSentencia.setString(3, evento.getDescripcion());
+                pSentencia.setInt   (4, evento.getId());
 
-            pSentencia.executeUpdate();
+                pSentencia.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
 
             RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                     "El usuario ha modificado el evento de la parcela con id: " + evento.getIdentificadorParcela(),
@@ -113,13 +121,17 @@ public class EventoDAO extends ConexionBD {
                     " descripcion = ?" +
                     " WHERE evento_id = ?";
 
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setString(1, evento.getMatricula());
-            pSentencia.setDate  (2, (Date) evento.getFecha());
-            pSentencia.setString(3, evento.getDescripcion());
-            pSentencia.setInt   (4, evento.getId());
+            try {
+                PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+                pSentencia.setString(1, evento.getMatricula());
+                pSentencia.setDate  (2, (Date) evento.getFecha());
+                pSentencia.setString(3, evento.getDescripcion());
+                pSentencia.setInt   (4, evento.getId());
 
-            pSentencia.executeUpdate();
+                pSentencia.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
 
             RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                     "El usuario ha modificado el evento de la maquina con matricula: " + evento.getMatricula(),

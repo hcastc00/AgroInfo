@@ -37,14 +37,18 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Gasto gasto, String usuario_identificador) throws SQLException {
+    public void eliminar(Gasto gasto, String usuario_identificador){
 
         this.abrirConexion();
 
         String sentencia = "DELETE FROM gastos WHERE id = ?";
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setInt(1, gasto.getId());
-        pSentencia.execute();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setInt(1, gasto.getId());
+            pSentencia.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha eliminado un registro de gasto",
@@ -53,7 +57,7 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(Gasto gasto, String usuario_identificador) throws SQLException {
+    public void modificar(Gasto gasto, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -63,12 +67,16 @@ public class GastoDAO extends ConexionBD {
                 " tipo = ?" +
                 " WHERE id = ?";
 
-        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-        pSentencia.setDouble (1, gasto.getImporte());
-        pSentencia.setString(2, gasto.getDescripcion());
-        pSentencia.setString(3, gasto.getTipoGasto().toString());
-        pSentencia.setInt(4, gasto.getId());
-        pSentencia.executeUpdate();
+        try {
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setDouble (1, gasto.getImporte());
+            pSentencia.setString(2, gasto.getDescripcion());
+            pSentencia.setString(3, gasto.getTipoGasto().toString());
+            pSentencia.setInt(4, gasto.getId());
+            pSentencia.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha modificado un registro de gasto",
