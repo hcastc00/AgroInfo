@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
+        <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
                 <ImageView fx:id="imagen" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                     <VBox.margin>
@@ -31,27 +31,27 @@
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                             <children>
-                                <JFXButton fx:id="botonParcela" onAction="#mostrarParcelas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Parcelas">
+                                <JFXButton fx:id="botonParcela" onAction="#mostrarParcelas" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Parcelas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonMaquinaria" onAction="#mostrarMaquinaria" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Maquinaria">
+                                <JFXButton fx:id="botonMaquinaria" onAction="#mostrarMaquinaria" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Maquinaria">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                        <JFXButton fx:id="botonAlmacen" layoutX="39.0" layoutY="88.0" onAction="#mostrarAlmacen" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Almacen">
+                        <JFXButton fx:id="botonAlmacen" layoutX="39.0" layoutY="88.0" onAction="#mostrarAlmacen" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Almacen">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </JFXButton>
-                                <JFXButton fx:id="botonVentas" onAction="#mostrarVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
+                                <JFXButton fx:id="botonVentas" onAction="#mostrarVentas" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Ventas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonGastos" onAction="#mostrarGastos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                                <JFXButton fx:id="botonGastos" onAction="#mostrarGastos" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Gastos">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
@@ -60,7 +60,7 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Cerrar Sesion">
+                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Cerrar Sesion">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
@@ -69,7 +69,7 @@
         </VBox>
         <StackPane fx:id="sp" layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-            <Pane fx:id="panelGastos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
+            <Pane fx:id="panelGastos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -81,12 +81,12 @@
                               <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="altaGasto" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
+                        <JFXButton fx:id="altaGasto" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXTextField fx:id="buscarGastos" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                        <JFXTextField fx:id="buscarGastos" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -115,12 +115,12 @@
                               <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="altaVenta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
+                        <JFXButton fx:id="altaVenta" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXTextField fx:id="buscarVentas" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                        <JFXTextField fx:id="buscarVentas" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -137,7 +137,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);">
+            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -149,12 +149,12 @@
                               <Image url="@/img/recargar.png" />
                            </image>
                         </ImageView>
-                        <JFXButton onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Añadir">
+                        <JFXButton onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXTextField fx:id="buscarG1" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                        <JFXTextField fx:id="buscarG1" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -171,7 +171,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
+            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -183,12 +183,12 @@
                               <Insets right="75.0" />
                            </HBox.margin>
                         </ImageView>
-                        <JFXButton fx:id="altaMaquinaria" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                        <JFXButton fx:id="altaMaquinaria" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXTextField fx:id="buscarMaquinaria" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                        <JFXTextField fx:id="buscarMaquinaria" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -205,7 +205,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" visible="false">
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
@@ -217,12 +217,12 @@
                               <Insets right="75.0" />
                            </HBox.margin>
                         </ImageView>
-                                <JFXButton fx:id="altaParcela" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                                <JFXButton fx:id="altaParcela" onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
                                     <HBox.margin>
                                         <Insets right="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXTextField fx:id="buscarParcelas" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                                <JFXTextField fx:id="buscarParcelas" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                                     <font>
                                         <Font size="19.0" />
                                     </font>

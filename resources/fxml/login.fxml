@@ -34,7 +34,7 @@
                   <VBox fx:id="panelGanadero" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
                   <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                      <children>
-                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" text="Ayuda">
+                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" text="Ayuda" styleClass="button">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
@@ -43,7 +43,7 @@
                   </VBox>
                </children>
             </StackPane>
-            <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="193.0" text="Salir">
+            <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="193.0" text="Salir" styleClass="button">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

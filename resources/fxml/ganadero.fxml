@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #3a3a3a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" style="-fx-background-color: #86c541;">
+        <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                     <VBox.margin>
@@ -38,22 +38,22 @@
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                             <children>
-                                <JFXButton fx:id="botonConejos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Conejos">
+                                <JFXButton fx:id="botonConejos" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Conejos">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonAlmacen" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Almacen">
+                                <JFXButton fx:id="botonAlmacen" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Almacen">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonGastos" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gastos">
+                                <JFXButton fx:id="botonGastos" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Gastos">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Ventas">
+                                <JFXButton fx:id="botonVentas" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Ventas">
                                     <VBox.margin>
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
@@ -62,7 +62,7 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Cerrar Sesion">
+                <JFXButton fx:id="botonSalir" onAction="#salir" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Cerrar Sesion">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
@@ -71,11 +71,11 @@
         </VBox>
         <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
-                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
-                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
-                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);" />
-                <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" style="-fx-background-image: url(img/fondoLogin.jpg);">
+                <Pane fx:id="panelBase" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" />
+                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" />
+                <Pane fx:id="panelGastos" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" />
+                <Pane fx:id="panelVentas" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" />
+                <Pane fx:id="panelConejos" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
@@ -94,17 +94,17 @@
                               <Image url="@/img/temp.png" />
                            </image>
                         </ImageView>
-                                <JFXButton fx:id="temp" onAction="#getTemperatura" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 5em;" text="-">
+                                <JFXButton fx:id="temp" onAction="#getTemperatura" prefHeight="70.0" prefWidth="70.0" styleClass="button" text="-">
                                     <HBox.margin>
                                         <Insets right="100.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="Alta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Alta">
+                                <JFXButton fx:id="Alta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
                                     <HBox.margin>
                                         <Insets right="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXTextField fx:id="buscarConejas" focusColor="#86c541" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" unFocusColor="#3a3a3a">
+                                <JFXTextField fx:id="buscarConejas" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                                     <font>
                                         <Font size="19.0" />
                                     </font>

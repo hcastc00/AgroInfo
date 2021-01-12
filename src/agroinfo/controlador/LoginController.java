@@ -94,7 +94,9 @@ public class LoginController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-                thisStage.setScene(new Scene(ventana, 1200, 750));
+                Scene scene = new Scene(ventana, 1200, 750);
+                scene.getStylesheets().add("css/darkGreen.css");
+                thisStage.setScene(scene);
             } else {
                 error.setVisible(true);
                 new Shake(botonEntrar).play();
