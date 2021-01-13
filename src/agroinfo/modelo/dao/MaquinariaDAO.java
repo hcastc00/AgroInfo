@@ -33,7 +33,7 @@ public class MaquinariaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Maquinaria maquinaria, String usuario_identificador){
+    public void eliminar(String matricula, String usuario_identificador){
 
         this.abrirConexion();
 
@@ -42,11 +42,11 @@ public class MaquinariaDAO extends ConexionBD {
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            pSentencia.setString(1, maquinaria.getMatricula());
+            pSentencia.setString(1, matricula);
             pSentencia.execute();
 
             RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha dado de baja la maquina con matricula: " + maquinaria.getMatricula(),
+                    "El usuario ha dado de baja la maquina con matricula: " + matricula,
                     "Eliminacion de maquinaria");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
