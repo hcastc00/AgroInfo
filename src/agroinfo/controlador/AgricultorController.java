@@ -7,6 +7,7 @@ import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -19,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -146,10 +149,72 @@ public class AgricultorController implements Initializable {
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
+
+        JFXComboBox tipoParcela = (JFXComboBox)root.lookup("tipoParcela");
+        JFXComboBox tipoCultivo = (JFXComboBox)root.lookup("tipoCultivo");
+
+        tipoParcela.getItems().addAll(Parcela.TipoParcela.values());
+        tipoCultivo.getItems().addAll(Parcela.TipoCultivo.values());
+
         stage.show();
         stage.setOnHidden(windowEvent -> {
             this.recargar();
         });
+    }
+
+    @FXML
+    public void modificarParcela(MouseEvent mouseEvent) throws IOException {
+
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            if(mouseEvent.getClickCount() == 2){
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcela.fxml"));
+                Parent root = (Parent) loader.load();
+
+                Node node = (Node)mouseEvent.getSource();
+                Label id = (Label)node.lookup("id");
+                int idText = Integer.parseInt(id.getText());
+                Parcela parcela = parcelaDAO.buscar(idText);
+
+                JFXTextField idParcela = (JFXTextField) root.lookup("idParcela");
+                idParcela.setEditable(false);
+
+                JFXTextField latitud = (JFXTextField) root.lookup("latitud");
+                JFXTextField longitud = (JFXTextField) root.lookup("longitud");
+                JFXTextField tam = (JFXTextField) root.lookup("tam");
+
+                JFXComboBox tipoParcela = (JFXComboBox)root.lookup("tipoParcela");
+                JFXComboBox tipoCultivo = (JFXComboBox)root.lookup("tipoCultivo");
+
+                latitud.setText(String.valueOf(parcela.getLatitud()));
+                longitud.setText(String.valueOf(parcela.getLongitud()));
+                tam.setText(String.valueOf(parcela.getTam()));
+
+                tipoParcela.getItems().addAll(Parcela.TipoParcela.values());
+                tipoCultivo.getItems().addAll(Parcela.TipoCultivo.values());
+
+                tipoParcela.setValue(parcela.getTipoParcela());
+                tipoCultivo.setValue(parcela.getTipoCultivo());
+
+
+                Scene scene = new Scene(root);
+                scene.setUserData("modificar");
+                scene.setFill(Color.TRANSPARENT);
+
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initStyle(StageStyle.TRANSPARENT);
+
+
+
+                stage.show();
+                stage.setOnHidden(windowEvent -> {
+                    this.recargar();
+                });
+            }
+        }
+
+
     }
 
     @FXML
@@ -452,14 +517,6 @@ public class AgricultorController implements Initializable {
                 }
                 image.setImage(new Image("http://openweathermap.org/img/wn/" + ico[0]));
 
-                //Borrar
-                JFXButton borrar = (JFXButton) nodesP[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
-                    parcelaDAO.eliminar(Integer.parseInt(id.getText()),
-                            LoginController.getUsuarioActual().getNombreUsuario());
-                    this.recargar();
-                });
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -474,8 +531,8 @@ public class AgricultorController implements Initializable {
             try {
                 nodesM[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/maquinaria.fxml"));
 
-                Label matricula = (Label) nodesM[i].lookup("#id");
-                matricula.setText(s[0]);
+                Label id = (Label) nodesM[i].lookup("#id");
+                id.setText(s[0]);
 
                 Label nombre = (Label) nodesM[i].lookup("#nombre");
                 if (s[1] != null)
@@ -484,14 +541,6 @@ public class AgricultorController implements Initializable {
                 Label evento = (Label) nodesM[i].lookup("#evento");
                 if (!s[2].equals("null"))
                     evento.setText(s[2]);
-
-                //Borrar
-                JFXButton borrar = (JFXButton) nodesM[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
-                    maquinariaDAO.eliminar(matricula.getText(),
-                            LoginController.getUsuarioActual().getNombreUsuario());
-                    this.recargar();
-                });
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -524,14 +573,6 @@ public class AgricultorController implements Initializable {
                 Label total = (Label) nodesV[i].lookup("#total");
                 total.setText(String.valueOf((ventas.get(i).getCantidad()) * (ventas.get(i).getPrecioUnitario())));
 
-                //Borrar
-                JFXButton borrar = (JFXButton) nodesV[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
-                    ventaDAO.eliminar(Integer.parseInt(id.getText()),
-                            LoginController.getUsuarioActual().getNombreUsuario());
-                    this.recargar();
-                });
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -557,14 +598,6 @@ public class AgricultorController implements Initializable {
                 Label tGasto = (Label) nodesG[i].lookup("#tipoGasto");
                 tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
 
-                //Borrar
-                JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
-                    gastoDAO.eliminar(Integer.parseInt(id.getText()),
-                            LoginController.getUsuarioActual().getNombreUsuario());
-                    this.recargar();
-                });
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -582,4 +615,6 @@ public class AgricultorController implements Initializable {
             });
         });
     }
+
+
 }

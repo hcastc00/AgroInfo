@@ -40,7 +40,7 @@ public class ParcelaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(Parcela parcela, String usuario_identificador) {
+    public void modificar(Parcela parcela, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
@@ -54,7 +54,6 @@ public class ParcelaDAO extends ConexionBD {
                 "tipo_cultivo   = ? " +
                 "WHERE identificador = ?";
 
-        try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setDouble(1, parcela.getLatitud());
             pSentencia.setDouble(2, parcela.getLongitud());
@@ -65,9 +64,7 @@ public class ParcelaDAO extends ConexionBD {
             pSentencia.setString(7, parcela.getTipoCultivo().toString());
             pSentencia.setInt   (8, parcela.getId());
             pSentencia.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
                 "El usuario ha dado modificado la parcela con id: " + parcela.getId(),
