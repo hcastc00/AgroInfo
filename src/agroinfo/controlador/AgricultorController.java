@@ -342,7 +342,9 @@ public class AgricultorController implements Initializable {
                 this.listaMaquinaria.getChildren().addAll(nodesM);
                 this.listaMaquinaria.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
-                    return !id.getText().matches(buscarMaquinaria.getText() + ".*");
+                    Label nombre = (Label) node.lookup("#nombre");
+                    return (!id.getText().matches(buscarMaquinaria.getText() + ".*")) &&
+                            !nombre.getText().matches(buscarMaquinaria.getText() + ".*");
                 });
             }
             case 2 -> {

@@ -6,6 +6,7 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="950.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.ParcelaController">
     <children>
@@ -24,10 +25,13 @@
                         <ColorAdjust />
                      </effect>
                         </ImageView>
-                        <Label fx:id="id" prefHeight="17.0" prefWidth="52.0" style="-fx-text-fill: black;" text="Parcela">
+                        <Label fx:id="id" prefHeight="17.0" prefWidth="69.0" style="-fx-text-fill: black;" text="Parcela">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
                   <VBox prefHeight="100.0" prefWidth="130.0">
                      <children>
@@ -41,7 +45,7 @@
                         <Label fx:id="tCultivo" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="130.0" style="-fx-text-fill: BLACK;" text="No definido" />
                      </children>
                   </VBox>
-                  <GridPane prefHeight="100.0" prefWidth="145.0">
+                  <GridPane prefHeight="100.0" prefWidth="171.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -60,12 +64,12 @@
                         <Insets />
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </GridPane>
                         <JFXButton prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gestionar Eventos">
                             <HBox.margin>
-                                <Insets left="20.0" />
+                                <Insets left="10.0" />
                             </HBox.margin>
                         </JFXButton>
                   <JFXButton layoutX="645.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
