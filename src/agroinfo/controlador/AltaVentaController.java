@@ -60,7 +60,7 @@ public class AltaVentaController {
                 ventaDAO.crear(new Venta(Integer.parseInt(cantidad.getText()),
                         Double.parseDouble(precio_unitario.getText()),
                         LoginController.getUsuarioActual().getNombreUsuario(),
-                        descripcion.getText(), LoginController.getUsuarioActual().getTipo().toString()));
+                        descripcion.getText(), (Venta.TipoVenta) botonGuardar.getScene().getUserData()));
 
                 this.close(event);
 

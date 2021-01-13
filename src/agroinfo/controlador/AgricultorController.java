@@ -4,6 +4,7 @@ import agroinfo.modelo.conexion.ConexionOpenWheatherAPI;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
+import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -37,7 +38,8 @@ public class AgricultorController implements Initializable {
     private final VentaDAO ventaDAO = new VentaDAO();
     private final GastoDAO gastoDAO = new GastoDAO();
     private final ConexionOpenWheatherAPI tiempo = new ConexionOpenWheatherAPI();
-    private final UsuarioDAO usuarioActual = new UsuarioDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private Usuario usuarioActual = LoginController.getUsuarioActual();
 
     @FXML
     private Pane panelAlmacen;
@@ -116,11 +118,11 @@ public class AgricultorController implements Initializable {
     }
 
     private List<Venta> listarVentas() {
-        return ventaDAO.listar(LoginController.getUsuarioActual().getTipo().toString());
+        return ventaDAO.listar(Venta.TipoVenta.Agricultura);
     }
 
     private List<Gasto> listarGastos() {
-        return gastoDAO.listar();
+        return gastoDAO.listar(Gasto.TipoGasto.Agricultura);
     }
 
 
@@ -154,6 +156,7 @@ public class AgricultorController implements Initializable {
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
+        scene.setUserData(Venta.TipoVenta.Agricultura);
         scene.setFill(Color.TRANSPARENT);
 
         Stage stage = new Stage();
@@ -346,9 +349,6 @@ public class AgricultorController implements Initializable {
                 this.nodesG = new Node[gastos.size()];
                 this.pintaGasto();
             }
-            case 4 -> {
-
-            }
         }
     }
 
@@ -361,7 +361,7 @@ public class AgricultorController implements Initializable {
         scene.getStylesheets().add("css/darkGreen.css");
         thisStage.setScene(scene);
 
-        usuarioActual.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
+        usuarioDAO.cerrarSesion(usuarioActual.getNombreUsuario());
 
     }
 

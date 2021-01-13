@@ -32,9 +32,7 @@ public class Gasto {
         return descripcion;
     }
 
-    public TipoGasto getTipoGasto() {
-        return tipoGasto;
-    }
+    public TipoGasto getTipoGasto() { return tipoGasto;}
 
     public String getUsuarioRegistrador() { return usuarioRegistrador; }
 

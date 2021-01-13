@@ -29,7 +29,7 @@ public class VentaDAO extends ConexionBD {
         pSentencia.setDouble(2, venta.getPrecioUnitario());
         pSentencia.setString(3, venta.getUsuarioRegistrador());
         pSentencia.setString(4, venta.getDescripcion());
-        pSentencia.setString(5 ,venta.getTipo());
+        pSentencia.setString(5 ,venta.getTipo().toString());
         pSentencia.execute();
 
         RegistroDAO.registrar(this.getConnection(), venta.getUsuarioRegistrador(),
@@ -60,7 +60,7 @@ public class VentaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Venta> listar(String tipoVenta){
+    public List<Venta> listar(Venta.TipoVenta tipoVenta){
 
         this.abrirConexion();
 
@@ -70,7 +70,7 @@ public class VentaDAO extends ConexionBD {
 
             String sentencia = "SELECT * FROM ventas WHERE tipo = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setString(1, tipoVenta);
+            pSentencia.setString(1, tipoVenta.toString());
             ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
                 Venta v = new Venta(
@@ -78,7 +78,8 @@ public class VentaDAO extends ConexionBD {
                         rs.getDouble("precio_unitario"),
                         rs.getString("usuario_registrador"),
                         rs.getString("descripcion"),
-                        rs.getString("tipo"));
+                        Venta.TipoVenta.valueOf(rs.getString("tipo"))
+                );
 
                 v.setId(rs.getInt("id"));
                 lista.add(v);
@@ -111,7 +112,7 @@ public class VentaDAO extends ConexionBD {
                     rs.getDouble("precio_unitario"),
                     rs.getString("usuario_registrador"),
                     rs.getString("descripcion"),
-                    rs.getString("tipo")
+                    Venta.TipoVenta.valueOf(rs.getString("tipo"))
             );
 
             v.setId(rs.getInt("id"));

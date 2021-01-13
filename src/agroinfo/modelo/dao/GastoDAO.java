@@ -86,14 +86,18 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Gasto> listar(){
+    public List<Gasto> listar(Gasto.TipoGasto tipoGasto){
 
         this.abrirConexion();
 
         List<Gasto> lista = new ArrayList<>();
 
         try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM gastos");
+
+            String sentencia = "SELECT * FROM gastos WHERE tipo = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setString(1, tipoGasto.toString());
+            ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
                 Gasto g = new Gasto(
                         rs.getInt("importe"),
