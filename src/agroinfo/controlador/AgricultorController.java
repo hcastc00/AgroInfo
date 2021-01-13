@@ -150,8 +150,8 @@ public class AgricultorController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        JFXComboBox tipoParcela = (JFXComboBox)root.lookup("tipoParcela");
-        JFXComboBox tipoCultivo = (JFXComboBox)root.lookup("tipoCultivo");
+        JFXComboBox tipoParcela = (JFXComboBox)root.lookup("#tipoParcela");
+        JFXComboBox tipoCultivo = (JFXComboBox)root.lookup("#tipoCultivo");
 
         tipoParcela.getItems().addAll(Parcela.TipoParcela.values());
         tipoCultivo.getItems().addAll(Parcela.TipoCultivo.values());
