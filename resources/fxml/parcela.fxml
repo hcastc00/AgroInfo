@@ -67,12 +67,12 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </GridPane>
-                        <JFXButton prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gestionar Eventos">
+                        <JFXButton fx:id="botonEvent" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gestionar Eventos">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
                         </JFXButton>
-                  <JFXButton layoutX="645.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
+                  <JFXButton fx:id="botonBorrar" layoutX="645.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>

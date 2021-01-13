@@ -63,7 +63,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton layoutX="679.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
+                  <JFXButton fx:id="botonBorrar" layoutX="679.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
                      <HBox.margin>
                         <Insets left="25.0" />
                      </HBox.margin>

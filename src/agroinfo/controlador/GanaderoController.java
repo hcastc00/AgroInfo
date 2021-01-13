@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 public class GanaderoController implements Initializable {
     private final ConejaDAO conejaDAO = new ConejaDAO();
     private final EventoConejaDAO eventoConejaDAO = new EventoConejaDAO();
@@ -145,7 +144,7 @@ public class GanaderoController implements Initializable {
         t.setOnSucceeded(workerStateEvent -> {
             if(t.getValue())
                 this.pintaGasto();
-            this.panel = 2;
+            this.panel = 3;
             this.panelAlmacen.setVisible(false);
             this.panelVentas.setVisible(false);
             this.panelConejas.setVisible(false);
@@ -160,7 +159,7 @@ public class GanaderoController implements Initializable {
 
         Task<Boolean> t = new Task<Boolean>() {
             @Override
-            protected Boolean call() throws Exception {
+            protected Boolean call() {
 
                 if (ventas == null || ventas.isEmpty()) {
                     ventas = ventaDAO.listar(Venta.TipoVenta.Ganaderia);
@@ -174,7 +173,7 @@ public class GanaderoController implements Initializable {
         t.setOnSucceeded(workerStateEvent -> {
             if(t.getValue())
                 this.pintaVenta();
-            this.panel = 3;
+            this.panel = 2;
             this.panelAlmacen.setVisible(false);
             this.panelConejas.setVisible(false);
             this.panelGastos.setVisible(false);
@@ -381,6 +380,13 @@ public class GanaderoController implements Initializable {
                 if (s[2] != null)
                     parto.setText(s[2]);
 
+                JFXButton borrar = (JFXButton) nodesC[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    conejaDAO.eliminar(Integer.parseInt(id.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                            this.recargar();
+                });
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -411,6 +417,15 @@ public class GanaderoController implements Initializable {
                 Label total = (Label) nodesV[i].lookup("#total");
                 total.setText(String.valueOf((ventas.get(i).getCantidad()) * (ventas.get(i).getPrecioUnitario())));
 
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesV[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    ventaDAO.eliminar(Integer.parseInt(id.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -436,6 +451,15 @@ public class GanaderoController implements Initializable {
                 Label tGasto = (Label) nodesG[i].lookup("#tipoGasto");
                 tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
 
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    gastoDAO.eliminar(Integer.parseInt(id.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -453,7 +477,4 @@ public class GanaderoController implements Initializable {
             });
         });
     }
-
-    //TODO en el crear pasar GanaderoController.getUsuarioActual.getNombreActual()
-
 }

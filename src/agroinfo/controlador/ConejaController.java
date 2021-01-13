@@ -71,7 +71,10 @@ public class ConejaController {
 
     @FXML
     private void borrar(ActionEvent event) {
+        System.out.println("Boorar");
         conejaDAO.eliminar(Integer.parseInt(id.getText()),
                 LoginController.getUsuarioActual().getNombreUsuario());
+
     }
+
 }
