@@ -6,6 +6,7 @@ import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -451,6 +452,14 @@ public class AgricultorController implements Initializable {
                 }
                 image.setImage(new Image("http://openweathermap.org/img/wn/" + ico[0]));
 
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesP[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    parcelaDAO.eliminar(Integer.parseInt(id.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -465,8 +474,8 @@ public class AgricultorController implements Initializable {
             try {
                 nodesM[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/maquinaria.fxml"));
 
-                Label id = (Label) nodesM[i].lookup("#id");
-                id.setText(s[0]);
+                Label matricula = (Label) nodesM[i].lookup("#id");
+                matricula.setText(s[0]);
 
                 Label nombre = (Label) nodesM[i].lookup("#nombre");
                 if (s[1] != null)
@@ -475,6 +484,14 @@ public class AgricultorController implements Initializable {
                 Label evento = (Label) nodesM[i].lookup("#evento");
                 if (!s[2].equals("null"))
                     evento.setText(s[2]);
+
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesM[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    maquinariaDAO.eliminar(matricula.getText(),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -507,6 +524,14 @@ public class AgricultorController implements Initializable {
                 Label total = (Label) nodesV[i].lookup("#total");
                 total.setText(String.valueOf((ventas.get(i).getCantidad()) * (ventas.get(i).getPrecioUnitario())));
 
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesV[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    ventaDAO.eliminar(Integer.parseInt(id.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -532,6 +557,14 @@ public class AgricultorController implements Initializable {
                 Label tGasto = (Label) nodesG[i].lookup("#tipoGasto");
                 tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
 
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    gastoDAO.eliminar(Integer.parseInt(id.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -549,6 +582,4 @@ public class AgricultorController implements Initializable {
             });
         });
     }
-
-
 }
