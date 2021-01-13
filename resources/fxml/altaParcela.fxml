@@ -16,7 +16,7 @@
                   <Image url="@/img/parcela.png" />
                </image>
             </ImageView>
-            <Label layoutX="353.0" layoutY="39.0" text="Nueva Parcela:" textFill="#3a3a3a">
+            <Label fx:id="titulo" layoutX="353.0" layoutY="39.0" text="Nueva Parcela:" textFill="#3a3a3a">
                <font>
                   <Font size="24.0" />
                </font>

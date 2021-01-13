@@ -170,12 +170,17 @@ public class AgricultorController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcela.fxml"));
                 Parent root = (Parent) loader.load();
 
+                //Get nodo de la parcela clickada
                 Node node = (Node)mouseEvent.getSource();
                 Label id = (Label)node.lookup("#id");
                 int idText = Integer.parseInt(id.getText());
                 Parcela parcela = parcelaDAO.buscar(idText);
 
+                Label titulo = (Label) root.lookup("#titulo");
+                titulo.setText("Parcela" + id.getText());
+
                 JFXTextField idParcela = (JFXTextField) root.lookup("#idParcela");
+                idParcela.setText(id.getText());
                 idParcela.setEditable(false);
 
                 JFXTextField latitud = (JFXTextField) root.lookup("#latitud");
@@ -524,6 +529,16 @@ public class AgricultorController implements Initializable {
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
                 });
+
+                Pane base = (Pane) nodesP[i].lookup("#base");
+                base.setOnMouseClicked(e ->{
+                    try {
+                        this.modificarParcela(e);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+
 
             } catch (IOException e) {
                 e.printStackTrace();
