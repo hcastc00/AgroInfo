@@ -77,7 +77,7 @@ public class ParcelaDAO extends ConexionBD {
 
     }
 
-    public void eliminar(Parcela parcela, String usuario_identificador) {
+    public void eliminar(int id, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -86,14 +86,14 @@ public class ParcelaDAO extends ConexionBD {
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            pSentencia.setInt(1, parcela.getId());
+            pSentencia.setInt(1, id);
             pSentencia.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha dado de baja la parcela con id: " + parcela.getId(),
+                "El usuario ha dado de baja la parcela con id: " + id,
                 "Eliminacion de parcela");
 
         this.cerrarConexion();
