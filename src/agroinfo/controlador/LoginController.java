@@ -92,6 +92,8 @@ public class LoginController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+                Label nombre = (Label)ventana.lookup("#nombre");
+                nombre.setText(usuarioActual.getNombreUsuario());
                 Scene scene = new Scene(ventana, 1200, 750);
                 scene.getStylesheets().add("css/darkGreen.css");
                 thisStage.setScene(scene);
