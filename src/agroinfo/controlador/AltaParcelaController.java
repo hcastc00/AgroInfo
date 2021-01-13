@@ -12,13 +12,16 @@ import com.mysql.jdbc.CommunicationsException;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class AltaParcelaController {
+public class AltaParcelaController implements Initializable {
 
     ParcelaDAO parcelaDAO = new ParcelaDAO();
 
@@ -45,6 +48,12 @@ public class AltaParcelaController {
 
     @FXML
     private Label error;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+       tipoParcela.getItems().addAll(Parcela.TipoParcela.values());
+       tipoCultivo.getItems().addAll(Parcela.TipoCultivo.values());
+    }
 
     @FXML
     private void close(ActionEvent event) {
