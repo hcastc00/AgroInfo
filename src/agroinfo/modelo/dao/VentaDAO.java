@@ -19,8 +19,8 @@ public class VentaDAO extends ConexionBD {
         this.abrirConexion();
 
         //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
-        String sentencia = "INSERT into ventas(cantidad, precio_unitario, usuario_registrador, descripcion)"
-                + "VALUES (?, ?, ?, ?)";
+        String sentencia = "INSERT into ventas(cantidad, precio_unitario, usuario_registrador, descripcion, tipo)"
+                + "VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
@@ -29,6 +29,7 @@ public class VentaDAO extends ConexionBD {
         pSentencia.setDouble(2, venta.getPrecioUnitario());
         pSentencia.setString(3, venta.getUsuarioRegistrador());
         pSentencia.setString(4, venta.getDescripcion());
+        pSentencia.setString(5 ,venta.getTipo());
         pSentencia.execute();
 
         RegistroDAO.registrar(this.getConnection(), venta.getUsuarioRegistrador(),
@@ -59,21 +60,25 @@ public class VentaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Venta> listar(){
+    public List<Venta> listar(String tipoVenta){
 
         this.abrirConexion();
 
         List<Venta> lista = new ArrayList<>();
 
         try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM ventas");
+
+            String sentencia = "SELECT * FROM ventas WHERE tipo = ?";
+            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+            pSentencia.setString(1, tipoVenta);
+            ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
                 Venta v = new Venta(
                         rs.getInt("cantidad"),
                         rs.getDouble("precio_unitario"),
                         rs.getString("usuario_registrador"),
-                        rs.getString("descripcion")
-                );
+                        rs.getString("descripcion"),
+                        rs.getString("tipo"));
 
                 v.setId(rs.getInt("id"));
                 lista.add(v);
@@ -97,7 +102,6 @@ public class VentaDAO extends ConexionBD {
         String sentencia = "SELECT * FROM ventas WHERE id = ?";
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-
             pSentencia.setInt(1, id);
             ResultSet rs = pSentencia.executeQuery();
             rs.next();
@@ -106,7 +110,8 @@ public class VentaDAO extends ConexionBD {
                     rs.getInt("cantidad"),
                     rs.getDouble("precio_unitario"),
                     rs.getString("usuario_registrador"),
-                    rs.getString("descripcion")
+                    rs.getString("descripcion"),
+                    rs.getString("tipo")
             );
 
             v.setId(rs.getInt("id"));

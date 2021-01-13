@@ -60,7 +60,7 @@ public class AltaVentaController {
                 ventaDAO.crear(new Venta(Integer.parseInt(cantidad.getText()),
                         Double.parseDouble(precio_unitario.getText()),
                         LoginController.getUsuarioActual().getNombreUsuario(),
-                        descripcion.getText()));
+                        descripcion.getText(), LoginController.getUsuarioActual().getTipo().toString()));
 
                 this.close(event);
 

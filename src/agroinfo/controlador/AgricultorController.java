@@ -116,7 +116,7 @@ public class AgricultorController implements Initializable {
     }
 
     private List<Venta> listarVentas() {
-        return ventaDAO.listar();
+        return ventaDAO.listar(LoginController.getUsuarioActual().getTipo().toString());
     }
 
     private List<Gasto> listarGastos() {
@@ -178,9 +178,9 @@ public class AgricultorController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        scene.setUserData(Gasto.TipoGasto.Agricultura);
 
         Stage stage = new Stage();
+        stage.setUserData(Gasto.TipoGasto.Agricultura);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
