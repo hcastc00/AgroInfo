@@ -7,6 +7,7 @@ import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXTextField;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -230,53 +231,94 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void mostrarMaquinaria() {
-        this.panel = 1;
-        this.panelParcelas.setVisible(false);
-        this.panelGastos.setVisible(false);
-        this.panelVentas.setVisible(false);
-        this.panelAlmacen.setVisible(false);
-        this.panelMaquinaria.setVisible(true);
 
-        if (this.maquinas == null || this.maquinas.isEmpty()) {
-            this.maquinas = this.listarMaquinaria();
-            this.nodesM = new Node[maquinas.size()];
-            this.pintaMaquinaria();
+        Task<Boolean> t = new Task<>() {
+            @Override
+            protected Boolean call() {
 
-        }
+                if (maquinas == null || maquinas.isEmpty()) {
+                    maquinas = listarMaquinaria();
+                    nodesM = new Node[maquinas.size()];
 
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaMaquinaria();
+            this.panel = 1;
+            this.panelParcelas.setVisible(false);
+            this.panelGastos.setVisible(false);
+            this.panelVentas.setVisible(false);
+            this.panelAlmacen.setVisible(false);
+            this.panelMaquinaria.setVisible(true);
+
+        });
+
+        new Thread(t).start();
     }
 
     @FXML
     private void mostrarVentas() {
-        this.panel = 2;
-        this.panelMaquinaria.setVisible(false);
-        this.panelGastos.setVisible(false);
-        this.panelParcelas.setVisible(false);
-        this.panelAlmacen.setVisible(false);
-        this.panelVentas.setVisible(true);
 
-        if (this.ventas == null || this.ventas.isEmpty()) {
-            this.ventas = this.listarVentas();
-            this.nodesV = new Node[ventas.size()];
-            this.pintaVenta();
-        }
+        Task<Boolean> t = new Task<>() {
+            @Override
+            protected Boolean call() {
 
+                if (ventas == null || ventas.isEmpty()) {
+                    ventas = listarVentas();
+                    nodesV = new Node[ventas.size()];
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                pintaVenta();
+            this.panel = 2;
+            this.panelMaquinaria.setVisible(false);
+            this.panelGastos.setVisible(false);
+            this.panelParcelas.setVisible(false);
+            this.panelAlmacen.setVisible(false);
+            this.panelVentas.setVisible(true);
+        });
+
+        new Thread(t).start();
     }
 
     @FXML
     private void mostrarGastos() {
-        this.panel = 3;
-        this.panelMaquinaria.setVisible(false);
-        this.panelParcelas.setVisible(false);
-        this.panelVentas.setVisible(false);
-        this.panelAlmacen.setVisible(false);
-        this.panelGastos.setVisible(true);
 
-        if (this.gastos == null || this.gastos.isEmpty()) {
-            this.gastos = this.listarGastos();
-            this.nodesG = new Node[gastos.size()];
-            this.pintaGasto();
-        }
+        Task<Boolean> t = new Task<>() {
+            @Override
+            protected Boolean call() {
+
+                if (gastos == null || gastos.isEmpty()) {
+                    gastos = listarGastos();
+                    nodesG = new Node[gastos.size()];
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaGasto();
+            this.panel = 3;
+            this.panelMaquinaria.setVisible(false);
+            this.panelParcelas.setVisible(false);
+            this.panelVentas.setVisible(false);
+            this.panelAlmacen.setVisible(false);
+            this.panelGastos.setVisible(true);
+        });
+
+        new Thread(t).start();
     }
 
     @FXML
