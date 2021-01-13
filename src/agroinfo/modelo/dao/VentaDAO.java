@@ -15,7 +15,7 @@ public class VentaDAO extends ConexionBD {
     public VentaDAO(){
     }
 
-    public void crear(Venta venta, String usuario_identificador) throws SQLException {
+    public void crear(Venta venta) throws SQLException {
         this.abrirConexion();
 
         //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
@@ -31,7 +31,7 @@ public class VentaDAO extends ConexionBD {
         pSentencia.setString(4, venta.getDescripcion());
         pSentencia.execute();
 
-        RegistroDAO.registrar(this.getConnection(), usuario_identificador,
+        RegistroDAO.registrar(this.getConnection(), venta.getUsuarioRegistrador(),
                 "El usuario ha registrado una venta." ,
                 "Creacion de venta");
 
