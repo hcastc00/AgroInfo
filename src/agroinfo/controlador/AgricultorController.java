@@ -346,6 +346,9 @@ public class AgricultorController implements Initializable {
                 this.nodesG = new Node[gastos.size()];
                 this.pintaGasto();
             }
+            case 4 -> {
+
+            }
         }
     }
 

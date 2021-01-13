@@ -4,6 +4,7 @@ import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Gasto;
+import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
@@ -34,7 +36,25 @@ public class GanaderoController implements Initializable {
     private final GastoDAO gastoDAO = new GastoDAO();
     private final UsuarioDAO usuarioActual = new UsuarioDAO();
     private final ConexionSensor sensor = new ConexionSensor();
-    
+
+    @FXML
+    private VBox listaVentas;
+
+    @FXML
+    private VBox listaGastos;
+
+    @FXML
+    private Pane panelVentas;
+
+    @FXML
+    private Pane panelConejas;
+
+    @FXML
+    private Pane panelGastos;
+
+    @FXML
+    private Pane panelAlmacen;
+
     @FXML
     private VBox listaConejas;
 
@@ -43,12 +63,27 @@ public class GanaderoController implements Initializable {
     
     @FXML
     private JFXButton temp;
+
     @FXML
     private JFXTextField buscarConejas;
 
+    @FXML
+    private JFXTextField buscarVenta;
+
+    @FXML
+    private JFXTextField buscarGasto;
+
     //Lista de conejas
-    private List<String[]> conejas = conejaDAO.listarConEventos();
+    private List<String[]> conejas;
     private Node[] nodesC;
+
+    // Lista de las ventas
+    private List<Venta> ventas;
+    private Node[] nodesV;
+
+    // Lista de los gastos
+    private List<Gasto> gastos;
+    private Node[] nodesG;
 
     /*
      * Esta variable indica en que vista esta el programa para facilitar metodos
@@ -62,17 +97,63 @@ public class GanaderoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.moverVentana();
-        this.panel = 0;
         this.getTemperatura();
+        this.mostrarConejas();
+    }
 
-        if (this.conejas.isEmpty()) {
+    @FXML
+    private void mostrarConejas(){
+        this.panel = 0;
+        this.panelAlmacen.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelConejas.setVisible(true);
+
+        if (this.gastos == null || this.conejas.isEmpty()) {
             this.conejas = conejaDAO.listarConEventos();
             this.nodesC = new Node[conejas.size()];
+            this.pintaConejas();
+        }
+    }
+
+    @FXML
+    private void mostrarAlmacen(){
+        this.panel = 1;
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelConejas.setVisible(false);
+        this.panelAlmacen.setVisible(true);
+    }
+
+    @FXML
+    private void mostrarGastos(){
+        this.panel = 2;
+        this.panelAlmacen.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelConejas.setVisible(false);
+        this.panelGastos.setVisible(true);
+
+        if (this.gastos == null || this.gastos.isEmpty()) {
+            this.gastos = gastoDAO.listar();
+            this.nodesG = new Node[gastos.size()];
+            this.pintaGasto();
         }
 
-        nodesC = new Node[conejas.size()];
+    }
 
-        pintaConejas();
+    @FXML
+    private void mostrarVentas() {
+        this.panel = 3;
+        this.panelAlmacen.setVisible(false);
+        this.panelConejas.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(true);
+
+        if (this.ventas == null || this.ventas.isEmpty()) {
+            this.ventas = this.ventaDAO.listar(LoginController.getUsuarioActual().getTipo().toString());
+            this.nodesV = new Node[ventas.size()];
+            this.pintaVenta();
+        }
     }
     
     @FXML
@@ -89,15 +170,46 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private void buscar() {
-        //Limpio y vuelvo a meter todos los nodos para evitar duplicados
-        listaConejas.getChildren().clear();
-        listaConejas.getChildren().addAll(nodesC);
+        switch (this.panel) {
+            case 0 -> {
+                //Limpio y vuelvo a meter todos los nodos para evitar duplicados
+                listaConejas.getChildren().clear();
+                listaConejas.getChildren().addAll(nodesC);
 
-        //Predicate para la busqueda
-        listaConejas.getChildren().removeIf(node -> {
-            Label id = (Label) node.lookup("#id");
-            return !id.getText().matches(buscarConejas.getText() + ".*");
-        });
+                //Predicate para la busqueda
+                listaConejas.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarConejas.getText() + ".*");
+                });
+            }
+            case 1 -> {
+
+            }
+
+            case 2 -> {
+                //Limpio y vuelvo a meter todos los nodos para evitar duplicados
+                listaVentas.getChildren().clear();
+                listaVentas.getChildren().addAll(nodesV);
+
+                //Predicate para la busqueda
+                listaVentas.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarVenta.getText() + ".*");
+                });
+            }
+
+            case 3 -> {
+                //Limpio y vuelvo a meter todos los nodos para evitar duplicados
+                listaGastos.getChildren().clear();
+                listaGastos.getChildren().addAll(nodesG);
+
+                //Predicate para la busqueda
+                listaGastos.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarGasto.getText() + ".*");
+                });
+            }
+        }
     }
     
     @FXML
@@ -207,14 +319,24 @@ public class GanaderoController implements Initializable {
             case 1:
                 break;
             case 2:
+                this.listaVentas.getChildren().clear();
+                this.ventas = ventaDAO.listar(LoginController.getUsuarioActual().getTipo().toString());
+                this.nodesV = new Node[ventas.size()];
+                this.pintaVenta();
                 break;
             case 3:
+                this.listaGastos.getChildren().clear();
+                this.gastos = gastoDAO.listar();
+                this.nodesG = new Node[gastos.size()];
+                this.pintaGasto();
+                break;
         }
     }
 
     //METODOS AUXILIARES
     
     private void pintaConejas() {
+        this.listaConejas.getChildren().clear();
         int i = 0;
         for (String[] s : conejas) {
             try {
@@ -237,6 +359,60 @@ public class GanaderoController implements Initializable {
             i++;
         }
         listaConejas.getChildren().addAll(nodesC);
+    }
+
+    private void pintaVenta() {
+        this.listaVentas.getChildren().clear();
+        for (int i = 0; i < nodesV.length; i++) {
+            try {
+                nodesV[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/venta.fxml"));
+
+                //Id
+                Label id = (Label) nodesV[i].lookup("#id");
+                id.setText(String.valueOf(ventas.get(i).getId()));
+
+                //Cantidad
+                Label cant = (Label) nodesV[i].lookup("#cantidad");
+                cant.setText(String.valueOf(ventas.get(i).getCantidad()));
+
+                //Precio Unitario
+                Label pu = (Label) nodesV[i].lookup("#pu");
+                pu.setText(String.valueOf(ventas.get(i).getPrecioUnitario()));
+
+                //Total
+                Label total = (Label) nodesV[i].lookup("#total");
+                total.setText(String.valueOf((ventas.get(i).getCantidad()) * (ventas.get(i).getPrecioUnitario())));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        this.listaVentas.getChildren().addAll(nodesV);
+    }
+
+    private void pintaGasto() {
+        this.listaGastos.getChildren().clear();
+        for (int i = 0; i < gastos.size(); i++) {
+            try {
+                nodesG[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/gasto.fxml"));
+
+                //Id
+                Label id = (Label) nodesG[i].lookup("#id");
+                id.setText(String.valueOf(gastos.get(i).getId()));
+
+                //Importe
+                Label importe = (Label) nodesG[i].lookup("#importe");
+                importe.setText(String.valueOf(gastos.get(i).getImporte()));
+
+                //TipoGasto
+                Label tGasto = (Label) nodesG[i].lookup("#tipoGasto");
+                tGasto.setText(String.valueOf(gastos.get(i).getTipoGasto()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        this.listaGastos.getChildren().addAll(nodesG);
     }
 
     private void moverVentana() {
