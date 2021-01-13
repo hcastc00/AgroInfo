@@ -7,6 +7,7 @@ import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Venta;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -109,7 +110,7 @@ public class GanaderoController implements Initializable {
         this.panelVentas.setVisible(false);
         this.panelConejas.setVisible(true);
 
-        if (this.gastos == null || this.conejas.isEmpty()) {
+        if (this.conejas == null || this.conejas.isEmpty()) {
             this.conejas = conejaDAO.listarConEventos();
             this.nodesC = new Node[conejas.size()];
             this.pintaConejas();
@@ -127,33 +128,60 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private void mostrarGastos(){
-        this.panel = 2;
-        this.panelAlmacen.setVisible(false);
-        this.panelVentas.setVisible(false);
-        this.panelConejas.setVisible(false);
-        this.panelGastos.setVisible(true);
 
-        if (this.gastos == null || this.gastos.isEmpty()) {
-            this.gastos = gastoDAO.listar();
-            this.nodesG = new Node[gastos.size()];
-            this.pintaGasto();
-        }
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
 
+                if (gastos == null || gastos.isEmpty()) {
+                    gastos = gastoDAO.listar(Gasto.TipoGasto.Ganaderia);
+                    nodesG = new Node[gastos.size()];
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaGasto();
+            this.panel = 2;
+            this.panelAlmacen.setVisible(false);
+            this.panelVentas.setVisible(false);
+            this.panelConejas.setVisible(false);
+            this.panelGastos.setVisible(true);
+        });
+
+        new Thread(t).start();
     }
 
     @FXML
     private void mostrarVentas() {
-        this.panel = 3;
-        this.panelAlmacen.setVisible(false);
-        this.panelConejas.setVisible(false);
-        this.panelGastos.setVisible(false);
-        this.panelVentas.setVisible(true);
 
-        if (this.ventas == null || this.ventas.isEmpty()) {
-            this.ventas = this.ventaDAO.listar(LoginController.getUsuarioActual().getTipo().toString());
-            this.nodesV = new Node[ventas.size()];
-            this.pintaVenta();
-        }
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+
+                if (ventas == null || ventas.isEmpty()) {
+                    ventas = ventaDAO.listar(Venta.TipoVenta.Ganaderia);
+                    nodesV = new Node[ventas.size()];
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaVenta();
+            this.panel = 3;
+            this.panelAlmacen.setVisible(false);
+            this.panelConejas.setVisible(false);
+            this.panelGastos.setVisible(false);
+            this.panelVentas.setVisible(true);
+        });
+
+        new Thread(t).start();
     }
     
     @FXML
@@ -320,13 +348,13 @@ public class GanaderoController implements Initializable {
                 break;
             case 2:
                 this.listaVentas.getChildren().clear();
-                this.ventas = ventaDAO.listar(LoginController.getUsuarioActual().getTipo().toString());
+                this.ventas = ventaDAO.listar(Venta.TipoVenta.Ganaderia);
                 this.nodesV = new Node[ventas.size()];
                 this.pintaVenta();
                 break;
             case 3:
                 this.listaGastos.getChildren().clear();
-                this.gastos = gastoDAO.listar();
+                this.gastos = gastoDAO.listar(Gasto.TipoGasto.Ganaderia);
                 this.nodesG = new Node[gastos.size()];
                 this.pintaGasto();
                 break;
