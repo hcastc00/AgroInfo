@@ -39,7 +39,7 @@ public class VentaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Venta venta, String usuario_identificador) {
+    public void eliminar(int id, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -47,7 +47,7 @@ public class VentaDAO extends ConexionBD {
 
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, venta.getId());
+            pSentencia.setInt(1, id);
             pSentencia.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -72,6 +72,38 @@ public class VentaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setString(1, tipoVenta.toString());
             ResultSet rs = pSentencia.executeQuery();
+            while(rs.next()){
+                Venta v = new Venta(
+                        rs.getInt("cantidad"),
+                        rs.getDouble("precio_unitario"),
+                        rs.getString("usuario_registrador"),
+                        rs.getString("descripcion"),
+                        Venta.TipoVenta.valueOf(rs.getString("tipo"))
+                );
+
+                v.setId(rs.getInt("id"));
+                lista.add(v);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return lista;
+    }
+
+    public List<Venta> listar(){
+
+        this.abrirConexion();
+
+        List<Venta> lista = new ArrayList<>();
+
+        try {
+
+            String sentencia = "SELECT * FROM ventas WHERE tipo = ?";
+            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
             while(rs.next()){
                 Venta v = new Venta(
                         rs.getInt("cantidad"),

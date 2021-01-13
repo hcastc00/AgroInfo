@@ -37,14 +37,14 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Gasto gasto, String usuario_identificador){
+    public void eliminar(int id, String usuario_identificador){
 
         this.abrirConexion();
 
         String sentencia = "DELETE FROM gastos WHERE id = ?";
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt(1, gasto.getId());
+            pSentencia.setInt(1, id);
             pSentencia.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -98,6 +98,37 @@ public class GastoDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setString(1, tipoGasto.toString());
             ResultSet rs = pSentencia.executeQuery();
+            while(rs.next()){
+                Gasto g = new Gasto(
+                        rs.getInt("importe"),
+                        rs.getString("descripcion"),
+                        Gasto.TipoGasto.valueOf(rs.getString("tipo")),
+                        rs.getString("usuario_registrador")
+                );
+
+                g.setId(rs.getInt("id"));
+                lista.add(g);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return lista;
+    }
+
+    public List<Gasto> listar(){
+
+        this.abrirConexion();
+
+        List<Gasto> lista = new ArrayList<>();
+
+        try {
+
+            String sentencia = "SELECT * FROM gastos";
+            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
             while(rs.next()){
                 Gasto g = new Gasto(
                         rs.getInt("importe"),
