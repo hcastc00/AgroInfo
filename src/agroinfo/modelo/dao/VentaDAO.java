@@ -102,7 +102,7 @@ public class VentaDAO extends ConexionBD {
 
         try {
 
-            String sentencia = "SELECT * FROM ventas WHERE tipo = ?";
+            String sentencia = "SELECT * FROM ventas";
             ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
             while(rs.next()){
                 Venta v = new Venta(
