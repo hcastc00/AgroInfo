@@ -123,10 +123,24 @@ public class GanaderoController implements Initializable {
 
 
     }
-    
+
     @FXML
-    private void crearGasto(ActionEvent event) {
-        Gasto gasto = new Gasto(1, "Pienso", Gasto.TipoGasto.Ganaderia, "pepe");
+    public void altaGasto(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaGasto.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        scene.setUserData(Gasto.TipoGasto.Ganaderia);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
     }
 
     @FXML
@@ -155,9 +169,21 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void crearVenta(ActionEvent event) {
-        //Venta venta = new Venta(1,60,"El perro");
-        this.almacenDAO.getAlmacen().setConejos(10);
+    public void altaVenta(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
     }
 
     @FXML
