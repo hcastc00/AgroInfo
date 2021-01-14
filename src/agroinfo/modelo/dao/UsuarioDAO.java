@@ -93,7 +93,7 @@ public class UsuarioDAO extends ConexionBD {
         try {
             
             String sentencia =
-                    "SELECT  nombre_usuario, contrasenya, tipo, id_almacen,MAX(fecha) as fecha, tipo_registro " +
+                    "SELECT  nombre_usuario, contrasenya, tipo, id_almacen, CONVERT_TZ(MAX(fecha) ,'EST','CET') as fecha, tipo_registro " +
                     "FROM ( " +
                         "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
                         "FROM usuarios " +

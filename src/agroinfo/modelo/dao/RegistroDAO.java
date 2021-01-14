@@ -35,7 +35,8 @@ public class RegistroDAO extends ConexionBD{
         this.abrirConexion();
 
         try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM registro");
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * " +
+                    ",CONVERT_TZ(fecha,'EST','CET') as fechaC FROM registro");
 
             String[] a;
 
@@ -44,7 +45,7 @@ public class RegistroDAO extends ConexionBD{
                 a = new String[4];
 
                 a[0] = rs.getString("usuario_id");
-                a[1] = String.valueOf(rs.getTimestamp("fecha"));
+                a[1] = String.valueOf(rs.getTimestamp("fechaC"));
                 a[2] = rs.getString("tipo");
                 a[3] = rs.getString("mensaje");
 
