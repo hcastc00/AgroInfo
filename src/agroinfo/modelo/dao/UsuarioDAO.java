@@ -62,7 +62,7 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(Usuario usuario, String usuario_identificador) {
+    public void eliminar(String nombre_usuario, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -71,7 +71,7 @@ public class UsuarioDAO extends ConexionBD {
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-            pSentencia.setString(1, usuario.getNombreUsuario());
+            pSentencia.setString(1, nombre_usuario);
             pSentencia.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
