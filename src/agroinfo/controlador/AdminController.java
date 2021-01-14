@@ -21,11 +21,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -255,14 +258,33 @@ public class AdminController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesU[i].lookup("#botonBorrar");
+
+                //Evita borrar el usuario MASTER y actual
+                if(id.getText().equals(LoginController.getUsuarioActual().getNombreUsuario()) ||
+                        id.getText().equals("admin"))
+                    borrar.setVisible(false);
+
                 borrar.setOnAction(e ->{
                     usuarioDAO.eliminar(id.getText(),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
                 });
 
+                //Imagen
+                ImageView imagen = (ImageView) nodesU[i].lookup("#imagen");
+                switch (Usuario.TipoUsuario.valueOf(usuarios.get(i)[2])){
+                    case Ganadero ->
+                            imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/ganadero.png")).toURI().toString()));
 
-            } catch (IOException e) {
+                    case Agricultor ->
+                            imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/agricultor.png")).toURI().toString()));
+
+                    case Administrador ->
+                            imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/admin.png")).toURI().toString()));
+                }
+
+
+            } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
         }
