@@ -144,6 +144,7 @@ public class AgricultorController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.setUserData("alta");
 
         Stage stage = new Stage();
         stage.setScene(scene);
