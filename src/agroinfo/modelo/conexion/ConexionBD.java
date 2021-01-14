@@ -12,10 +12,15 @@ public class ConexionBD {
 
     public ConexionBD(){
 
-        this.url = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
+/*        this.url = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
         this.driverName = "com.mysql.jdbc.Driver";
         this.user = "ugnqzgofv28azyoj";
-        this.pass = "W6ivPw6VjI2fNHD1hB66";
+        this.pass = "W6ivPw6VjI2fNHD1hB66";*/
+
+        this.url = "jdbc:mysql://lishowebproject.a2hosted.com:3306/lishoweb_agroinfo";
+        this.driverName = "com.mysql.jdbc.Driver";
+        this.user = "lishoweb_agroinf";
+        this.pass = "agroinfo";
     }
 
     public String getUrl() {
