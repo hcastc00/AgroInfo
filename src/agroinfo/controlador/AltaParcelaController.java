@@ -104,7 +104,7 @@ public class AltaParcelaController {
                 error.setText("Debe seleccionar un tipo de parcela");
             else if(tamError)
                 error.setText("El tamaño de la parcela debe ser un número positivo");
-            else if(tipoParcelaError)
+            else if(tipoCultivoError)
                 error.setText("Debe seleccionar un tipo de cultivo");
 
             error.setVisible(true);
