@@ -37,11 +37,14 @@ public class RegistroDAO extends ConexionBD{
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM registro");
 
-            String[] a = new String[4];
+            String[] a;
 
             while (rs.next()){
+
+                a = new String[4];
+
                 a[0] = rs.getString("usuario_id");
-                a[1] = String.valueOf(rs.getDate("fecha"));
+                a[1] = String.valueOf(rs.getTimestamp("fecha"));
                 a[2] = rs.getString("tipo");
                 a[3] = rs.getString("mensaje");
 
