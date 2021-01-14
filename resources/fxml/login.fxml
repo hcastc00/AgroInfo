@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.LoginController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.LoginController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
          <children>
@@ -34,19 +42,25 @@
                   <VBox fx:id="panelGanadero" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
                   <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
                      <children>
-                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" text="Ayuda" styleClass="button">
+                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Ayuda">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                   </VBox>
                </children>
             </StackPane>
-            <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="193.0" text="Salir" styleClass="button">
+            <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Salir">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
          </children>
       </VBox>
@@ -54,6 +68,7 @@
          <children>
             <Pane fx:id="login" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                <children>
+                  <JFXSpinner fx:id="spinnerProgreso" layoutX="450.0" layoutY="430.0" visible="false" />
                   <Pane layoutX="211.0" layoutY="233.0" prefHeight="285.0" prefWidth="529.0" styleClass="login-pane">
                      <effect>
                         <Blend />
@@ -63,11 +78,17 @@
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                   <JFXTextField fx:id="user" alignment="BOTTOM_LEFT" layoutX="422.0" layoutY="270.0" onAction="#entrar" styleClass="text">
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
                   </JFXTextField>
                   <Label layoutX="290.0" layoutY="282.0" text="Usuario" textFill="#3a3a3a">
                      <font>
@@ -83,12 +104,21 @@
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
                   </JFXPasswordField>
                   <Label fx:id="error" alignment="CENTER" layoutX="223.0" layoutY="170.0" prefHeight="35.0" prefWidth="510.0" text="El usuario o la contraseña son incorrectos" textAlignment="CENTER" textFill="#e43c3c" visible="false">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
+                  <Label fx:id="cargandoLabel" layoutX="426.0" layoutY="480.0" prefHeight="30.0" prefWidth="108.0" text="Cargando..." textFill="WHITE" visible="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  
                </children>
             </Pane>
          </children></StackPane>

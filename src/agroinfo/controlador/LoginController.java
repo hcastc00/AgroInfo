@@ -4,9 +4,7 @@ import agroinfo.modelo.dao.UsuarioDAO;
 import agroinfo.modelo.vo.Usuario;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -27,6 +26,12 @@ public class LoginController implements Initializable {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     private static Usuario usuarioActual;
+
+    @FXML
+    private Label cargandoLabel;
+
+    @FXML
+    private JFXSpinner spinnerProgreso;
 
     @FXML
     private JFXTextField user;
@@ -67,43 +72,72 @@ public class LoginController implements Initializable {
             if (t.getValue()) {
                 Node node = (Node) event.getSource();
                 Stage thisStage = (Stage) node.getScene().getWindow();
-                Parent ventana = null;
 
-                if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Administrador)) {
-                    try {
-                        ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/admin.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                Task<Parent> cargarVista = new Task<Parent>() {
+                    @Override
+                    protected Parent call() throws Exception {
 
-                if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Ganadero)) {
-                    try {
-                        ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/ganadero.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                        Parent ventana = null;
 
-                if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Agricultor)) {
-                    try {
-                        ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/agricultor.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Administrador)) {
+                            try {
+                                ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/admin.fxml"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Ganadero)) {
+                            try {
+                                ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/ganadero.fxml"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if (usuarioActual.getTipo().equals(Usuario.TipoUsuario.Agricultor)) {
+                            try {
+                                ventana = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/agricultor.fxml"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return ventana;
                     }
-                }
-                Label nombre = (Label)ventana.lookup("#nombre");
-                nombre.setText(usuarioActual.getNombreUsuario());
-                Scene scene = new Scene(ventana, 1200, 750);
-                scene.getStylesheets().add("css/darkGreen.css");
-                thisStage.setScene(scene);
+                };
+
+                cargarVista.setOnSucceeded(workerStateEvent1 -> {
+
+                    Parent ventana = cargarVista.getValue();
+
+                    Label nombre = (Label) ventana.lookup("#nombre");
+                    nombre.setText(usuarioActual.getNombreUsuario());
+                    Scene scene = new Scene(ventana, 1200, 750);
+                    scene.getStylesheets().add("css/darkGreen.css");
+                    this.spinnerProgreso.setVisible(false);
+                    this.cargandoLabel.setVisible(false);
+                    this.botonEntrar.setVisible(true);
+                    thisStage.setScene(scene);
+
+                });
+
+                new Thread(cargarVista).start();
             } else {
-                error.setVisible(true);
+
+                this.spinnerProgreso.setVisible(false);
+                this.cargandoLabel.setVisible(false);
+                this.botonEntrar.setVisible(true);
+
+                this.error.setVisible(true);
                 new Shake(botonEntrar).play();
                 new FadeIn(error).play();
             }
         });
         new Thread(t).start();
+
+        this.botonEntrar.setVisible(false);
+        this.spinnerProgreso.setVisible(true);
+        this.cargandoLabel.setVisible(true);
     }
 
     @FXML
