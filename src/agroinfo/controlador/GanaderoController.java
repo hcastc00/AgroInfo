@@ -2,6 +2,7 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
+import agroinfo.modelo.vo.Almacen;
 import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Venta;
@@ -60,6 +61,9 @@ public class GanaderoController implements Initializable {
     private VBox listaConejas;
 
     @FXML
+    private VBox listaAlmacen;
+
+    @FXML
     private AnchorPane root;
     
     @FXML
@@ -85,6 +89,10 @@ public class GanaderoController implements Initializable {
     // Lista de los gastos
     private List<Gasto> gastos;
     private Node[] nodesG;
+
+    //Cosas de almacen
+    private Node nodeA;
+    private Almacen almacen;
 
     /*
      * Esta variable indica en que vista esta el programa para facilitar metodos
@@ -118,12 +126,18 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void mostrarAlmacen(){
+    private void mostrarAlmacen() {
         this.panel = 1;
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelConejas.setVisible(false);
         this.panelAlmacen.setVisible(true);
+
+        if(this.almacen == null){
+            this.almacen = almacenDAO.getAlmacen();
+            this.pintaAlmacen();
+        }
+
     }
 
     @FXML
@@ -466,6 +480,39 @@ public class GanaderoController implements Initializable {
             }
         }
         this.listaGastos.getChildren().addAll(nodesG);
+    }
+
+    private void pintaAlmacen() {
+        this.listaAlmacen.getChildren().clear();
+        try {
+            nodeA = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/almacen.fxml"));
+
+            Pane agriPane = (Pane) nodeA.lookup("#agriPane");
+            Pane ganPane = (Pane) nodeA.lookup("#ganPane");
+
+            agriPane.setVisible(false);
+            ganPane.setVisible(true);
+
+            //Conejos
+            Label conejos = (Label) nodeA.lookup("#conejos");
+            conejos.setText(String.valueOf(almacen.getConejos()));
+
+            //Pienso Lactancia
+            Label pL = (Label) nodeA.lookup("#piensoLactancia");
+            pL.setText(String.valueOf(almacen.getPiensoLactancia()));
+
+            //Pienso Medicado
+            Label pM = (Label) nodeA.lookup("#piensoMedicado");
+            pM.setText(String.valueOf(almacen.getPiensoMedicado()));
+
+            //Pienso Remate
+            Label pR = (Label) nodeA.lookup("#piensoRemate");
+            pR.setText(String.valueOf(almacen.getPiensoRemate()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.listaAlmacen.getChildren().add(nodeA);
     }
 
     private void moverVentana() {

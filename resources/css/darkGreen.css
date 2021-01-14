@@ -30,8 +30,12 @@
     -fx-background-radius: 2em;
 }
 
-.text{
+.text-field {
     -fx-text-inner-color: "#3a3a3a";
     -jfx-focus-color: "#86c541";
     -jfx-unfocus-color: "#3a3a3a";
+}
+
+.pane{
+    -fx-background-color : "#86c541";
 }
