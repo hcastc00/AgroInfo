@@ -76,6 +76,16 @@ public class AltaParcelaController {
         boolean tamError = tam.getText().isBlank() || !tam.getText().matches("^(0|([1-9][0-9]*))(\\.[0-9]+)?$");
         boolean tipoCultivoError = tipoCultivo.getValue() == null;
 
+        if(latitudError==false)
+            if((Double.parseDouble(latitud.getText() ) > 90) || (Double.parseDouble(latitud.getText()) < -90)){
+            latitudError=true;
+        }
+
+        if(longitudError==false)
+            if((Double.parseDouble(longitud.getText() ) > 180) || (Double.parseDouble(longitud.getText()) < -180)){
+            latitudError=true;
+        }
+
         if(!idParcelaError && !latitudError && !longitudError && !tipoParcelaError && !tamError && !tipoCultivoError){
             if(botonGuardar.getScene().getUserData().equals("modificar")){
                 modificar(event);
