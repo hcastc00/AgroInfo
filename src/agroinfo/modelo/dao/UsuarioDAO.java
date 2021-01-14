@@ -91,11 +91,24 @@ public class UsuarioDAO extends ConexionBD {
         this.abrirConexion();
 
         try {
-            PreparedStatement pSentencia = this.getConnection().prepareStatement("SELECT MAX(fecha) FROM registro " +
-                    "GROUP BY usuario_id ORDER BY usuario_id");
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios " +
-                    "ORDER BY nombre_usuario");
-            ResultSet rs1 = pSentencia.executeQuery();
+            
+            String sentencia =
+                    "SELECT  nombre_usuario, contrasenya, tipo, MAX(fecha) as fecha, tipo_registro " +
+                    "FROM ( " +
+                        "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
+                        "FROM usuarios " +
+                        "RIGHT JOIN registro r on usuarios.nombre_usuario = r.usuario_id) " +
+                    "UNION " +
+                        "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
+                        "FROM usuarios " +
+                        "LEFT JOIN registro r on usuarios.nombre_usuario = r.usuario_id) " +
+                    ") as urur " +
+                    "WHERE nombre_usuario is not null AND (tipo_registro like 'Inicio de sesion' OR tipo_registro is null) " +
+                    "GROUP BY nombre_usuario " +
+                    "ORDER BY nombre_usuario";
+            
+            ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
+
 
             String[] a;
 
@@ -107,7 +120,7 @@ public class UsuarioDAO extends ConexionBD {
                 a[1] = rs.getString("contrasenya");
                 a[2] = rs.getString("tipo");
                 a[3] = rs.getString("id_almacen");
-                a[4] = String.valueOf(rs1.getTimestamp("fecha"));
+                a[4] = String.valueOf(rs.getTimestamp("fecha"));
 
                 lista.add(a);
             }
