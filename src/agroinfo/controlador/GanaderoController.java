@@ -5,6 +5,7 @@ import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Venta;
+import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.concurrent.Task;
@@ -189,7 +190,7 @@ public class GanaderoController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         Scene scene = new Scene(ganadero, 1200, 750);
-        scene.getStylesheets().add("css/darkGreen.css");
+        scene.getStylesheets().add(Ventana.color);
         thisStage.setScene(scene);
 
         usuarioActual.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());

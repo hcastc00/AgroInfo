@@ -4,12 +4,16 @@
 }
 
 .VBox{
-    -fx-background-color: "#F7AA3E";
+    -fx-background-color: rgb(247, 170, 62);
 }
 
 .button{
     -fx-background-color: rgba(0, 0, 0, 0.1);
     -fx-background-radius: 2em;
+}
+
+.button:hover{
+    -fx-cursor: hand;
 }
 
 .fondo{

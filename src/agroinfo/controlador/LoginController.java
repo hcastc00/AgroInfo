@@ -2,6 +2,7 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.dao.UsuarioDAO;
 import agroinfo.modelo.vo.Usuario;
+import agroinfo.vista.Ventana;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.*;
@@ -47,7 +48,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private AnchorPane root;
-
 
     @FXML
     private void close(ActionEvent event) {
@@ -113,7 +113,7 @@ public class LoginController implements Initializable {
                     Label nombre = (Label) ventana.lookup("#nombre");
                     nombre.setText(usuarioActual.getNombreUsuario());
                     Scene scene = new Scene(ventana, 1200, 750);
-                    scene.getStylesheets().add("css/darkGreen.css");
+                    scene.getStylesheets().add(Ventana.color);
                     this.spinnerProgreso.setVisible(false);
                     this.cargandoLabel.setVisible(false);
                     this.botonEntrar.setVisible(true);

@@ -6,6 +6,7 @@ import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Parcela;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
+import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -474,7 +475,7 @@ public class AgricultorController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         Scene scene = new Scene(agricultor, 1200, 750);
-        scene.getStylesheets().add("css/darkGreen.css");
+        scene.getStylesheets().add(Ventana.color);
         thisStage.setScene(scene);
 
         usuarioDAO.cerrarSesion(usuarioActual.getNombreUsuario());

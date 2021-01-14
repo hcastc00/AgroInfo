@@ -12,6 +12,10 @@
     -fx-background-radius: 2em;
 }
 
+.button:hover{
+    -fx-cursor: hand;
+}
+
 .fondo{
     -fx-background-image: url("../img/fondoLogin.jpg");
 }
