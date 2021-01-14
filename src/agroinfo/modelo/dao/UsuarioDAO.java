@@ -91,18 +91,29 @@ public class UsuarioDAO extends ConexionBD {
         this.abrirConexion();
 
         try {
-            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios");
+            PreparedStatement pSentencia = this.getConnection().prepareStatement("SELECT MAX(fecha) FROM registro " +
+                    "GROUP BY usuario_id ORDER BY usuario_id");
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios " +
+                    "ORDER BY nombre_usuario");
+            ResultSet rs1 = pSentencia.executeQuery();
 
-            String[] a = new String[4];
+            String[] a;
 
             while (rs.next()){
+
+                a = new String[5];
+
                 a[0] = rs.getString("nombre_usuario");
                 a[1] = rs.getString("contrasenya");
                 a[2] = rs.getString("tipo");
                 a[3] = rs.getString("id_almacen");
+                a[4] = String.valueOf(rs1.getTimestamp("fecha"));
 
                 lista.add(a);
             }
+
+
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
