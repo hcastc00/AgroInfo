@@ -41,7 +41,7 @@ public class ConexionOpenWheatherAPI {
                 "&appid=" + this.APIKEY + "&units=metric&andlang=es";
         JSONObject json = readJsonFromUrl(url);
 
-        lista[0] = json.getJSONArray("weather").getJSONObject(0).getString("icon") + "@4x.png";
+        lista[0] = json.getJSONArray("weather").getJSONObject(0).getString("icon") + "@2x.png";
 
         return lista;
     }
