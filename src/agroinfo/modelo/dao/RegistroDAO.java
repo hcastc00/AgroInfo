@@ -2,6 +2,7 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Coneja;
 import agroinfo.modelo.vo.EventoConeja;
+import agroinfo.modelo.vo.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,15 +28,31 @@ public class RegistroDAO extends ConexionBD{
         }
     }
 
-    public ArrayList<String[]> buscar(String usuario_id){
-        return null;
-    }
-
-    public ArrayList<String[]> buscar(String usuario_id, String tipo){
-        return null;
-    }
-
     public ArrayList<String[]> listar(){
-        return null;
+
+        ArrayList<String[]> lista = new ArrayList<>();
+
+        this.abrirConexion();
+
+        try {
+            ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM registro");
+
+            String[] a = new String[4];
+
+            while (rs.next()){
+                a[0] = rs.getString("usuario_id");
+                a[1] = String.valueOf(rs.getDate("fecha"));
+                a[2] = rs.getString("tipo");
+                a[3] = rs.getString("mensaje");
+
+                lista.add(a);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        this.cerrarConexion();
+
+        return lista;
     }
 }

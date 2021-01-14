@@ -84,19 +84,24 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Usuario> listar(){
+    public ArrayList<String[]> listar(){
 
-        List<Usuario> lista = new ArrayList<>();
+        ArrayList<String[]> lista = new ArrayList<>();
 
         this.abrirConexion();
 
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM usuarios");
 
+            String[] a = new String[4];
+
             while (rs.next()){
-                lista.add(new Usuario(rs.getString(1),
-                        rs.getString(2),
-                        Usuario.TipoUsuario.valueOf(rs.getString(3))));
+                a[0] = rs.getString("nombre_usuario");
+                a[1] = rs.getString("contrasenya");
+                a[2] = rs.getString("tipo");
+                a[3] = rs.getString("id_almacen");
+
+                lista.add(a);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -120,9 +125,9 @@ public class UsuarioDAO extends ConexionBD {
 
             pSentencia.setString(1, nombreUsuario);
             ResultSet rs = pSentencia.executeQuery();
-            rs.next();
 
-            usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
+            if (rs.next())
+                usuario = new Usuario(rs.getString(1), rs.getString(2), Usuario.TipoUsuario.valueOf(rs.getString(3)));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
