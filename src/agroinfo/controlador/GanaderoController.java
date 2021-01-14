@@ -328,6 +328,7 @@ public class GanaderoController implements Initializable {
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
+        scene.setUserData(Venta.TipoVenta.Ganaderia);
         scene.setFill(Color.TRANSPARENT);
 
         Stage stage = new Stage();
