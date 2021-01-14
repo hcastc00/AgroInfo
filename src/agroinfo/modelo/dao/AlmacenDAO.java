@@ -22,15 +22,17 @@ public class AlmacenDAO extends ConexionBD {
 
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM almacen WHERE id = 1");
-            almacen = new Almacen();
-            almacen.setConejos(rs.getInt("conejos"));
-            almacen.setPiensoLactancia(rs.getDouble("pienso_lactancia"));
-            almacen.setPiensoMedicado(rs.getDouble("pienso_medicado"));
-            almacen.setPiensoRemate(rs.getDouble("pienso_remate"));
-            almacen.setExcedenteTrigo(rs.getInt("excedente_trigo"));
-            almacen.setExcedenteMaiz(rs.getInt("excedente_maiz"));
-            almacen.setExcedenteRemolacha(rs.getInt("excedente_remolacha"));
-            almacen.setExcedenteCebada(rs.getInt("excedente_cebada"));
+            while(rs.next()) {
+                almacen = new Almacen();
+                almacen.setConejos(rs.getInt("conejos"));
+                almacen.setPiensoLactancia(rs.getDouble("pienso_lactancia"));
+                almacen.setPiensoMedicado(rs.getDouble("pienso_medicado"));
+                almacen.setPiensoRemate(rs.getDouble("pienso_remate"));
+                almacen.setExcedenteTrigo(rs.getInt("excedente_trigo"));
+                almacen.setExcedenteMaiz(rs.getInt("excedente_maiz"));
+                almacen.setExcedenteRemolacha(rs.getInt("excedente_remolacha"));
+                almacen.setExcedenteCebada(rs.getInt("excedente_cebada"));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
