@@ -84,7 +84,7 @@ public class AdminController implements Initializable {
     private List<String[]> logs;
     private Node[] nodesL;
 
-    //Lista de conejas
+    //Lista de usuario
     private List<String[]> usuarios;
     private Node[] nodesU;
 
@@ -103,7 +103,8 @@ public class AdminController implements Initializable {
      * Esta variable indica en que vista esta el programa para facilitar metodos
      *      - El 0 es para Usuarios
      *      - El 1 es para Gastos
-     *      - El 2 es para Auditoria
+     *      - El 2 es para Ventas
+     *      - El 3 es para Auditoria
      */
     private int panel;
 
@@ -143,34 +144,11 @@ public class AdminController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelAuditoria.setVisible(true);
-
-        this.listaAuditoria.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        this.usuario.setCellValueFactory(u -> new ReadOnlyStringWrapper(u.getValue()[0]));
-        this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(f.getValue()[1]));
-        this.tipo.setCellValueFactory(t -> new ReadOnlyStringWrapper(t.getValue()[2]));
-        this.log.setCellValueFactory(l -> new ReadOnlyStringWrapper(l.getValue()[3]));
-
-        FilteredList<String[]> filteredData = new FilteredList<>(FXCollections.observableArrayList(registroDAO.listar()), p -> true);
-        SortedList<String[]> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(this.listaAuditoria.comparatorProperty());
-        this.listaAuditoria.setItems(sortedData);
-
-        buscar.textProperty().addListener((prop, old, text) -> {
-            filteredData.setPredicate(logs -> {
-                if(text == null || text.isEmpty()) return true;
-
-                String name = logs[0];
-                String fecha = logs[1];
-                String tipo = logs[2];
-                String log = logs[3];
-                return name.contains(text) || tipo.contains(text) || fecha.contains(text) || log.contains(text);
-            });
-        });
-
+        this.pintaAuditoria();
     }
 
     @FXML
-    void mostrarGastos() {
+    private void mostrarGastos() {
         Task<Boolean> t = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
@@ -198,14 +176,14 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    void mostrarUsuarios() {
+    private void mostrarUsuarios() {
         Task<Boolean> t = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
 
-                if (gastos == null || gastos.isEmpty()) {
-                    gastos = gastoDAO.listar(Gasto.TipoGasto.Ganaderia);
-                    nodesG = new Node[gastos.size()];
+                if (usuarios == null || usuarios.isEmpty()) {
+                    usuarios = usuarioDAO.listar();
+                    nodesU = new Node[usuarios.size()];
                     return true;
                 }
                 return false;
@@ -214,8 +192,8 @@ public class AdminController implements Initializable {
 
         t.setOnSucceeded(workerStateEvent -> {
             if(t.getValue())
-                this.pintaGasto();
-            this.panel = 2;
+                this.pintaUsuario();
+            this.panel = 0;
             this.panelGastos.setVisible(false);
             this.panelVentas.setVisible(false);
             this.panelAuditoria.setVisible(false);
@@ -255,6 +233,41 @@ public class AdminController implements Initializable {
     }
 
     //METODOS AUXILIARES
+    private void pintaUsuario() {
+
+        this.listaUsuarios.getChildren().clear();
+        for (int i = 0; i < usuarios.size(); i++) {
+            try {
+                nodesU[i] = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/usuario.fxml"));
+
+                //Id
+                Label id = (Label) nodesU[i].lookup("#id");
+                id.setText(usuarios.get(i)[0]);
+
+                //Tipo
+                Label tipo = (Label) nodesU[i].lookup("#tipo");
+                tipo.setText(usuarios.get(i)[2]);
+
+                //Ultimo inicio de sesion
+                Label ultimoInicio = (Label) nodesU[i].lookup("#ultimoInicio");
+                if(!usuarios.get(i)[4].equals("null"))
+                    ultimoInicio.setText(usuarios.get(i)[4]);
+
+                //Borrar
+                JFXButton borrar = (JFXButton) nodesU[i].lookup("#botonBorrar");
+                borrar.setOnAction(e ->{
+                    usuarioDAO.eliminar(id.getText(),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    this.recargar();
+                });
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        this.listaUsuarios.getChildren().addAll(nodesU);
+    }
 
     private void pintaGasto() {
         this.listaGastos.getChildren().clear();
@@ -320,6 +333,32 @@ public class AdminController implements Initializable {
         this.listaVentas.getChildren().addAll(nodesV);
     }
 
+    private void pintaAuditoria() {
+        this.listaAuditoria.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.usuario.setCellValueFactory(u -> new ReadOnlyStringWrapper(u.getValue()[0]));
+        this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(f.getValue()[1]));
+        this.tipo.setCellValueFactory(t -> new ReadOnlyStringWrapper(t.getValue()[2]));
+        this.log.setCellValueFactory(l -> new ReadOnlyStringWrapper(l.getValue()[3]));
+
+        FilteredList<String[]> filteredData = new FilteredList<>(FXCollections.observableArrayList(registroDAO.listar()), p -> true);
+        SortedList<String[]> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(this.listaAuditoria.comparatorProperty());
+        this.listaAuditoria.setItems(sortedData);
+
+        buscar.textProperty().addListener((prop, old, text) -> {
+            filteredData.setPredicate(logs -> {
+                if(text == null || text.isEmpty()) return true;
+
+                String name = logs[0];
+                String fecha = logs[1];
+                String tipo = logs[2];
+                String log = logs[3];
+                return name.contains(text) || tipo.contains(text) || fecha.contains(text) || log.contains(text);
+            });
+        });
+
+    }
+
     private void moverVentana() {
         root.setOnMousePressed(pressEvent -> {
             root.setOnMouseDragged(dragEvent -> {
@@ -330,6 +369,37 @@ public class AdminController implements Initializable {
             });
         });
     }
+
+    @FXML
+    private void recargar() {
+        switch (this.panel) {
+            case 0 -> {
+                this.listaUsuarios.getChildren().clear();
+                this.usuarios = usuarioDAO.listar();
+                this.nodesU = new Node[usuarios.size()];
+                this.pintaUsuario();
+            }
+            case 1 -> {
+                this.listaGastos.getChildren().clear();
+                this.gastos = gastoDAO.listar();
+                this.nodesG = new Node[gastos.size()];
+                this.pintaGasto();
+            }
+            case 2 -> {
+                this.listaVentas.getChildren().clear();
+                this.ventas = ventaDAO.listar();
+                this.nodesV = new Node[ventas.size()];
+                this.pintaVenta();
+            }
+            case 3 -> {
+                this.pintaAuditoria();
+            }
+        }
+    }
+
+
+
+
 }
 
 

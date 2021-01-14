@@ -171,8 +171,9 @@ public class LoginController implements Initializable {
     @FXML
     public void easterEgg(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getClickCount() == 15) {
-            String audio = "resources/tractorAmarillo.mp3";
-            Media sound = new Media(new File(audio).toURI().toString());
+            String audio = "tractorAmarillo.mp3";
+            File f = new File(String.valueOf(this.getClass().getClassLoader().getResource(audio)));
+            Media sound = new Media(f.toString());
             new MediaPlayer(sound).play();
         }
     }

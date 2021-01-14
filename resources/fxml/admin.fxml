@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AdminController">
     <children>
@@ -80,7 +89,11 @@
                         </JFXTextField>
                      </children>
                   </HBox>
-                  <VBox fx:id="listaUsuarios" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" />
+                  <ScrollPane hbarPolicy="NEVER" layoutY="150.0" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="listaUsuarios" prefHeight="600.0" prefWidth="950.0" />
+                     </content>
+                  </ScrollPane>
                </children></Pane>
             <Pane fx:id="panelGastos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
@@ -118,7 +131,7 @@
                       </placeholder>
                     <columns>
                       <TableColumn fx:id="usuario" editable="false" prefWidth="133.0" resizable="false" text="Usuario" />
-                      <TableColumn fx:id="fecha" editable="false" minWidth="0.0" prefWidth="128.0" resizable="false" text="Fecha" />
+                      <TableColumn fx:id="fecha" editable="false" minWidth="0.0" prefWidth="128.0" text="Fecha" />
                         <TableColumn fx:id="tipo" editable="false" minWidth="0.0" prefWidth="143.0" resizable="false" text="Tipo" />
                         <TableColumn fx:id="log" editable="false" minWidth="0.0" prefWidth="545.0" resizable="false" text="Log" />
                     </columns>
