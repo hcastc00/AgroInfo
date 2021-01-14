@@ -23,11 +23,14 @@ public class AlmacenDAO extends ConexionBD {
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM almacen WHERE id = 1");
             almacen = new Almacen();
-            almacen.setConejos(rs.getInt(1));
-            almacen.setPiensoLactancia(rs.getDouble(2));
-            almacen.setPiensoMedicado(rs.getDouble(3));
-            almacen.setPiensoRemate(rs.getDouble(4));
-            almacen.setExcedenteTotal(rs.getInt(5));
+            almacen.setConejos(rs.getInt("conejos"));
+            almacen.setPiensoLactancia(rs.getDouble("pienso_lactancia"));
+            almacen.setPiensoMedicado(rs.getDouble("pienso_medicado"));
+            almacen.setPiensoRemate(rs.getDouble("pienso_remate"));
+            almacen.setExcedenteTrigo(rs.getInt("excedente_trigo"));
+            almacen.setExcedenteMaiz(rs.getInt("excedente_maiz"));
+            almacen.setExcedenteRemolacha(rs.getInt("excedente_remolacha"));
+            almacen.setExcedenteCebada(rs.getInt("excedente_cebada"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -46,7 +49,10 @@ public class AlmacenDAO extends ConexionBD {
                 " pienso_lactancia = ?," +
                 " pienso_medicado = ?," +
                 " pienso_remate = ?," +
-                " excedente_parcelas = ?" +
+                " excedente_trigo = ?," +
+                " excedente_maiz = ?," +
+                " excedente_remolacha = ?," +
+                " excedente_cebada = ?" +
                 " WHERE id = 1";
 
         try {
@@ -55,7 +61,10 @@ public class AlmacenDAO extends ConexionBD {
             pSentencia.setDouble(2, almacen.getPiensoLactancia());
             pSentencia.setDouble(3, almacen.getPiensoMedicado());
             pSentencia.setDouble(4, almacen.getPiensoRemate());
-            pSentencia.setInt   (5, almacen.getExcedenteTotal());
+            pSentencia.setInt   (5, almacen.getExcedenteTrigo());
+            pSentencia.setInt   (6, almacen.getExcedenteMaiz());
+            pSentencia.setInt   (7, almacen.getExcedenteRemolacha());
+            pSentencia.setInt   (8, almacen.getExcedenteCebada());
             pSentencia.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

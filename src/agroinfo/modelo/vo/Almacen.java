@@ -5,7 +5,10 @@ public class Almacen {
     private double piensoMedicado;
     private double piensoRemate;
     private int conejos;
-    private int excedenteTotal;
+    private int excedente_trigo;
+    private int excedente_maiz;
+    private int excedente_remolacha;
+    private int excedente_cebada;
 
     public double getPiensoLactancia() {
         return piensoLactancia;
@@ -39,11 +42,34 @@ public class Almacen {
         this.conejos = conejos;
     }
 
-    public int getExcedenteTotal() {
-        return excedenteTotal;
+    public int getExcedenteTrigo() {
+        return excedente_trigo;
     }
 
-    public void setExcedenteTotal(int excedenteTotal) {
-        this.excedenteTotal = excedenteTotal;
+    public void setExcedenteTrigo(int excedente_trigo) {
+        this.excedente_trigo = excedente_trigo;
     }
+
+    public int getExcedenteMaiz() {
+        return excedente_maiz;
+    }
+
+    public void setExcedenteMaiz(int excedente_maiz) {
+        this.excedente_maiz = excedente_maiz;
+    }
+
+    public int getExcedenteRemolacha() {
+        return excedente_remolacha;
+    }
+
+    public void setExcedenteRemolacha(int excedente_remolacha) { this.excedente_remolacha = excedente_remolacha; }
+
+    public int getExcedenteCebada() {
+        return excedente_cebada;
+    }
+
+    public void setExcedenteCebada(int excedente_cebada) {
+        this.excedente_cebada = excedente_cebada;
+    }
+
 }
