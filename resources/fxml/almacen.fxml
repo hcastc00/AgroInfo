@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AlmacenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AlmacenController">
     <children>
       <StackPane layoutX="50.0" layoutY="50.0">
          <children>
@@ -26,7 +26,7 @@
                                     <Insets left="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/agricultor.png" />
+                                    <Image url="@/img/agricultor.png" />
                                  </image>
                               </ImageView>
                               <Label text="Trigo:">
@@ -57,7 +57,7 @@
                                     <Insets left="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/agricultor.png" />
+                                    <Image url="@/img/cebada.png" />
                                  </image>
                               </ImageView>
                               <Label text="Cebada:">
@@ -88,7 +88,7 @@
                                     <Insets left="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/agricultor.png" />
+                                    <Image url="@/img/maiz.png" />
                                  </image>
                               </ImageView>
                               <Label text="Maiz:">
@@ -119,7 +119,7 @@
                                     <Insets left="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/agricultor.png" />
+                                    <Image url="@/img/remolacha.png" />
                                  </image>
                               </ImageView>
                               <Label fx:id="remolacha" text="No definido">
@@ -161,7 +161,7 @@
                                     <Insets right="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/coneja.png" />
+                                    <Image url="@/img/coneja.png" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER" prefHeight="27.0" prefWidth="73.0" text="Conejos:">
@@ -213,7 +213,7 @@
                                     <Insets right="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/coneja.png" />
+                                    <Image url="@/img/coneja.png" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER" prefHeight="27.0" prefWidth="140.0" text="Pienso Lactancia:">
@@ -265,7 +265,7 @@
                                     <Insets right="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/coneja.png" />
+                                    <Image url="@/img/coneja.png" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER" prefHeight="27.0" prefWidth="144.0" text="Pienso Medicado:">
@@ -317,7 +317,7 @@
                                     <Insets right="40.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../img/coneja.png" />
+                                    <Image url="@/img/coneja.png" />
                                  </image>
                               </ImageView>
                               <Label alignment="CENTER" prefHeight="27.0" prefWidth="126.0" text="Pienso Remate:">
