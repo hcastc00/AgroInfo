@@ -16,9 +16,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -145,6 +150,9 @@ public class LoginController implements Initializable {
 
     }
 
+    @FXML
+    private ImageView logo;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -158,6 +166,14 @@ public class LoginController implements Initializable {
         });
     }
 
-
     public static Usuario getUsuarioActual() { return usuarioActual; }
+
+    @FXML
+    public void easterEgg(javafx.scene.input.MouseEvent mouseEvent) {
+        if(mouseEvent.getClickCount() == 15) {
+            String audio = "resources/tractorAmarillo.mp3";
+            Media sound = new Media(new File(audio).toURI().toString());
+            new MediaPlayer(sound).play();
+        }
+    }
 }

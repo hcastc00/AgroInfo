@@ -1,2 +1,5 @@
 # Project exclude paths
 /out/
+/.idea/
+_config.yml
+AgroInfo.iml
