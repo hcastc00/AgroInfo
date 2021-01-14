@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AlmacenController">
     <children>
@@ -191,7 +185,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="+">
+                              <JFXButton onAction="#sumarConejos" prefHeight="30.0" prefWidth="30.0" text="+">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -199,7 +193,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="-">
+                              <JFXButton onAction="#restarConejos" prefHeight="30.0" prefWidth="30.0" text="-">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -243,7 +237,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="+">
+                              <JFXButton onAction="#sumarPiensoLactancia" prefHeight="30.0" prefWidth="30.0" text="+">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -251,7 +245,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="-">
+                              <JFXButton onAction="#restarPiensoLactancia" prefHeight="30.0" prefWidth="30.0" text="-">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -295,7 +289,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="+">
+                              <JFXButton onAction="#sumarPiensoMedicado" prefHeight="30.0" prefWidth="30.0" text="+">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -303,7 +297,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="-">
+                              <JFXButton onAction="#restarPiensoMedicado" prefHeight="30.0" prefWidth="30.0" text="-">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -347,7 +341,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="+">
+                              <JFXButton onAction="#sumarPiensoRemate" prefHeight="30.0" prefWidth="30.0" text="+">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -355,7 +349,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton prefHeight="30.0" prefWidth="30.0" text="-">
+                              <JFXButton onAction="#restarPiensoRemate" prefHeight="30.0" prefWidth="30.0" text="-">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
