@@ -42,7 +42,7 @@ public class AltaMaquinariaController {
     private void guardar(ActionEvent event) {
 
         boolean matriculaError = matricula.getText().isBlank() || !matricula.getText().matches("^[A-Za-z0-9]*$");
-        boolean nombreError = nombre.getText().isBlank() || !nombre.getText().matches("^[A-Za-z0-9]*$");
+        boolean nombreError = nombre.getText().isBlank();
 
         if(!matriculaError && !nombreError){
 
