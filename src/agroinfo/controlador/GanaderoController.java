@@ -8,6 +8,7 @@ import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Venta;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -18,17 +19,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class GanaderoController implements Initializable {
     private final ConejaDAO conejaDAO = new ConejaDAO();
@@ -65,7 +70,7 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private AnchorPane root;
-    
+
     @FXML
     private JFXButton temp;
 
@@ -197,7 +202,7 @@ public class GanaderoController implements Initializable {
 
         new Thread(t).start();
     }
-    
+
     @FXML
     private void salir(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
@@ -253,11 +258,11 @@ public class GanaderoController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void altaConeja(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaConejas.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
@@ -377,7 +382,7 @@ public class GanaderoController implements Initializable {
     }
 
     //METODOS AUXILIARES
-    
+
     private void pintaConejas() {
         this.listaConejas.getChildren().clear();
         int i = 0;
@@ -400,7 +405,7 @@ public class GanaderoController implements Initializable {
                 borrar.setOnAction(e ->{
                     conejaDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
-                            this.recargar();
+                    this.recargar();
                 });
 
             } catch (IOException e) {
@@ -441,6 +446,15 @@ public class GanaderoController implements Initializable {
                     this.recargar();
                 });
 
+                //Desc
+                JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
+                verDesc.setOnAction(e ->{
+                    try {
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion());
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -475,12 +489,36 @@ public class GanaderoController implements Initializable {
                     this.recargar();
                 });
 
+                //Desc
+                JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
+                verDesc.setOnAction(e ->{
+                    try {
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion());
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         this.listaGastos.getChildren().addAll(nodesG);
+    }
+
+    private void pintarDescripcion(String d) throws IOException {
+        Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
+        Scene scene = new Scene(loader);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+
+        JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
+        desc.setText(d);
     }
 
     private void pintaAlmacen() {
