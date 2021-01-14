@@ -19,7 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -450,8 +452,9 @@ public class GanaderoController implements Initializable {
                 JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
                 verDesc.setOnAction(e ->{
                     try {
-                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion());
-                    } catch (IOException ioException) {
+                        Image img = new Image(this.getClass().getClassLoader().getResource("img/venta.png").toURI().toString());
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                    } catch (IOException | URISyntaxException ioException) {
                         ioException.printStackTrace();
                     }
                 });
@@ -493,8 +496,9 @@ public class GanaderoController implements Initializable {
                 JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
                 verDesc.setOnAction(e ->{
                     try {
-                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion());
-                    } catch (IOException ioException) {
+                        Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                    } catch (IOException | URISyntaxException ioException) {
                         ioException.printStackTrace();
                     }
                 });
@@ -506,7 +510,7 @@ public class GanaderoController implements Initializable {
         this.listaGastos.getChildren().addAll(nodesG);
     }
 
-    private void pintarDescripcion(String d) throws IOException {
+    private void pintarDescripcion(String d, Image i) throws IOException {
         Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
@@ -519,6 +523,10 @@ public class GanaderoController implements Initializable {
 
         JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
         desc.setText(d);
+
+        ImageView img = (ImageView)scene.lookup("#imagen");
+        img.setImage(i);
+
     }
 
     private void pintaAlmacen() {

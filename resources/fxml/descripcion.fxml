@@ -30,16 +30,11 @@
                         <Font size="18.0" />
                     </font>
                 </JFXTextArea>
-                <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="298.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="imagen" fitHeight="90.0" fitWidth="90.0" layoutX="298.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@/img/gasto.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="error" layoutX="295.0" layoutY="210.0" prefHeight="35.0" prefWidth="257.0" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
             </children>
             <effect>
                 <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
