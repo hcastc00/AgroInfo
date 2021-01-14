@@ -42,9 +42,8 @@ public class AltaGastoController {
     @FXML
     public void guardar(ActionEvent event) {
 
-        boolean importeError = importe.getText().isBlank() || !importe.getText().matches("/^[+]?([0-9]+(?:[\\.][0-9]*)?|\\.[0-9]+)$/");
+        boolean importeError = importe.getText().isBlank() || !importe.getText().matches("^[0-9]+([,.][0-9]?)?$");
 
-        System.out.println(botonGuardar.getScene().getUserData());
 
         if(!importeError){
 

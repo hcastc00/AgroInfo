@@ -87,7 +87,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </ImageView>
-                        <JFXButton fx:id="gasto" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
+                        <JFXButton fx:id="gasto" onAction="#altaGasto" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
@@ -121,7 +121,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </ImageView>
-                        <JFXButton fx:id="venta" onAction="#altaConeja" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
+                        <JFXButton fx:id="venta" onAction="#altaVenta" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
