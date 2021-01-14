@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -11,79 +12,221 @@
    <children>
       <Pane layoutX="22.0" layoutY="25.0" prefHeight="550.0" prefWidth="855.0" style="-fx-background-color: #86c541; -fx-background-radius: 3em;">
          <children>
-            <ImageView fitHeight="84.0" fitWidth="88.0" layoutX="236.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/img/parcela.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="titulo" layoutX="353.0" layoutY="39.0" text="Nueva Parcela:" textFill="#3a3a3a">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="153.0" layoutY="178.0" text="ID:" textFill="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="botonGuardar" layoutX="347.0" layoutY="459.0" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #3a3a3a; -fx-background-radius: 2em;" text="Guardar" textFill="#86c541">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXTextField fx:id="idParcela" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="205.0" layoutY="157.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXTextField>
-            <JFXButton layoutX="796.0" layoutY="26.0" onAction="#close" text="X" />
-            <Label fx:id="error" contentDisplay="CENTER" layoutX="286.0" layoutY="107.0" text="El ID debe ser un numero" textAlignment="CENTER" textFill="#e43c3c" visible="false">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="431.0" layoutY="191.0" text="Tipo Parcela:" textFill="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <JFXComboBox fx:id="tipoParcela" focusColor="#3a3a3a" layoutX="587.0" layoutY="171.0" prefHeight="40.0" prefWidth="150.0" unFocusColor="#3a3a3a" />
-            <Label layoutX="431.0" layoutY="367.0" text="Tipo Cultivo:" textFill="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <JFXComboBox fx:id="tipoCultivo" focusColor="#3a3a3a" layoutX="582.0" layoutY="348.0" prefHeight="40.0" prefWidth="150.0" unFocusColor="#3a3a3a" />
-            <Label layoutX="104.0" layoutY="263.0" text="Latitud:" textFill="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="latitud" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="205.0" layoutY="255.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXTextField>
-            <Label layoutX="86.0" layoutY="355.0" text="Longitud:" textFill="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="longitud" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="205.0" layoutY="339.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXTextField>
-            <Label layoutX="473.0" layoutY="283.0" text="Tamaño:" textFill="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="tam" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="582.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </JFXTextField>
+            <VBox layoutY="-4.0" prefHeight="550.0" prefWidth="855.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="109.0" prefWidth="855.0">
+                     <children>
+                        <Pane>
+                           <children>
+                              <ImageView fitHeight="84.0" fitWidth="88.0" layoutX="14.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/parcela.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="titulo" layoutX="110.0" layoutY="18.0" prefHeight="35.0" prefWidth="170.0" text="Nueva Parcela:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Pane>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="13.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="34.0" prefWidth="855.0">
+                     <children>
+                        <Label fx:id="error" contentDisplay="CENTER" prefHeight="35.0" prefWidth="718.0" text="El ID debe ser un numero" textAlignment="CENTER" textFill="#e43c3c" visible="false">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="68.0" prefWidth="855.0">
+                     <children>
+                        <Pane prefHeight="50.0" prefWidth="295.0">
+                           <children>
+                              <Label layoutY="22.0" text="ID:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="idParcela" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </JFXTextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="68.0" prefWidth="295.0">
+                           <children>
+                              <Label layoutY="22.0" text="Tipo Parcela:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <JFXComboBox fx:id="tipoParcela" focusColor="#3a3a3a" layoutX="131.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" unFocusColor="#3a3a3a" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </Pane>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="68.0" prefWidth="855.0">
+                     <children>
+                        <Pane prefHeight="61.0" prefWidth="295.0">
+                           <children>
+                              <JFXTextField fx:id="latitud" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </JFXTextField>
+                              <Label layoutY="22.0" text="Latitud:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="68.0" prefWidth="295.0">
+                           <children>
+                              <JFXTextField fx:id="tam" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </JFXTextField>
+                              <Label layoutY="22.0" text="Tamaño:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </Pane>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="855.0">
+                     <children>
+                        <Pane prefHeight="68.0" prefWidth="295.0">
+                           <children>
+                              <JFXTextField fx:id="longitud" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                              <Label layoutY="22.0" text="Longitud:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="68.0" prefWidth="295.0">
+                           <children>
+                              <JFXComboBox fx:id="tipoCultivo" focusColor="#3a3a3a" layoutX="131.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" unFocusColor="#3a3a3a" />
+                              <Label layoutY="22.0" text="Tipo Cultivo:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="68.0" prefWidth="855.0">
+                     <children>
+                        <Pane prefHeight="68.0" prefWidth="295.0">
+                           <children>
+                              <Label layoutY="22.0" text="Produccion:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <JFXTextField fx:id="produccion" alignment="BOTTOM_LEFT" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="40.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="100.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="68.0" prefWidth="295.0">
+                           <children>
+                              <Label layoutY="22.0" text="Excedente:" textFill="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <JFXTextField fx:id="excedente" alignment="BOTTOM_LEFT" editable="false" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="30.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="90.0" />
+                           </HBox.margin>
+                        </Pane>
+                     </children></HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="botonGuardar" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #3a3a3a; -fx-background-radius: 2em;" text="Guardar" textFill="#86c541">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="20.0" top="40.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <JFXButton layoutX="808.0" layoutY="24.0" onAction="#close" text="X" />
          </children>
          <effect>
             <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
