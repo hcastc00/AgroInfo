@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AdminController">
     <children>
@@ -176,7 +186,7 @@
                   <VBox fx:id="listaVentas" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" />
                </children>
             </Pane>
-            <Pane fx:id="panelAyuda" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+            <Pane fx:id="panelAyuda" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <StackPane prefHeight="750.0" prefWidth="950.0">
                      <children>
@@ -216,12 +226,12 @@
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -240,12 +250,12 @@
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -264,12 +274,12 @@
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -288,12 +298,12 @@
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </HBox>
                                  </children>

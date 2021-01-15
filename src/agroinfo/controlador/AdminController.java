@@ -148,6 +148,7 @@ public class AdminController implements Initializable {
      *      - El 4 es para Ayuda
      */
     private int panel;
+
     /*
      * Esta variable indica el panel de la ayuda
      *      - El 0 es para Usuario
@@ -229,6 +230,7 @@ public class AdminController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelAyuda.setVisible(false);
+        this.panelAyuda.setVisible(false);
         this.panelAuditoria.setVisible(true);
 
         listaAuditoria.setItems(null);
@@ -260,6 +262,7 @@ public class AdminController implements Initializable {
             this.panelAuditoria.setVisible(false);
             this.panelVentas.setVisible(false);
             this.panelAyuda.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelGastos.setVisible(true);
         });
 
@@ -273,6 +276,7 @@ public class AdminController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelAuditoria.setVisible(false);
+        this.panelAyuda.setVisible(false);
         this.panelAyuda.setVisible(false);
         this.panelUsuarios.setVisible(true);
 
@@ -306,6 +310,7 @@ public class AdminController implements Initializable {
             this.panelUsuarios.setVisible(false);
             this.panelGastos.setVisible(false);
             this.panelAuditoria.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelAyuda.setVisible(false);
             this.panelVentas.setVisible(true);
         });

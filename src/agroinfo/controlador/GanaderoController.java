@@ -97,6 +97,42 @@ public class GanaderoController implements Initializable {
     private Pane panelEventos;
 
     @FXML
+    private Pane panelAyuda;
+
+    @FXML
+    private Pane altaVentaP;
+
+    @FXML
+    private Pane ventaP;
+
+    @FXML
+    private Pane descripcionGasto;
+
+    @FXML
+    private Pane gastosP;
+
+    @FXML
+    private Pane almacenP;
+
+    @FXML
+    private Pane altaEventoConejaP;
+
+    @FXML
+    private Pane eventoConejaP;
+
+    @FXML
+    private Pane altaConejasP;
+
+    @FXML
+    private Pane descripcionVentaP;
+
+    @FXML
+    private Pane altaGastosP;
+
+    @FXML
+    private Pane conejasP;
+
+    @FXML
     private TableView<EventoConeja> listaEventos;
 
     @FXML
@@ -140,8 +176,25 @@ public class GanaderoController implements Initializable {
      *      - El 2 es para Ventas
      *      - El 3 es para Gastos
      *      - El 4 es para Los Eventos de las conejas
+     *      - El 5 es para la Ayuda
      */
     private int panel;
+
+    /*
+     * Esta variable indica el panel de la ayuda
+     *      - El 0 es para Conejas
+     *      - El 1 es para AltaConeja
+     *      - El 2 es para EventoConeja
+     *      - El 3 es para AltaEventoConeja
+     *      - El 4 es para Almacen
+     *      - El 5 es para Gastos
+     *      - El 6 es para AltaGasto
+     *      - El 7 es para DescripcionGasto
+     *      - El 8 es para Venta
+     *      - El 9 es para AltaVenta
+     *      - El 10  es para DescripcionVenta
+     */
+    private int panelA;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -285,6 +338,140 @@ public class GanaderoController implements Initializable {
 
         new Thread(t).start();
 
+    }
+
+    @FXML
+    private void mostrarAyuda() {
+        this.panel = 5;
+        this.panelA = 0;
+        this.panelConejas.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelAlmacen.setVisible(false);
+        this.panelEventos.setVisible(false);
+        this.panelAyuda.setVisible(true);
+    }
+
+    @FXML
+    private void siguiente(){
+        switch (panelA) {
+            case 0 -> {
+                this.conejasP.setVisible(false);
+                this.altaConejasP.setVisible(true);
+                this.panelA = 1;
+            }
+            case 1 -> {
+                altaConejasP.setVisible(false);
+                eventoConejaP.setVisible(true);
+                this.panelA = 2;
+            }
+            case 2 -> {
+                eventoConejaP.setVisible(false);
+                altaEventoConejaP.setVisible(true);
+                this.panelA = 3;
+            }
+            case 3 -> {
+                altaEventoConejaP.setVisible(false);
+                almacenP.setVisible(true);
+                this.panelA = 4;
+            }
+            case 4 -> {
+                almacenP.setVisible(false);
+                gastosP.setVisible(true);
+                this.panelA = 5;
+            }
+            case 5 -> {
+                this.gastosP.setVisible(false);
+                this.altaGastosP.setVisible(true);
+                this.panelA = 6;
+            }
+            case 6 -> {
+                this.altaGastosP.setVisible(false);
+                this.descripcionGasto.setVisible(true);
+                this.panelA = 7;
+            }
+            case 7 -> {
+                this.descripcionGasto.setVisible(false);
+                this.ventaP.setVisible(true);
+                this.panelA = 8;
+            }
+            case 8 -> {
+                this.ventaP.setVisible(false);
+                this.altaVentaP.setVisible(true);
+                this.panelA = 9;
+            }
+            case 9 -> {
+                this.altaVentaP.setVisible(false);
+                this.descripcionVentaP.setVisible(true);
+                this.panelA = 10;
+            }
+            case 10 -> {
+                this.descripcionVentaP.setVisible(false);
+                this.conejasP.setVisible(true);
+                this.panelA = 0;
+            }
+        }
+    }
+
+    @FXML
+    private void anterior(){
+        switch (panelA) {
+            case 0 -> {
+                this.conejasP.setVisible(false);
+                this.descripcionVentaP.setVisible(true);
+                this.panelA = 10;
+            }
+            case 1 -> {
+                this.altaConejasP.setVisible(false);
+                this.conejasP.setVisible(true);
+                this.panelA = 0;
+            }
+            case 2 -> {
+                this.eventoConejaP.setVisible(false);
+                this.altaConejasP.setVisible(true);
+                this.panelA = 1;
+            }
+            case 3 -> {
+                this.altaEventoConejaP.setVisible(false);
+                this.eventoConejaP.setVisible(true);
+                this.panelA = 2;
+            }
+            case 4 -> {
+                this.almacenP.setVisible(false);
+                this.altaEventoConejaP.setVisible(true);
+                this.panelA = 3;
+            }
+            case 5 -> {
+                this.gastosP.setVisible(false);
+                this.almacenP.setVisible(true);
+                this.panelA = 4;
+            }
+            case 6 -> {
+                this.altaGastosP.setVisible(false);
+                this.gastosP.setVisible(true);
+                this.panelA = 5;
+            }
+            case 7 -> {
+                this.descripcionGasto.setVisible(false);
+                this.altaGastosP.setVisible(true);
+                this.panelA = 6;
+            }
+            case 8 -> {
+                this.ventaP.setVisible(false);
+                this.descripcionGasto.setVisible(true);
+                this.panelA = 7;
+            }
+            case 9 -> {
+                this.altaVentaP.setVisible(false);
+                this.ventaP.setVisible(true);
+                this.panelA = 9;
+            }
+            case 10 -> {
+                this.descripcionVentaP.setVisible(false);
+                this.altaVentaP.setVisible(true);
+                this.panelA = 9;
+            }
+        }
     }
 
     private void pintaEventosConeja(int id) {
