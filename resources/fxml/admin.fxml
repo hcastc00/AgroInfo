@@ -191,7 +191,7 @@
                                     </Label>
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/img/Auditoria.png" />
+                                          <Image url="@/img/ayuda/Auditoria.png" />
                                        </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
@@ -224,7 +224,7 @@
                                     </Label>
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/img/Ventas.png" />
+                                          <Image url="@/img/ayuda/Ventas.png" />
                                        </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
@@ -257,7 +257,7 @@
                                     </Label>
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/img/Gastos.png" />
+                                          <Image url="@/img/ayuda/Gastos.png" />
                                        </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
@@ -290,7 +290,7 @@
                                     </Label>
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/img/AltaUsuario.png" />
+                                          <Image url="@/img/ayuda/AltaUsuario.png" />
                                        </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
@@ -323,7 +323,7 @@
                                     </Label>
                                     <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/img/AyudaAdmin.png" />
+                                          <Image url="@/img/ayuda/AyudaAdmin.png" />
                                        </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
