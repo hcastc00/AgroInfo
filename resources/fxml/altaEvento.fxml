@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaEventoController">
     <children>
@@ -42,7 +46,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-            <JFXDatePicker fx:id="fecha" defaultColor="#3a3a3a" layoutX="368.0" layoutY="150.0" prefHeight="40.0" prefWidth="200.0" />
+            <JFXDatePicker fx:id="fecha" defaultColor="#3a3a3a" editable="false" layoutX="368.0" layoutY="150.0" prefHeight="40.0" prefWidth="200.0" />
             </children>
             <effect>
                 <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
