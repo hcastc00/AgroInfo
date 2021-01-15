@@ -186,9 +186,17 @@ public class AgricultorController implements Initializable {
         this.listaEventos.setOnMouseClicked((MouseEvent event) -> {
             if(event.getButton().equals(MouseButton.PRIMARY)){
                 eventoSeleccionado = listaEventos.getSelectionModel().getSelectedItem();
+                if(event.getClickCount() == 2) {
+                    try {
+                        modificarEvento();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }
+
 
     @FXML
     private void altaParcela(ActionEvent event) throws IOException {
@@ -276,7 +284,7 @@ public class AgricultorController implements Initializable {
     @FXML
     private void altaVenta(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setUserData(Venta.TipoVenta.Agricultura);
@@ -296,14 +304,15 @@ public class AgricultorController implements Initializable {
     @FXML
     private void altaEvento(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEvento.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
 
         JFXButton boton = (JFXButton)actionEvent.getSource();
-        Label label = (Label)boton.getScene().lookup("#idEscondido");
+
+ //       scene.setUserData(eventoSeleccionado);
 
         //Si el id esta vacio, es maquinaria
         if(idEscondido == null || idEscondido.getText().isBlank()){
@@ -326,6 +335,36 @@ public class AgricultorController implements Initializable {
     private void eliminarEvento(){
         eventoDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
         this.recargar();
+    }
+
+    private void modificarEvento() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEvento.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setUserData(eventoSeleccionado);
+        scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
+
+        Label titulo = (Label) root.lookup("#titulo");
+        titulo.setText("Modificar Evento");
+
+        JFXDatePicker fecha = (JFXDatePicker) root.lookup("#fecha");
+        fecha.setValue(eventoSeleccionado.getFecha().toLocalDate());
+
+        JFXTextArea descripcion = (JFXTextArea) root.lookup("#descripcion");
+        descripcion.setText(eventoSeleccionado.getDescripcion());
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
+
+
     }
 
     @FXML

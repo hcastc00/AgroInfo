@@ -22,7 +22,7 @@ public class EventoDAO extends ConexionBD {
 
 
         //Si el evento no tiene matrícula, el evento es de Parcela
-        if(evento.getMatricula() == null){
+        if(evento.getMatricula().equals("")){
             //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
             String sentencia = "INSERT into eventos(identificador_parcela, fecha, descripcion) "
                     + "VALUES (?, ?, ?)";
@@ -89,7 +89,7 @@ public class EventoDAO extends ConexionBD {
         this.abrirConexion();
 
         //Si el evento no tiene matrícula, el evento es de Parcela
-        if(evento.getMatricula() == null) {
+        if(evento.getMatricula().equals("")) {
             String sentencia = "UPDATE eventos SET " +
                     " identificador_parcela = ?," +
                     " fecha = ?," +
@@ -153,10 +153,11 @@ public class EventoDAO extends ConexionBD {
             pSentencia.setString(1, matricula);
             ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
-                Evento e = new Evento(rs.getString("matricula"),
+                Evento e = new Evento(
+                        rs.getInt("evento_id"),
+                        rs.getString("matricula"),
                         rs.getDate("fecha"),
                         rs.getString("descripcion"));
-                e.setId(rs.getInt("evento_id"));
 
                 lista.add(e);
             }
@@ -181,10 +182,11 @@ public class EventoDAO extends ConexionBD {
             pSentencia.setInt(1, identificadorParcela);
             ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
-                Evento evento = new Evento(rs.getString("identificador_parcela"),
+                Evento evento = new Evento(
+                        rs.getInt("evento_id"),
+                        rs.getInt("identificador_parcela"),
                         rs.getDate("fecha"),
                         rs.getString("descripcion"));
-                evento.setId(rs.getInt("evento_id"));
 
                 lista.add(evento);
             }
@@ -211,13 +213,14 @@ public class EventoDAO extends ConexionBD {
             rs.next();
 
             //Si no tiene matricula, el evento es de Parcela
-            if(rs.getString("matricula") == null){
-                e = new Evento(rs.getInt("identificadorParcela"),
+            if(rs.getString("matricula").equals("")){
+                e = new Evento(
+                        rs.getInt("evento_id"),
+                        rs.getInt("identificadorParcela"),
                         rs.getDate("fecha"),
                         rs.getString("descripcion"));
             }
 
-            e.setId(rs.getInt("evento_id"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

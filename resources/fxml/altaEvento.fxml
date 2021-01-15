@@ -11,7 +11,7 @@
     <children>
         <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" styleClass="pane">
             <children>
-                <Label layoutX="394.0" layoutY="72.0" text="Nuevo Evento" textFill="#3a3a3a">
+                <Label fx:id="titulo" layoutX="394.0" layoutY="72.0" text="Nuevo Evento" textFill="#3a3a3a">
                     <font>
                         <Font size="24.0" />
                     </font>

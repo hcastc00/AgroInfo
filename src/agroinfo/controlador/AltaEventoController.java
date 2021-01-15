@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.mysql.jdbc.log.Log;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -41,42 +42,65 @@ public class AltaEventoController {
 
 
     @FXML
-    private void guardar(ActionEvent actionEvent){
+    private void guardar(ActionEvent actionEvent) throws SQLException {
 
-        Object identificador = botonGuardar.getScene().getUserData();
+        Object objeto = botonGuardar.getScene().getUserData();
 
-        //TODO
         boolean fechaError = (fecha.getValue() == null);
         boolean descripcionError = (descripcion.getText().isBlank());
 
-        try {
-            if(!fechaError && !descripcionError) {
-                if (identificador instanceof String) {
-                    eventoDAO.crear(new Evento((String) identificador, java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
+        if(objeto instanceof String || objeto instanceof Integer) {
+            //GUARDAR
+            if (!fechaError && !descripcionError) {
+                //Si en correcto es un evento maquinaria
+                if (objeto instanceof String) {
+                    eventoDAO.crear(new Evento(String.valueOf(objeto), java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                 } else {
-                    eventoDAO.crear(new Evento((Integer) identificador, java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
+                    eventoDAO.crear(new Evento((Integer) objeto, java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                 }
                 this.close(actionEvent);
-            }else if (fechaError){
-                error.setText("Debe introducir una fecha");
-                error.setVisible(true);
-                new Shake(botonGuardar).play();
-                new FadeIn(error).play();
+            } else comprobar(fechaError, descripcionError);
 
-            }else if (descripcionError){
-                error.setText("Debe introducir una descripción");
-                error.setVisible(true);
-                new Shake(botonGuardar).play();
-                new FadeIn(error).play();
-
+        }else{
+            //MODIFICAR
+            if (!fechaError && !descripcionError) {
+                //Si en correcto es un evento maquinaria
+                Evento e = (Evento) objeto;
+                if (e.getIdentificadorParcela() == Integer.MIN_VALUE) {
+                    eventoDAO.modificar(new Evento(e.getId(),e.getMatricula(), java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                } else {
+                    eventoDAO.modificar(new Evento(e.getId(), e.getIdentificadorParcela(), java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                }
+                this.close(actionEvent);
+            } else {
+                comprobar(fechaError, descripcionError);
             }
 
-        } catch (SQLException ignored) {          }
+        }
 
 
 
+
+    }
+
+    private void comprobar(boolean fechaError, boolean descripcionError) {
+        if (fechaError) {
+            error.setText("Debe introducir una fecha");
+            error.setVisible(true);
+            new Shake(botonGuardar).play();
+            new FadeIn(error).play();
+
+        } else if (descripcionError) {
+            error.setText("Debe introducir una descripción");
+            error.setVisible(true);
+            new Shake(botonGuardar).play();
+            new FadeIn(error).play();
+
+        }
     }
 
     @FXML
