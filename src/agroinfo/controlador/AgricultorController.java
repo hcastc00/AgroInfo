@@ -299,11 +299,7 @@ public class AgricultorController implements Initializable {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
         stage.setOnHidden(windowEvent -> {
-            if(idEscondido.getText().isBlank()){
-               this.pintaEventosMaquinaria(matriculaEscondido.getText());
-            }else{
-                this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
-            }
+            this.recargar();
         });
     }
 
@@ -480,6 +476,7 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void mostrarEventosParcela(int id){
+        this.panel = 5;
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
         this.panelVentas.setVisible(false);
@@ -491,6 +488,7 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void mostrarEventosMaquinaria(String id){
+        this.panel = 5;
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
         this.panelVentas.setVisible(false);
@@ -568,6 +566,17 @@ public class AgricultorController implements Initializable {
                 this.pintaGasto();
             }
 
+            case 4 -> {
+                this.listaAlmacen.getChildren().clear();
+                this.almacen = almacenDAO.getAlmacen();
+                this.pintaAlmacen();
+            }
+
+            case 5 -> {
+                this.listaEventos.setItems(null);
+                if(matriculaEscondido.getText().isBlank()) this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
+                else this.pintaEventosMaquinaria(matriculaEscondido.getText());
+            }
         }
     }
 
