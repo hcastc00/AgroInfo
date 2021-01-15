@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AdminController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AdminController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
@@ -73,7 +82,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXTextField prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
+                        <JFXTextField fx:id="buscarUsuario" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -90,12 +99,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXButton prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXTextField prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
+                        <JFXTextField fx:id="buscarGasto" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="848.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -109,14 +113,14 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXTextField fx:id="buscar" prefHeight="44.0" prefWidth="848.0" promptText="Buscar..." styleClass="text">
+                        <JFXTextField fx:id="buscarAuditoria" prefHeight="44.0" prefWidth="848.0" promptText="Buscar..." styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </JFXTextField>
                      </children>
                   </HBox>
-                  <TableView fx:id="listaAuditoria" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" stylesheets="@../css/tableview.css">
+                  <TableView fx:id="listaAuditoria" layoutY="150.0" prefHeight="600.0" prefWidth="950.0">
                       <placeholder>
                               <Label text="" />
                       </placeholder>
@@ -133,12 +137,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXButton prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXTextField prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
+                        <JFXTextField fx:id="buscarVenta" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="848.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>

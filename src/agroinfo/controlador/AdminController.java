@@ -85,7 +85,16 @@ public class AdminController implements Initializable {
     private TableColumn<String[], String> log;
 
     @FXML
-    private TextField buscar;
+    private TextField buscarAuditoria;
+
+    @FXML
+    private TextField buscarGasto;
+
+    @FXML
+    private TextField buscarVenta;
+
+    @FXML
+    private TextField buscarUsuario;
 
     //Lista de logs
     private List<String[]> logs;
@@ -162,7 +171,7 @@ public class AdminController implements Initializable {
 
     @FXML
     void mostrarAuditoria() {
-        this.panel = 2;
+        this.panel = 3;
         this.panelUsuarios.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
@@ -243,6 +252,38 @@ public class AdminController implements Initializable {
         new Thread(t).start();
     }
 
+    @FXML
+    private void buscar() {
+        switch (this.panel) {
+            case 0 -> {
+                this.listaUsuarios.getChildren().clear();
+                this.listaUsuarios.getChildren().addAll(nodesU);
+                this.listaUsuarios.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarUsuario.getText() + ".*");
+                });
+            }
+            case 1 -> {
+                this.listaGastos.getChildren().clear();
+                this.listaGastos.getChildren().addAll(nodesG);
+                this.listaGastos.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    Label tipoGasto = (Label) node.lookup("#tipoGasto");
+                    return (!id.getText().matches(buscarGasto.getText() + ".*")) &&
+                            !tipoGasto.getText().matches(buscarGasto.getText() + ".*");
+                });
+            }
+            case 2 -> {
+                this.listaVentas.getChildren().clear();
+                this.listaVentas.getChildren().addAll(nodesV);
+                this.listaVentas.getChildren().removeIf(node -> {
+                    Label id = (Label) node.lookup("#id");
+                    return !id.getText().matches(buscarVenta.getText() + ".*");
+                });
+            }
+        }
+    }
+
     //METODOS AUXILIARES
     private void pintaUsuario() {
 
@@ -291,6 +332,7 @@ public class AdminController implements Initializable {
                             imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/admin.png")).toURI().toString()));
                 }
 
+                nodesU[i].getStyleClass().add(Ventana.color);
 
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
@@ -321,6 +363,7 @@ public class AdminController implements Initializable {
                 JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
                 borrar.setVisible(false);
 
+                nodesG[i].getStyleClass().add(Ventana.color);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -355,6 +398,13 @@ public class AdminController implements Initializable {
                 JFXButton borrar = (JFXButton) nodesV[i].lookup("#botonBorrar");
                 borrar.setVisible(false);
 
+                //Tipo venta
+                VBox cajaTipo = (VBox) nodesV[i].lookup("#cajaTipo");
+                Label tipo = (Label) nodesV[i].lookup("#tipo");
+                tipo.setText(ventas.get(i).getTipo().toString());
+                cajaTipo.setVisible(true);
+
+                nodesV[i].getStyleClass().add(Ventana.color);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -375,7 +425,7 @@ public class AdminController implements Initializable {
         sortedData.comparatorProperty().bind(this.listaAuditoria.comparatorProperty());
         this.listaAuditoria.setItems(sortedData);
 
-        buscar.textProperty().addListener((prop, old, text) -> {
+        buscarAuditoria.textProperty().addListener((prop, old, text) -> {
             filteredData.setPredicate(logs -> {
                 if(text == null || text.isEmpty()) return true;
 

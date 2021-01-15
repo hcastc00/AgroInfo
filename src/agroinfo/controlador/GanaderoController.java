@@ -388,31 +388,6 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void eliminarGasto(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void modificarGasto(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void crearEventoConeja(ActionEvent event) {
-        EventoConeja eventoConeja = new EventoConeja(1, new Date("Hoy"), EventoConeja.TipoEventoConeja.Inseminacion);
-    }
-
-    @FXML
-    private void eliminarEventoConeja(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void modificarEventoConeja(ActionEvent event) {
-
-    }
-
-    @FXML
     public void altaVenta(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
         Parent root = (Parent) loader.load();

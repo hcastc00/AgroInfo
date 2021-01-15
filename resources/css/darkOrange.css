@@ -37,7 +37,95 @@
     -jfx-unfocus-color: "#3a3a3a";
 }
 
+/* Pane basico */
 .pane{
     -fx-background-color : "#f7aa3e";
     -fx-background-radius: 1.5em;
+}
+
+/* Para el tableview */
+.table-view {
+    -fx-table-color: rgba(247, 170, 62, 0.4);
+    -fx-table-rippler-color: rgba(247, 170, 62, 0.6);
+    -fx-background-color:  transparent;
+    -fx-padding: 0 10 0 10;
+}
+
+.table-view:focused .table-row-cell:selected{
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-text-fill: BLACK;
+}
+
+.table-row-cell{
+    -fx-background-color:  rgba(247, 170, 62, 0.4);
+}
+
+.table-row-cell:odd{
+    -fx-background-color:  rgba(247, 170, 62, 0.3);
+}
+
+.table-view:focused .table-row-cell:selected .table-cell {
+    -fx-text-fill: BLACK;
+}
+
+.table-view .column-header,
+.table-view .column-header-background,
+.table-view .column-header-background .filler {
+    -fx-background-color: rgba(0, 0, 0, 0.1);;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-padding: 16 0 16 0;
+}
+
+.table-view .column-header .arrow, .table-view .column-header .sort-order-dot {
+    -fx-background-color: black;
+}
+
+.column-header {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.table-view .table-cell {
+    -fx-border-width: 0 0 0 0;
+    -fx-padding: 16 0 16 0;
+    -fx-alignment: top-center;
+}
+
+.table-view .column-overlay {
+    -fx-background-color: -fx-table-color;
+}
+
+.table-view .column-resize-line, .table-view .column-drag-header {
+    -fx-background-color: -fx-table-rippler-color;
+}
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-row-cell > .disclosure-node > .arrow {
+    -fx-background-color: -fx-text-fill;
+    -fx-padding: 0.333333em 0.229em 0.333333em 0.229em;
+    -fx-shape: "M 0 -3.5 L 4 0 L 0 3.5 z";
+}
+
+.table-row-cell .jfx-text-field {
+    -fx-focus-color: rgb(82, 100, 174);
+}
+
+.table-view .menu-item:focused {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+.table-view .menu-item .label {
+    -fx-padding: 5 0 5 0;
 }
