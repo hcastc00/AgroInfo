@@ -33,13 +33,13 @@
 
 .text-field{
     -fx-text-inner-color: "#3a3a3a";
-    -jfx-focus-color: "#DEB164";
+    -jfx-focus-color: green;
     -jfx-unfocus-color: "#3a3a3a";
 }
 
 /* Pane basico */
 .pane{
-    -fx-background-color : "#DEB164";
+    -fx-background-color : green;
     -fx-background-radius: 1.5em;
 }
 

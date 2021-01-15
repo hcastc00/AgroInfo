@@ -31,6 +31,12 @@
     -fx-background-radius: 2em;
 }
 
+.button-alta{
+    -fx-background-color: "#3a3a3a";
+    -fx-background-radius: 2em;
+    -fx-text-fill: "#DEB164";
+}
+
 .text-field{
     -fx-text-inner-color: "#3a3a3a";
     -jfx-focus-color: "#DEB164";
