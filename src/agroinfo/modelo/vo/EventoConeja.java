@@ -18,6 +18,13 @@ public class EventoConeja {
         this.tipoEventoConeja = tipoEventoConeja;
     }
 
+    public EventoConeja(int id, int idConeja, java.sql.Date fecha, TipoEventoConeja tipoEventoConeja) {
+        this.id = id;
+        this.idConeja = idConeja;
+        this.fecha = fecha;
+        this.tipoEventoConeja = tipoEventoConeja;
+    }
+
     public int getId() {
         return id;
     }

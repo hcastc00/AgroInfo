@@ -146,12 +146,12 @@ public class EventoConejaDAO extends ConexionBD {
 
             while(rs.next()){
                 EventoConeja ec = new EventoConeja(
+                        rs.getInt("evento_id"),
                         rs.getInt("identificador_coneja"),
                         rs.getDate("fecha"),
                         EventoConeja.TipoEventoConeja.valueOf(rs.getString("tipo"))
                 );
 
-                ec.setId(rs.getInt("evento_id"));
                 lista.add(ec);
             }
         } catch (SQLException throwables) {

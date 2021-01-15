@@ -4,10 +4,7 @@ import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.*;
 import agroinfo.vista.Ventana;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -39,6 +36,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -152,6 +150,9 @@ public class GanaderoController implements Initializable {
         this.listaEventos.setOnMouseClicked((MouseEvent event) -> {
             if(event.getButton().equals(MouseButton.PRIMARY)){
                 eventoSeleccionado = listaEventos.getSelectionModel().getSelectedItem();
+                if(event.getClickCount() == 2){
+                    modificarEventoConeja();
+                }
             }
         });
     }
@@ -381,9 +382,39 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void bajaConeja(ActionEvent event) {
+    private void modificarEventoConeja(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEventoConeja.fxml"));
+            Parent root = (Parent) loader.load();
 
+            EventoConeja eventoConeja = listaEventos.getSelectionModel().getSelectedItem();
 
+            Label titulo = (Label) root.lookup("#titulo");
+            titulo.setText("Modificar evento de coneja: " + eventoConeja.getIdConeja());
+
+            JFXDatePicker fecha = (JFXDatePicker) root.lookup("#fecha");
+            fecha.setValue((eventoConeja.getFecha()).toLocalDate());
+
+            JFXComboBox tipo = (JFXComboBox) root.lookup("#tipoEventoConeja");
+            tipo.getItems().addAll(EventoConeja.TipoEventoConeja.values());
+            tipo.setValue(eventoConeja.getTipoEventoConeja());
+
+            Scene scene = new Scene(root);
+            scene.setUserData(eventoSeleccionado);
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+            stage.show();
+            stage.setOnHidden(windowEvent -> {
+                this.recargar();
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -424,11 +455,6 @@ public class GanaderoController implements Initializable {
         });
     }
 
-    @FXML
-    private void eliminarVenta(ActionEvent event) {
-
-    }
-
 
     @FXML
     private void altaEvento(ActionEvent actionEvent) throws IOException {
@@ -439,12 +465,12 @@ public class GanaderoController implements Initializable {
         scene.setFill(Color.TRANSPARENT);
 
         JFXButton boton = (JFXButton)actionEvent.getSource();
-        Label label = (Label)boton.getScene().lookup("#idEscondido");
+        Label idConeja = (Label)boton.getScene().lookup("#idEscondido");
 
         JFXComboBox tipoEventoConeja = (JFXComboBox)root.lookup("#tipoEventoConeja");
         tipoEventoConeja.getItems().addAll(EventoConeja.TipoEventoConeja.values());
 
-        scene.setUserData(label.getText());
+        scene.setUserData(idConeja.getText());
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -530,6 +556,8 @@ public class GanaderoController implements Initializable {
                     mostrarEventosConeja(Integer.parseInt(id.getText()));
                 });
 
+                nodesC[i].getStyleClass().add(Ventana.color);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -579,6 +607,9 @@ public class GanaderoController implements Initializable {
                     }
                 });
 
+                nodesV[i].getStyleClass().add(Ventana.color);
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -622,6 +653,9 @@ public class GanaderoController implements Initializable {
                         ioException.printStackTrace();
                     }
                 });
+
+                nodesG[i].getStyleClass().add(Ventana.color);
+
 
             } catch (IOException e) {
                 e.printStackTrace();

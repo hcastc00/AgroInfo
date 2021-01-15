@@ -1,6 +1,7 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.dao.EventoConejaDAO;
+import agroinfo.modelo.vo.Evento;
 import agroinfo.modelo.vo.EventoConeja;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
@@ -41,16 +42,28 @@ public class AltaEventoConejaController{
     @FXML
     private void guardar(ActionEvent actionEvent){
 
-        Object objeto = botonGuardar.getScene().getUserData();
+        Object evento = botonGuardar.getScene().getUserData();
         boolean fechaError = (fecha.getValue() == null);
         boolean tipoError = (tipoEventoConeja.getValue() == null);
 
         try {
             if(!fechaError && !tipoError) {
-                eventoConejaDAO.crear(new EventoConeja((Integer.valueOf(objeto.toString())),
-                                java.sql.Date.valueOf(fecha.getValue()),
-                                (EventoConeja.TipoEventoConeja) tipoEventoConeja.getValue()),
-                                LoginController.getUsuarioActual().getNombreUsuario());
+                //Si evento es un String, estamos creando un conejo
+                if(evento instanceof String){
+                    eventoConejaDAO.crear(new EventoConeja((Integer.valueOf(evento.toString())),
+                                    java.sql.Date.valueOf(fecha.getValue()),
+                                    (EventoConeja.TipoEventoConeja) tipoEventoConeja.getValue()),
+                                    LoginController.getUsuarioActual().getNombreUsuario());
+                //Si evento es un EventoConeja, es un modificar
+                }else if(evento instanceof EventoConeja){
+                    EventoConeja nuevoEvento = new EventoConeja(
+                            ((EventoConeja) evento).getId(),
+                            ((EventoConeja) evento).getIdConeja(),
+                            java.sql.Date.valueOf(fecha.getValue()),
+                            (EventoConeja.TipoEventoConeja) tipoEventoConeja.getValue());
+                    eventoConejaDAO.modificar(nuevoEvento, LoginController.getUsuarioActual().getNombreUsuario());
+                }
+
                 this.close(actionEvent);
             }else if(fechaError){
                 error.setText("Debe introducir una fecha");
@@ -67,8 +80,8 @@ public class AltaEventoConejaController{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
+
 
     @FXML
     private void close(ActionEvent event) {
