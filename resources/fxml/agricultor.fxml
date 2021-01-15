@@ -219,7 +219,7 @@
                         </ScrollPane>
                     </children>
                 </Pane>
-            <Pane fx:id="panelEventos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+            <Pane fx:id="panelEventos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -260,6 +260,7 @@
                       <TableColumn fx:id="descripcion" prefWidth="755.0" text="Descripcion" />
                     </columns>
                   </TableView>
+                  <Label fx:id="idEscondido" layoutX="461.0" layoutY="367.0" visible="false" />
                </children>
             </Pane>
             </children></StackPane>
