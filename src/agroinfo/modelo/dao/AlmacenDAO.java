@@ -49,7 +49,11 @@ public class AlmacenDAO extends ConexionBD {
                 " conejos = ?," +
                 " pienso_lactancia = ?," +
                 " pienso_medicado = ?," +
-                " pienso_remate = ?" +
+                " pienso_remate = ?," +
+                " excedente_trigo = ?," +
+                " excedente_cebada = ?," +
+                " excedente_maiz = ?," +
+                " excedente_remolacha = ?" +
                 " WHERE id = 1";
 
         try {
@@ -58,6 +62,10 @@ public class AlmacenDAO extends ConexionBD {
             pSentencia.setDouble(2, almacen.getPiensoLactancia());
             pSentencia.setDouble(3, almacen.getPiensoMedicado());
             pSentencia.setDouble(4, almacen.getPiensoRemate());
+            pSentencia.setDouble(5, almacen.getExcedenteTrigo());
+            pSentencia.setDouble(6, almacen.getExcedenteCebada());
+            pSentencia.setDouble(7, almacen.getExcedenteMaiz());
+            pSentencia.setDouble(8, almacen.getExcedenteRemolacha());
             pSentencia.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

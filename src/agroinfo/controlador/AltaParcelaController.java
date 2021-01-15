@@ -54,6 +54,9 @@ public class AltaParcelaController {
     JFXButton botonGuardar;
 
     @FXML
+    JFXTextField produccion;
+
+    @FXML
     private Label error;
 
 
@@ -72,6 +75,7 @@ public class AltaParcelaController {
         boolean idParcelaError = idParcela.getText().isBlank() || !idParcela.getText().matches("^[0-9]*$");
         boolean latitudError =latitud.getText().isBlank() || !latitud.getText().matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$");
         boolean longitudError = longitud.getText().isBlank() || !longitud.getText().matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$");
+        boolean produccionError = produccion.getText().isBlank() || !produccion.getText().matches("^[0-9]*$");
         boolean tipoParcelaError = tipoParcela.getValue() == null;
         boolean tamError = tam.getText().isBlank() || !tam.getText().matches("^(0|([1-9][0-9]*))(\\.[0-9]+)?$");
         boolean tipoCultivoError = tipoCultivo.getValue() == null;
@@ -86,7 +90,7 @@ public class AltaParcelaController {
             latitudError=true;
         }
 
-        if(!idParcelaError && !latitudError && !longitudError && !tipoParcelaError && !tamError && !tipoCultivoError){
+        if(!idParcelaError && !latitudError && !longitudError && !tipoParcelaError && !tamError && !tipoCultivoError && !produccionError){
             if(botonGuardar.getScene().getUserData().equals("modificar")){
                 modificar(event);
             }else{
@@ -100,12 +104,15 @@ public class AltaParcelaController {
                 error.setText("La latitud tiene el formato incorrecto. Ej: 38.950184163856186");
             else if (longitudError)
                 error.setText("La longitud tiene el formato incorrecto. Ej: -77.05744303361926");
+            else if(produccionError)
+                error.setText("La produccion debe ser un numero positivo");
             else if(tipoParcelaError)
                 error.setText("Debe seleccionar un tipo de parcela");
             else if(tamError)
                 error.setText("El tamaño de la parcela debe ser un número positivo");
             else if(tipoCultivoError)
                 error.setText("Debe seleccionar un tipo de cultivo");
+
 
             error.setVisible(true);
             new Shake(botonGuardar).play();
@@ -121,8 +128,9 @@ public class AltaParcelaController {
                             Double.parseDouble(latitud.getText()),
                             Double.parseDouble(longitud.getText()), Double.parseDouble(tam.getText()),
                             Parcela.TipoParcela.valueOf(tipoParcela.getSelectionModel().getSelectedItem().toString()),
-                            Parcela.TipoCultivo.valueOf(tipoCultivo.getSelectionModel().getSelectedItem().toString())),
-                    LoginController.getUsuarioActual().getNombreUsuario());
+                            Parcela.TipoCultivo.valueOf(tipoCultivo.getSelectionModel().getSelectedItem().toString()),
+                            Double.parseDouble(produccion.getText())),
+                            LoginController.getUsuarioActual().getNombreUsuario());
 
             this.close(event);
 
@@ -146,10 +154,12 @@ public class AltaParcelaController {
         try {
             parcelaDAO.modificar(new Parcela(Integer.parseInt(idParcela.getText()),
                             Double.parseDouble(latitud.getText()),
-                            Double.parseDouble(longitud.getText()), Double.parseDouble(tam.getText()),
+                            Double.parseDouble(longitud.getText()),
+                            Double.parseDouble(tam.getText()),
                             Parcela.TipoParcela.valueOf(tipoParcela.getSelectionModel().getSelectedItem().toString()),
-                            Parcela.TipoCultivo.valueOf(tipoCultivo.getSelectionModel().getSelectedItem().toString())),
-                    LoginController.getUsuarioActual().getNombreUsuario());
+                            Parcela.TipoCultivo.valueOf(tipoCultivo.getSelectionModel().getSelectedItem().toString()),
+                            Double.parseDouble(produccion.getText())),
+                            LoginController.getUsuarioActual().getNombreUsuario());
 
             this.close(event);
 

@@ -111,7 +111,8 @@ public class ParcelaDAO extends ConexionBD {
                         rs.getDouble("longitud"),
                         rs.getDouble("tamanyo"),
                         Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
-                        Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
+                        Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")),
+                        rs.getDouble("produccion"));
 
                 p.setProduccion(rs.getDouble("produccion"));
 
@@ -146,7 +147,8 @@ public class ParcelaDAO extends ConexionBD {
                     rs.getDouble("longitud"),
                     rs.getDouble("tamanyo"),
                     Parcela.TipoParcela.valueOf(rs.getString("tipo_parcela")),
-                    Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")));
+                    Parcela.TipoCultivo.valueOf(rs.getString("tipo_cultivo")),
+                    rs.getDouble("produccion"));
 
             parcela.setProduccion(rs.getDouble("produccion"));
         } catch (SQLException throwables) {

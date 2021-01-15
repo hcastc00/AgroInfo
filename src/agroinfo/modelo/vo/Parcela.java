@@ -14,14 +14,15 @@ public class Parcela {
     private double excedente;
 
     //CONTRUCTOR
-    public Parcela(int id, double latitud, double longitud, double tam, TipoParcela tipoParcela, TipoCultivo tipoCultivo) {
+    public Parcela(int id, double latitud, double longitud, double tam, TipoParcela tipoParcela, TipoCultivo tipoCultivo,
+                   double produccion) {
         this.id = id;
         this.longitud = longitud;
         this.latitud = latitud;
         this.tam = tam;
         this.tipoParcela = tipoParcela;
         this.tipoCultivo = tipoCultivo;
-        this.produccion = 0;
+        this.produccion = produccion;
         this.excedente = 0;
     }
 
