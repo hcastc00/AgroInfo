@@ -99,8 +99,14 @@
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -123,8 +129,14 @@
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -147,8 +159,14 @@
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -171,8 +189,14 @@
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
