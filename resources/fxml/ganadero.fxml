@@ -5,6 +5,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
@@ -189,6 +191,50 @@
                         </ScrollPane>
                     </children>
                 </Pane>
+            <Pane fx:id="panelEventos" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/img/recargar.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="75.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <JFXButton fx:id="altaEvento" onAction="#altaEvento" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="eliminarEvento" layoutX="282.0" layoutY="61.0" onAction="#eliminarEvento" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Eliminar">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXTextField fx:id="buscarEvento" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="listaEventos" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" stylesheets="@../css/tableview.css">
+                     <placeholder>
+                        <Label text="" />
+                     </placeholder>
+                     <columns>
+                        <TableColumn fx:id="fecha" minWidth="80.0" prefWidth="194.0" text="Fecha" />
+                        <TableColumn fx:id="tipo" prefWidth="755.0" text="Tipo" />
+                     </columns>
+                  </TableView>
+                  <Label fx:id="idEscondido" layoutX="461.0" layoutY="367.0" visible="false" />
+               </children>
+            </Pane>
             </children></StackPane>
     </children>
 </AnchorPane>

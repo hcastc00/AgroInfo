@@ -2,14 +2,15 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
-import agroinfo.modelo.vo.Almacen;
-import agroinfo.modelo.vo.EventoConeja;
-import agroinfo.modelo.vo.Gasto;
-import agroinfo.modelo.vo.Venta;
+import agroinfo.modelo.vo.*;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +32,7 @@ import javafx.stage.*;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -85,6 +89,22 @@ public class GanaderoController implements Initializable {
     @FXML
     private JFXTextField buscarGasto;
 
+    @FXML
+    private JFXTextField buscarEvento;
+
+    @FXML
+    private Pane panelEventos;
+
+    @FXML
+    private TableView<EventoConeja> listaEventos;
+
+    @FXML
+    private TableColumn<EventoConeja, String> fecha;
+
+    @FXML
+    private TableColumn<EventoConeja, String> tipo;
+
+
     //Lista de conejas
     private List<String[]> conejas;
     private Node[] nodesC;
@@ -101,12 +121,16 @@ public class GanaderoController implements Initializable {
     private Node nodeA;
     private Almacen almacen;
 
+    //Lista de eventos
+    private List<EventoConeja> eventos;
+
     /*
      * Esta variable indica en que vista esta el programa para facilitar metodos
      *      - El 0 es para Coneja
      *      - El 1 es para Almacen
      *      - El 2 es para Ventas
      *      - El 3 es para Gastos
+     *      - El 4 es para Los Eventos de las conejas
      */
     private int panel;
 
@@ -123,6 +147,7 @@ public class GanaderoController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
+        this.panelEventos.setVisible(false);
         this.panelConejas.setVisible(true);
 
         if (this.conejas == null || this.conejas.isEmpty()) {
@@ -138,6 +163,7 @@ public class GanaderoController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelConejas.setVisible(false);
+        this.panelEventos.setVisible(false);
         this.panelAlmacen.setVisible(true);
 
         if(this.almacen == null){
@@ -145,35 +171,6 @@ public class GanaderoController implements Initializable {
             this.pintaAlmacen();
         }
 
-    }
-
-    @FXML
-    private void mostrarGastos(){
-
-        Task<Boolean> t = new Task<Boolean>() {
-            @Override
-            protected Boolean call() throws Exception {
-
-                if (gastos == null || gastos.isEmpty()) {
-                    gastos = gastoDAO.listar(Gasto.TipoGasto.Ganaderia);
-                    nodesG = new Node[gastos.size()];
-                    return true;
-                }
-                return false;
-            }
-        };
-
-        t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
-                this.pintaGasto();
-            this.panel = 3;
-            this.panelAlmacen.setVisible(false);
-            this.panelVentas.setVisible(false);
-            this.panelConejas.setVisible(false);
-            this.panelGastos.setVisible(true);
-        });
-
-        new Thread(t).start();
     }
 
     @FXML
@@ -199,10 +196,96 @@ public class GanaderoController implements Initializable {
             this.panelAlmacen.setVisible(false);
             this.panelConejas.setVisible(false);
             this.panelGastos.setVisible(false);
+            this.panelEventos.setVisible(false);
             this.panelVentas.setVisible(true);
         });
 
         new Thread(t).start();
+    }
+
+
+    @FXML
+    private void mostrarGastos(){
+
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+
+                if (gastos == null || gastos.isEmpty()) {
+                    gastos = gastoDAO.listar(Gasto.TipoGasto.Ganaderia);
+                    nodesG = new Node[gastos.size()];
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaGasto();
+            this.panel = 3;
+            this.panelAlmacen.setVisible(false);
+            this.panelVentas.setVisible(false);
+            this.panelConejas.setVisible(false);
+            this.panelEventos.setVisible(false);
+            this.panelGastos.setVisible(true);
+        });
+
+        new Thread(t).start();
+    }
+
+    @FXML
+    private void mostrarEventosConeja(int id){
+
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+
+                if (eventos == null || eventos.isEmpty()) {
+                    eventos = eventoConejaDAO.listar(id);
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaEventosConeja(id);
+
+            this.panel = 4;
+            this.panelConejas.setVisible(false);
+            this.panelGastos.setVisible(false);
+            this.panelVentas.setVisible(false);
+            this.panelAlmacen.setVisible(false);
+            this.panelEventos.setVisible(true);
+        });
+
+        new Thread(t).start();
+
+    }
+
+    private void pintaEventosConeja(int id) {
+
+        this.listaEventos.setItems(null);
+        this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
+        this.tipo.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getTipoEventoConeja().toString()));
+
+        FilteredList<EventoConeja> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoConejaDAO.listar(id)), p -> true);
+        SortedList<EventoConeja> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
+        this.listaEventos.setItems(sortedData);
+
+        buscarEvento.textProperty().addListener((prop, old, text) -> {
+            filteredData.setPredicate(eventos -> {
+                if(text == null || text.isEmpty()) return true;
+
+                String fecha = String.valueOf(eventos.getFecha());
+                String tipo = eventos.getTipoEventoConeja().toString();
+                return  fecha.contains(text) || tipo.contains(text);
+            });
+        });
     }
 
     @FXML
@@ -352,6 +435,42 @@ public class GanaderoController implements Initializable {
     private void eliminarVenta(ActionEvent event) {
     }
 
+
+    @FXML
+    private void altaEvento(ActionEvent actionEvent) throws IOException {
+        /*FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEvento.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        JFXButton boton = (JFXButton)actionEvent.getSource();
+        Label label = (Label)boton.getScene().lookup("#idEscondido");
+
+        //Si el id esta vacio, es maquinaria
+        if(idEscondido == null || idEscondido.getText().isBlank()){
+            scene.setUserData(matriculaEscondido.getText());
+        }else{
+            scene.setUserData(Integer.parseInt(idEscondido.getText()));
+        }
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });*/
+    }
+
+
+    @FXML
+    private void eliminarEvento(){
+/*        eventoDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
+        this.recargar();*/
+    }
+
     @FXML
     private void getTemperatura() {
         temp.setText((sensor.getTemperatura()) + "ºC");
@@ -408,6 +527,12 @@ public class GanaderoController implements Initializable {
                     conejaDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
+                });
+
+                //Eventos
+                JFXButton gestionarEventos = (JFXButton) nodesC[i].lookup("#botonEventos");
+                gestionarEventos.setOnAction(e ->{
+                    mostrarEventosConeja(Integer.parseInt(id.getText()));
                 });
 
             } catch (IOException e) {

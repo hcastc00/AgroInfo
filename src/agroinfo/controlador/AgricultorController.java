@@ -321,11 +321,6 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void verDescripcionVenta(ActionEvent actionEvent){
-
-    }
-
-    @FXML
     private void altaGasto(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaGasto.fxml"));
         Parent root = (Parent) loader.load();
