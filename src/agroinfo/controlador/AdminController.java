@@ -6,6 +6,7 @@ import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.mysql.jdbc.log.Log;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +25,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -130,9 +134,25 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    void crearUsuario(ActionEvent event){
-        Usuario u = new Usuario("pepe","pepe", Usuario.TipoUsuario.Agricultor);
+    void crearUsuario(ActionEvent event) throws IOException {
 
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaUsuario.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        JFXComboBox tipoParcela = (JFXComboBox)root.lookup("#tipo");
+        tipoParcela.getItems().addAll(Usuario.TipoUsuario.values());
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
     }
 
     @FXML
@@ -406,8 +426,6 @@ public class AdminController implements Initializable {
             }
         }
     }
-
-
 
 
 }
