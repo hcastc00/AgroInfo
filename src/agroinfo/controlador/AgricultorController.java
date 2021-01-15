@@ -6,14 +6,11 @@ import agroinfo.modelo.vo.*;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,20 +26,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -91,6 +83,33 @@ public class AgricultorController implements Initializable {
     private Pane panelEventos;
 
     @FXML
+    private Pane panelAyuda;
+
+    @FXML
+    private Pane almacenP;
+
+    @FXML
+    private Pane maquinariaP;
+
+    @FXML
+    private Pane eventosP;
+
+    @FXML
+    private Pane altaParcelaP;
+
+    @FXML
+    private Pane parcelasP;
+
+    @FXML
+    private Pane ventaP;
+
+    @FXML
+    private Pane gastoP;
+
+    @FXML
+    private Pane altaEventoP;
+
+    @FXML
     private VBox listaMaquinaria;
 
     @FXML
@@ -133,8 +152,22 @@ public class AgricultorController implements Initializable {
      *      - El 2 es para Ventas
      *      - El 3 es para Gastos
      *      - El 4 es para Almacen
+     *      - El 5 es para Ayuda
      */
     private int panel;
+
+    /*
+     * Esta variable indica el panel de la ayuda
+     *      - El 0 es para Parcelas
+     *      - El 1 es para AltaParcela
+     *      - El 2 es para Eventos
+     *      - El 3 es para Maquinaria
+     *      - El 4 es para Almacen
+     *      - El 5 es para Ventas
+     *      - El 6 es para Gasto
+     *      - El 7 es para AltaEvento
+     */
+    private int panelA;
 
     // Lista de las parcelas
     private List<Parcela> parcelas;
@@ -395,6 +428,7 @@ public class AgricultorController implements Initializable {
         this.panelVentas.setVisible(false);
         this.panelAlmacen.setVisible(false);
         this.panelEventos.setVisible(false);
+        this.panelAyuda.setVisible(false);
         this.panelParcelas.setVisible(true);
 
         if (this.parcelas == null || this.parcelas.isEmpty()) {
@@ -612,6 +646,110 @@ public class AgricultorController implements Initializable {
             });
 
             new Thread(listar).start();
+        }
+    }
+
+    @FXML
+    private void mostrarAyuda() {
+        this.panel = 5;
+        this.panelA = 0;
+        this.panelParcelas.setVisible(false);
+        this.panelMaquinaria.setVisible(false);
+        this.panelAlmacen.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelAyuda.setVisible(true);
+    }
+
+    @FXML
+    private void siguiente(){
+        switch (panelA) {
+            case 0 -> {
+                this.parcelasP.setVisible(false);
+                this.altaParcelaP.setVisible(true);
+                this.panelA = 1;
+            }
+            case 1 -> {
+                altaParcelaP.setVisible(false);
+                eventosP.setVisible(true);
+                this.panelA = 2;
+            }
+            case 2 -> {
+                eventosP.setVisible(false);
+                maquinariaP.setVisible(true);
+                this.panelA = 3;
+            }
+            case 3 -> {
+                maquinariaP.setVisible(false);
+                almacenP.setVisible(true);
+                this.panelA = 4;
+            }
+            case 4 -> {
+                almacenP.setVisible(false);
+                ventaP.setVisible(true);
+                this.panelA = 5;
+            }
+            case 5 -> {
+                this.ventaP.setVisible(false);
+                this.gastoP.setVisible(true);
+                this.panelA = 6;
+            }
+            case 6 -> {
+                this.gastoP.setVisible(false);
+                this.altaEventoP.setVisible(true);
+                this.panelA = 7;
+            }
+            case 7 -> {
+                this.altaEventoP.setVisible(false);
+                this.parcelasP.setVisible(true);
+                this.panelA = 0;
+            }
+        }
+    }
+
+    @FXML
+    private void anterior(){
+        switch (panelA) {
+            case 0 -> {
+                this.parcelasP.setVisible(false);
+                this.altaEventoP.setVisible(true);
+                this.panelA = 7;
+            }
+            case 1 -> {
+                altaParcelaP.setVisible(false);
+                parcelasP.setVisible(true);
+                this.panelA = 0;
+            }
+            case 2 -> {
+                eventosP.setVisible(false);
+                altaParcelaP.setVisible(true);
+                this.panelA = 1;
+            }
+            case 3 -> {
+                maquinariaP.setVisible(false);
+                eventosP.setVisible(true);
+                this.panelA = 2;
+            }
+            case 4 -> {
+                almacenP.setVisible(false);
+                maquinariaP.setVisible(true);
+                this.panelA = 3;
+            }
+            case 5 -> {
+                this.ventaP.setVisible(false);
+                this.almacenP.setVisible(true);
+                this.panelA = 4;
+            }
+            case 6 -> {
+                this.gastoP.setVisible(false);
+                this.ventaP.setVisible(true);
+                this.panelA = 5;
+            }
+            case 7 -> {
+                this.altaEventoP.setVisible(false);
+                this.gastoP.setVisible(true);
+                this.panelA = 6;
+            }
         }
     }
 

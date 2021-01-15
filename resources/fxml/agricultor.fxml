@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
@@ -66,6 +66,11 @@
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </JFXButton>
+                        <JFXButton layoutX="39.0" layoutY="292.0" onAction="#mostrarAyuda" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Ayuda">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
                             </children>
                         </VBox>
                     </children>
@@ -147,7 +152,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+            <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="950.0">
                      <children>
@@ -164,7 +169,7 @@
                   <VBox fx:id="listaAlmacen" alignment="CENTER" layoutY="90.0" prefHeight="700.0" prefWidth="950.0" />
                </children>
             </Pane>
-            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -198,7 +203,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
@@ -278,6 +283,262 @@
                </children>
             </Pane>
             <Label fx:id="matriculaEscondido" visible="false" />
+            <Pane fx:id="panelAyuda" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+               <children>
+                  <StackPane prefHeight="750.0" prefWidth="950.0">
+                     <children>
+                        <Pane fx:id="almacenP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Almacen">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="maquinariaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Maquinaria">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="eventosP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Eventos">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="altaParcelaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Parcela">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="parcelasP" prefHeight="600.0" prefWidth="950.0">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Parcela">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="ventaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Venta">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="gastoP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Gasto">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="altaEventoP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
+                           <children>
+                              <VBox prefHeight="750.0" prefWidth="952.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Evento">
+                                       <font>
+                                          <Font name="System Bold" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <HBox.margin>
+                                                <Insets right="800.0" />
+                                             </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+               </children>
+            </Pane>
             </children></StackPane>
     </children>
 </AnchorPane>
