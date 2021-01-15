@@ -73,10 +73,18 @@
         </VBox>
         <StackPane layoutX="250.0" prefHeight="750.0" prefWidth="950.0">
             <children>
-                <Pane fx:id="panelUsuarios" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+                <Pane fx:id="panelUsuarios" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                           <HBox.margin>
+                              <Insets right="60.0" />
+                           </HBox.margin>
+                            <image>
+                                <Image url="@/img/recargar.png" />
+                            </image>
+                        </ImageView>
                         <JFXButton onAction="#crearUsuario" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
                            <HBox.margin>
                               <Insets right="50.0" />
@@ -99,7 +107,15 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXTextField fx:id="buscarGasto" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="848.0" promptText="Buscar" styleClass="text">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                           <HBox.margin>
+                              <Insets right="60.0" />
+                           </HBox.margin>
+                            <image>
+                                <Image url="@/img/recargar.png" />
+                            </image>
+                        </ImageView>
+                        <JFXTextField fx:id="buscarGasto" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="690.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -113,7 +129,15 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXTextField fx:id="buscarAuditoria" prefHeight="44.0" prefWidth="848.0" promptText="Buscar..." styleClass="text">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                           <HBox.margin>
+                              <Insets right="60.0" />
+                           </HBox.margin>
+                            <image>
+                                <Image url="@/img/recargar.png" />
+                            </image>
+                        </ImageView>
+                        <JFXTextField fx:id="buscarAuditoria" prefHeight="44.0" prefWidth="690.0" promptText="Buscar..." styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -133,11 +157,19 @@
                   </TableView>
                </children>
             </Pane>
-            <Pane fx:id="panelVentas" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
+            <Pane fx:id="panelVentas" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <JFXTextField fx:id="buscarVenta" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="848.0" promptText="Buscar" styleClass="text">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                           <HBox.margin>
+                              <Insets right="60.0" />
+                           </HBox.margin>
+                            <image>
+                                <Image url="@/img/recargar.png" />
+                            </image>
+                        </ImageView>
+                        <JFXTextField fx:id="buscarVenta" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="690.0" promptText="Buscar" styleClass="text">
                            <font>
                               <Font size="19.0" />
                            </font>

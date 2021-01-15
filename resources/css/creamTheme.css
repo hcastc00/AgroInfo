@@ -37,6 +37,10 @@
     -jfx-unfocus-color: "#3a3a3a";
 }
 
+.recargar:hover{
+    -fx-cursor: hand;
+}
+
 /* Pane basico */
 .pane{
     -fx-background-color : "#DEB164";
