@@ -111,6 +111,8 @@ public class GanaderoController implements Initializable {
     @FXML
     private EventoConeja eventoSeleccionado;
 
+    @FXML
+    private JFXSpinner spinnerEventos;
 
     //Lista de conejas
     private List<String[]> conejas;
@@ -253,6 +255,15 @@ public class GanaderoController implements Initializable {
     @FXML
     private void mostrarEventosConeja(int id){
 
+        this.panel = 4;
+        this.panelConejas.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelAlmacen.setVisible(false);
+        this.panelEventos.setVisible(true);
+        listaEventos.setItems(null);
+        spinnerEventos.setVisible(true);
+
         Task<Boolean> t = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
@@ -266,15 +277,10 @@ public class GanaderoController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
-                this.pintaEventosConeja(id);
 
-            this.panel = 4;
-            this.panelConejas.setVisible(false);
-            this.panelGastos.setVisible(false);
-            this.panelVentas.setVisible(false);
-            this.panelAlmacen.setVisible(false);
-            this.panelEventos.setVisible(true);
+
+
+            this.pintaEventosConeja(id);
         });
 
         new Thread(t).start();
@@ -288,22 +294,33 @@ public class GanaderoController implements Initializable {
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.tipo.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getTipoEventoConeja().toString()));
 
-        FilteredList<EventoConeja> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoConejaDAO.listar(id)), p -> true);
-        SortedList<EventoConeja> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
-        this.listaEventos.setItems(sortedData);
+        Task<FilteredList<EventoConeja>> listar = new Task<>() {
+            @Override
+            protected FilteredList<EventoConeja> call() throws Exception {
+                FilteredList<EventoConeja> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoConejaDAO.listar(id)), p -> true);
+                SortedList<EventoConeja> sortedData = new SortedList<>(filteredData);
+                sortedData.comparatorProperty().bind(listaEventos.comparatorProperty());
+                listaEventos.setItems(sortedData);
+                return filteredData;
+            };
+        };
 
-        buscarEvento.textProperty().addListener((prop, old, text) -> {
-            filteredData.setPredicate(eventos -> {
-                if(text == null || text.isEmpty()) return true;
+        listar.setOnSucceeded(workerStateEvent1 -> {
+            buscarEvento.textProperty().addListener((prop, old, text) -> {
+                listar.getValue().setPredicate(eventos -> {
+                    if(text == null || text.isEmpty()) return true;
 
-                String fecha = String.valueOf(eventos.getFecha());
-                String tipo = eventos.getTipoEventoConeja().toString();
-                return  fecha.contains(text) || tipo.contains(text);
+                    String fecha = String.valueOf(eventos.getFecha());
+                    String tipo = eventos.getTipoEventoConeja().toString();
+                    return  fecha.contains(text) || tipo.contains(text);
+                });
             });
+            spinnerEventos.setVisible(false);
         });
 
+
         idEscondido.setText(String.valueOf(id));
+        new Thread(listar).start();
     }
 
     @FXML
