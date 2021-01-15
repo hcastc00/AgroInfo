@@ -74,7 +74,7 @@
                         <Blend />
                      </effect>
                      <children>
-                        <Label fx:id="cargandoLabel" layoutX="190.0" layoutY="240.0" prefHeight="30.0" prefWidth="131.0" text="Cargando..." textFill="WHITE" visible="false">
+                        <Label fx:id="cargandoLabel" layoutX="220.0" layoutY="240.0" prefHeight="30.0" prefWidth="143.0" text="Cargando..." textFill="WHITE" visible="false">
                            <font>
                               <Font size="20.0" />
                            </font>
