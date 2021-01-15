@@ -113,8 +113,8 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mostrarUsuarios();
         moverVentana();
+        mostrarUsuarios();
     }
 
     @FXML
@@ -180,30 +180,18 @@ public class AdminController implements Initializable {
 
     @FXML
     private void mostrarUsuarios() {
-        Task<Boolean> t = new Task<Boolean>() {
-            @Override
-            protected Boolean call() throws Exception {
 
-                if (usuarios == null || usuarios.isEmpty()) {
-                    usuarios = usuarioDAO.listar();
-                    nodesU = new Node[usuarios.size()];
-                    return true;
-                }
-                return false;
-            }
-        };
+        this.panel = 0;
+        this.panelGastos.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelAuditoria.setVisible(false);
+        this.panelUsuarios.setVisible(true);
 
-        t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
-                this.pintaUsuario();
-            this.panel = 0;
-            this.panelGastos.setVisible(false);
-            this.panelVentas.setVisible(false);
-            this.panelAuditoria.setVisible(false);
-            this.panelUsuarios.setVisible(true);
-        });
-
-        new Thread(t).start();
+        if (usuarios == null || usuarios.isEmpty()) {
+            usuarios = usuarioDAO.listar();
+            nodesU = new Node[usuarios.size()];
+            this.pintaUsuario();
+        }
     }
 
     @FXML
