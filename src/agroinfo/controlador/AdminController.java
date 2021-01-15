@@ -152,6 +152,7 @@ public class AdminController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         JFXComboBox tipoParcela = (JFXComboBox)root.lookup("#tipo");
         tipoParcela.getItems().addAll(Usuario.TipoUsuario.values());
