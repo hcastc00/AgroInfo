@@ -5,6 +5,7 @@ import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.*;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -413,7 +414,7 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private void altaEvento(ActionEvent actionEvent) throws IOException {
-        /*FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEvento.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEventoConeja.fxml"));
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
@@ -422,12 +423,10 @@ public class GanaderoController implements Initializable {
         JFXButton boton = (JFXButton)actionEvent.getSource();
         Label label = (Label)boton.getScene().lookup("#idEscondido");
 
-        //Si el id esta vacio, es maquinaria
-        if(idEscondido == null || idEscondido.getText().isBlank()){
-            scene.setUserData(matriculaEscondido.getText());
-        }else{
-            scene.setUserData(Integer.parseInt(idEscondido.getText()));
-        }
+        JFXComboBox tipoEventoConeja = (JFXComboBox)root.lookup("#tipoEventoConeja");
+        tipoEventoConeja.getItems().addAll(EventoConeja.TipoEventoConeja.values());
+
+        scene.setUserData(1);
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -436,7 +435,7 @@ public class GanaderoController implements Initializable {
         stage.show();
         stage.setOnHidden(windowEvent -> {
             this.recargar();
-        });*/
+        });
     }
 
 

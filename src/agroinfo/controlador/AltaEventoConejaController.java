@@ -2,6 +2,8 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.dao.EventoConejaDAO;
 import agroinfo.modelo.vo.EventoConeja;
+import animatefx.animation.FadeIn;
+import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -49,16 +51,23 @@ public class AltaEventoConejaController{
                                 java.sql.Date.valueOf(fecha.getValue()),
                                 (EventoConeja.TipoEventoConeja) tipoEventoConeja.getValue()),
                                 LoginController.getUsuarioActual().getNombreUsuario());
+                this.close(actionEvent);
             }else if(fechaError){
                 error.setText("Debe introducir una fecha");
+                error.setVisible(true);
+                new Shake(botonGuardar).play();
+                new FadeIn(error).play();
+
             }else if (tipoError){
                 error.setText("Debe introducir un tipo de evento");
+                error.setVisible(true);
+                new Shake(botonGuardar).play();
+                new FadeIn(error).play();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        this.close(actionEvent);
     }
 
     @FXML
