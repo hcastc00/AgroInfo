@@ -25,6 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -105,6 +107,12 @@ public class GanaderoController implements Initializable {
     @FXML
     private TableColumn<EventoConeja, String> tipo;
 
+    @FXML
+    private Label idEscondido;
+
+    @FXML
+    private EventoConeja eventoSeleccionado;
+
 
     //Lista de conejas
     private List<String[]> conejas;
@@ -140,6 +148,12 @@ public class GanaderoController implements Initializable {
         this.moverVentana();
         this.getTemperatura();
         this.mostrarConejas();
+
+        this.listaEventos.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                eventoSeleccionado = listaEventos.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
     @FXML
@@ -287,6 +301,8 @@ public class GanaderoController implements Initializable {
                 return  fecha.contains(text) || tipo.contains(text);
             });
         });
+
+        idEscondido.setText(String.valueOf(id));
     }
 
     @FXML
@@ -409,6 +425,7 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private void eliminarVenta(ActionEvent event) {
+
     }
 
 
@@ -426,7 +443,7 @@ public class GanaderoController implements Initializable {
         JFXComboBox tipoEventoConeja = (JFXComboBox)root.lookup("#tipoEventoConeja");
         tipoEventoConeja.getItems().addAll(EventoConeja.TipoEventoConeja.values());
 
-        scene.setUserData(1);
+        scene.setUserData(label.getText());
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -441,8 +458,8 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private void eliminarEvento(){
-/*        eventoDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
-        this.recargar();*/
+        eventoConejaDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
+        this.recargar();
     }
 
     @FXML
@@ -473,6 +490,9 @@ public class GanaderoController implements Initializable {
                 this.nodesG = new Node[gastos.size()];
                 this.pintaGasto();
                 break;
+            case 4:
+                this.listaEventos.setItems(null);
+                this.pintaEventosConeja((Integer.valueOf(idEscondido.getText())));
         }
     }
 
