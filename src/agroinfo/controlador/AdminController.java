@@ -179,7 +179,6 @@ public class AdminController implements Initializable {
             Scene scene = new Scene(cargarVista.getValue(), 1200, 750);
             scene.setFill(Color.TRANSPARENT);
             scene.getStylesheets().add(Ventana.color);
-            scene.getStylesheets().add(Ventana.color);
             thisStage.setScene(scene);
         });
 
@@ -503,7 +502,7 @@ public class AdminController implements Initializable {
                 verDesc.setOnAction(e ->{
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
-                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
                     } catch (URISyntaxException | IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -649,6 +648,7 @@ public class AdminController implements Initializable {
         Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
