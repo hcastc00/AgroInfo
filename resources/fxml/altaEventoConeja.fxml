@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaEventoConejaController">
+    <children>
+        <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" style="-fx-background-color: #86c541; -fx-background-radius: 3em;">
+            <children>
+            <HBox alignment="CENTER" layoutY="27.0" prefHeight="100.0" prefWidth="850.0">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="264.0">
+                     <children>
+                            <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@/img/nuevoEvento.png" />
+                                </image>
+                            </ImageView>
+                            <Label layoutX="109.0" layoutY="45.0" text="Nuevo Evento" textFill="#3a3a3a">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+                <JFXButton fx:id="botonGuardar" layoutX="329.0" layoutY="464.0" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #3a3a3a; -fx-background-radius: 2em;" text="Guardar" textFill="#86c541">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton layoutX="812.0" layoutY="14.0" onAction="#close" text="X" />
+            <HBox alignment="CENTER" layoutY="260.0" prefHeight="100.0" prefWidth="850.0">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="287.0">
+                     <children>
+                            <Label layoutY="45.0" text="Fecha:" textFill="#3a3a3a">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
+                        <JFXDatePicker fx:id="fecha" defaultColor="#3a3a3a" layoutX="73.0" layoutY="40.0" prefHeight="40.0" prefWidth="200.0" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="100.0" prefWidth="271.0">
+                     <children>
+                        <Label layoutX="27.0" layoutY="40.0" prefHeight="30.0" prefWidth="55.0" text="Tipo:" textFill="#3a3a3a">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="tipoEventoConeja" focusColor="#3a3a3a" layoutX="111.0" layoutY="30.0" prefHeight="40.0" prefWidth="150.0" unFocusColor="#3a3a3a" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="1.0" layoutY="191.0" prefHeight="72.0" prefWidth="850.0">
+               <children>
+                      <Label fx:id="error" prefHeight="35.0" prefWidth="314.0" text="El evento necesita una fecha." textFill="#e43c3c" visible="false">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                      </Label>
+               </children>
+            </HBox>
+            </children>
+            <effect>
+                <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
+            </effect>
+        </Pane>
+    </children>
+</AnchorPane>
