@@ -872,7 +872,7 @@ public class AgricultorController implements Initializable {
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
 
-        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventos), p -> true);
+        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosParcela(id)), p -> true);
         SortedList<Evento> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
         this.listaEventos.setItems(sortedData);
