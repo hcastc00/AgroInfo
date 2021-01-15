@@ -2,14 +2,16 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionOpenWheatherAPI;
 import agroinfo.modelo.dao.*;
-import agroinfo.modelo.vo.Gasto;
-import agroinfo.modelo.vo.Parcela;
-import agroinfo.modelo.vo.Usuario;
-import agroinfo.modelo.vo.Venta;
+import agroinfo.modelo.vo.*;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +21,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -32,7 +36,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -63,6 +70,9 @@ public class AgricultorController implements Initializable {
     private JFXTextField buscarGastos;
 
     @FXML
+    private JFXTextField buscarEvento;
+
+    @FXML
     private Pane panelMaquinaria;
 
     @FXML
@@ -75,6 +85,9 @@ public class AgricultorController implements Initializable {
     private Pane panelParcelas;
 
     @FXML
+    private Pane panelEventos;
+
+    @FXML
     private VBox listaMaquinaria;
 
     @FXML
@@ -84,7 +97,19 @@ public class AgricultorController implements Initializable {
     private VBox listaGastos;
 
     @FXML
+    private VBox listaAlmacen;
+
+    @FXML
     private VBox listaVentas;
+
+    @FXML
+    private TableView<Evento> listaEventos;
+
+    @FXML
+    private TableColumn<Evento, String> fecha;
+
+    @FXML
+    private TableColumn<Evento, String> descripcion;
 
     @FXML
     private AnchorPane root;
@@ -114,6 +139,10 @@ public class AgricultorController implements Initializable {
     // Lista de los gastos
     private List<Gasto> gastos;
     private Node[] nodesG;
+
+    //Cosas de almacen
+    private Node nodeA;
+    private Almacen almacen;
 
     private List<Parcela> listarParcelas() {
         return parcelaDAO.listar();
@@ -202,7 +231,6 @@ public class AgricultorController implements Initializable {
                 tipoParcela.setValue(parcela.getTipoParcela());
                 tipoCultivo.setValue(parcela.getTipoCultivo());
 
-
                 Scene scene = new Scene(root);
                 scene.setUserData("modificar");
                 scene.setFill(Color.TRANSPARENT);
@@ -212,21 +240,36 @@ public class AgricultorController implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(StageStyle.TRANSPARENT);
 
-
-
                 stage.show();
                 stage.setOnHidden(windowEvent -> {
                     this.recargar();
                 });
             }
         }
-
-
     }
 
     @FXML
     public void altaVenta(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
+        Parent root = (Parent) loader.load();
+
+        Scene scene = new Scene(root);
+        scene.setUserData(Venta.TipoVenta.Agricultura);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+        stage.setOnHidden(windowEvent -> {
+            this.recargar();
+        });
+    }
+
+    @FXML
+    public void altaEvento(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEvento.fxml"));
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
@@ -274,6 +317,7 @@ public class AgricultorController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelAlmacen.setVisible(false);
+        this.panelEventos.setVisible(false);
         this.panelParcelas.setVisible(true);
 
         if (this.parcelas == null || this.parcelas.isEmpty()) {
@@ -327,6 +371,7 @@ public class AgricultorController implements Initializable {
             this.panelGastos.setVisible(false);
             this.panelVentas.setVisible(false);
             this.panelAlmacen.setVisible(false);
+            this.panelEventos.setVisible(false);
             this.panelMaquinaria.setVisible(true);
 
         });
@@ -358,6 +403,7 @@ public class AgricultorController implements Initializable {
             this.panelGastos.setVisible(false);
             this.panelParcelas.setVisible(false);
             this.panelAlmacen.setVisible(false);
+            this.panelEventos.setVisible(false);
             this.panelVentas.setVisible(true);
         });
 
@@ -388,6 +434,7 @@ public class AgricultorController implements Initializable {
             this.panelParcelas.setVisible(false);
             this.panelVentas.setVisible(false);
             this.panelAlmacen.setVisible(false);
+            this.panelEventos.setVisible(false);
             this.panelGastos.setVisible(true);
         });
 
@@ -397,6 +444,39 @@ public class AgricultorController implements Initializable {
     @FXML
     private void mostrarAlmacen() {
         this.panel = 4;
+        this.panelMaquinaria.setVisible(false);
+        this.panelParcelas.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelEventos.setVisible(false);
+        this.panelAlmacen.setVisible(true);
+
+        if(this.almacen == null){
+            this.almacen = almacenDAO.getAlmacen();
+            this.pintaAlmacen();
+        }
+    }
+
+    @FXML
+    private void mostrarEventosParcela(int id){
+        this.panelMaquinaria.setVisible(false);
+        this.panelParcelas.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelAlmacen.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelEventos.setVisible(true);
+        this.pintaEventosParcela(id);
+    }
+
+    @FXML
+    private void mostrarEventosMaquinaria(String id){
+        this.panelMaquinaria.setVisible(false);
+        this.panelParcelas.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelAlmacen.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelEventos.setVisible(true);
+        this.pintaEventosMaquinaria(id);
     }
 
     @FXML
@@ -541,6 +621,11 @@ public class AgricultorController implements Initializable {
                     }
                 });
 
+                //Eventos
+                JFXButton gestionarEventos = (JFXButton) nodesP[i].lookup("#botonEvent");
+                gestionarEventos.setOnAction(e ->{
+                    mostrarEventosParcela(Integer.parseInt(id.getText()));
+                });
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -573,6 +658,12 @@ public class AgricultorController implements Initializable {
                     maquinariaDAO.eliminar(matricula.getText(),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
+                });
+
+                //Eventos
+                JFXButton gestionarEventos = (JFXButton) nodesM[i].lookup("#botonEventos");
+                gestionarEventos.setOnAction(e ->{
+                    mostrarEventosMaquinaria(matricula.getText());
                 });
 
             } catch (IOException e) {
@@ -652,6 +743,82 @@ public class AgricultorController implements Initializable {
             }
         }
         this.listaGastos.getChildren().addAll(nodesG);
+    }
+
+    private void pintaAlmacen(){
+        this.listaAlmacen.getChildren().clear();
+        try {
+            nodeA = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/almacen.fxml"));
+
+            Pane agriPane = (Pane) nodeA.lookup("#agriPane");
+            Pane ganPane = (Pane) nodeA.lookup("#ganPane");
+
+            ganPane.setVisible(false);
+            agriPane.setVisible(true);
+
+            //Trigo
+            Label trigo = (Label) nodeA.lookup("#trigo");
+            trigo.setText(String.valueOf(almacen.getExcedenteTrigo()));
+
+            //Cebada
+            Label cebada = (Label) nodeA.lookup("#cebada");
+            cebada.setText(String.valueOf(almacen.getExcedenteCebada()));
+
+            //Maiz
+            Label maiz = (Label) nodeA.lookup("#maiz");
+            maiz.setText(String.valueOf(almacen.getExcedenteMaiz()));
+
+            //Remolacha
+            Label remolacha = (Label) nodeA.lookup("#remolacha");
+            remolacha.setText(String.valueOf(almacen.getExcedenteRemolacha()));
+
+            System.out.println(nodeA);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.listaAlmacen.getChildren().add(nodeA);
+    }
+
+    private void pintaEventosParcela(int id){
+        this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
+        this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
+
+        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosParcela(id)), p -> true);
+        SortedList<Evento> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
+        this.listaEventos.setItems(sortedData);
+
+        buscarEvento.textProperty().addListener((prop, old, text) -> {
+            filteredData.setPredicate(eventos -> {
+                if(text == null || text.isEmpty()) return true;
+
+                String fecha = String.valueOf(eventos.getFecha());
+                String descripcion = eventos.getDescripcion();
+                return  fecha.contains(text) || descripcion.contains(text);
+            });
+        });
+    }
+
+    private void pintaEventosMaquinaria(String id){
+        this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
+        this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
+
+        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosMaquinaria(id)), p -> true);
+        SortedList<Evento> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
+        this.listaEventos.setItems(sortedData);
+
+        buscarEvento.textProperty().addListener((prop, old, text) -> {
+            filteredData.setPredicate(eventos -> {
+                if(text == null || text.isEmpty()) return true;
+
+                String fecha = String.valueOf(eventos.getFecha());
+                String descripcion = eventos.getDescripcion();
+                return  fecha.contains(text) || descripcion.contains(text);
+            });
+        });
     }
 
     private void moverVentana() {

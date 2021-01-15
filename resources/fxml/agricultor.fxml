@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
@@ -139,36 +148,7 @@
             </Pane>
             <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                <children>
-                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets right="75.0" />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@/img/recargar.png" />
-                           </image>
-                        </ImageView>
-                        <JFXButton onAction="#altaParcela" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Añadir">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXTextField fx:id="buscarG1" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </JFXTextField>
-                     </children>
-                  </HBox>
-                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
-                     <content>
-                        <VBox fx:id="listaAlmacen" prefHeight="600.0" prefWidth="950.0" />
-                     </content>
-                  </ScrollPane>
+                  <VBox fx:id="listaAlmacen" alignment="CENTER" prefHeight="750.0" prefWidth="950.0" />
                </children>
             </Pane>
             <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
@@ -239,6 +219,44 @@
                         </ScrollPane>
                     </children>
                 </Pane>
+            <Pane fx:id="panelEventos" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/img/recargar.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="75.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <JFXButton fx:id="altaEvento" onAction="#altaEvento" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Alta">
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXTextField fx:id="buscarEvento" onKeyTyped="#buscar" prefHeight="44.0" prefWidth="279.0" promptText="Buscar" styleClass="text">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="listaEventos" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" stylesheets="@../css/tableview.css">
+                      <placeholder>
+                          <Label text="" />
+                      </placeholder>
+                    <columns>
+                      <TableColumn fx:id="fecha" minWidth="80.0" prefWidth="194.0" text="Fecha" />
+                      <TableColumn fx:id="descripcion" prefWidth="755.0" text="Descripcion" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
             </children></StackPane>
     </children>
 </AnchorPane>

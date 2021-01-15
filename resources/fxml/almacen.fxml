@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AlmacenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AlmacenController">
     <children>
       <StackPane layoutX="50.0" layoutY="50.0">
          <children>
-            <Pane fx:id="agriPane" prefHeight="500.0" prefWidth="850.0" styleClass="pane" visible="false">
+            <Pane fx:id="agriPane" prefHeight="500.0" prefWidth="850.0" styleClass="pane">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="100.0" radius="49.5" width="100.0" />
                </effect>
@@ -47,7 +53,7 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets left="235.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="200.0">
@@ -78,7 +84,7 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets left="235.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="200.0">
@@ -109,7 +115,7 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets left="235.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="200.0">
@@ -122,14 +128,6 @@
                                     <Image url="@/img/remolacha.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="remolacha" text="No definido">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Label>
                               <Label text="Remolacha:">
                                  <font>
                                     <Font size="18.0" />
@@ -138,16 +136,24 @@
                                     <Insets left="40.0" />
                                  </HBox.margin>
                               </Label>
+                              <Label fx:id="remolacha" text="No definido">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
                            </children>
                            <VBox.margin>
-                              <Insets left="235.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                      </children>
                   </VBox>
                </children>
             </Pane>
-              <Pane fx:id="ganPane" prefHeight="500.0" prefWidth="850.0">
+              <Pane fx:id="ganPane" prefHeight="500.0" prefWidth="850.0" visible="false">
                   <effect>
                       <DropShadow blurType="GAUSSIAN" height="100.0" radius="49.5" width="100.0" />
                   </effect>
