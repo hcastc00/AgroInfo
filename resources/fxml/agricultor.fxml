@@ -263,6 +263,7 @@
                   <Label fx:id="idEscondido" layoutX="461.0" layoutY="367.0" visible="false" />
                </children>
             </Pane>
+            <Label fx:id="matriculaEscondido" visible="false" />
             </children></StackPane>
     </children>
 </AnchorPane>
