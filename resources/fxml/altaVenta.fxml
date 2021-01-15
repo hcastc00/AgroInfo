@@ -8,10 +8,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaVentaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaVentaController">
     <children>
         <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" styleClass="pane">
             <children>
@@ -20,7 +21,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <Label layoutX="55.0" layoutY="148.0" text="Cantidad:" textFill="#3a3a3a">
+                <Label layoutX="54.0" layoutY="186.0" text="Cantidad:" textFill="#3a3a3a">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -31,12 +32,7 @@
                     </font>
                 </JFXButton>
                 <JFXButton layoutX="812.0" layoutY="14.0" onAction="#close" text="X" />
-                <Label fx:id="error" layoutX="71.0" layoutY="297.0" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-                <Label layoutX="448.0" layoutY="148.0" text="Precio Unitario:" textFill="#3a3a3a">
+                <Label layoutX="447.0" layoutY="186.0" text="Precio Unitario:" textFill="#3a3a3a">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -46,12 +42,12 @@
                   <Font size="18.0" />
                </font>
             </JFXTextArea>
-            <JFXTextField fx:id="cantidad" layoutX="154.0" layoutY="142.0">
+            <JFXTextField fx:id="cantidad" layoutX="153.0" layoutY="180.0">
                <font>
                   <Font size="18.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="precio_unitario" layoutX="598.0" layoutY="142.0">
+            <JFXTextField fx:id="precio_unitario" layoutX="597.0" layoutY="180.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -61,6 +57,15 @@
                   <Image url="@/img/venta.png" />
                </image>
             </ImageView>
+            <HBox alignment="CENTER" layoutX="252.0" layoutY="113.0" prefHeight="48.0" prefWidth="349.0">
+               <children>
+                      <Label fx:id="error" text="El ID debe ser un numero" textFill="#e43c3c">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                      </Label>
+               </children>
+            </HBox>
             </children>
             <effect>
                 <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />

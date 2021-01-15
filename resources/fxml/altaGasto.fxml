@@ -8,10 +8,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaGastoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaGastoController">
     <children>
         <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" styleClass="pane">
             <children>
@@ -46,11 +47,15 @@
                         <Image url="@/img/gasto.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="error" layoutX="295.0" layoutY="210.0" prefHeight="35.0" prefWidth="257.0" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
+            <HBox alignment="TOP_CENTER" layoutX="242.0" layoutY="225.0" prefHeight="100.0" prefWidth="461.0">
+               <children>
+                      <Label fx:id="error" alignment="CENTER" prefHeight="35.0" prefWidth="257.0" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                      </Label>
+               </children>
+            </HBox>
             </children>
             <effect>
                 <DropShadow height="30.0" radius="14.5" spread="0.08" width="30.0" />
