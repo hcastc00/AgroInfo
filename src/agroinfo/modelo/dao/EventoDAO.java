@@ -181,10 +181,12 @@ public class EventoDAO extends ConexionBD {
             pSentencia.setInt(1, identificadorParcela);
             ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
-                lista.add(new Evento(rs.getString("identificador_parcela"),
+                Evento evento = new Evento(rs.getString("identificador_parcela"),
                         rs.getDate("fecha"),
-                        rs.getString("descripcion"))
-                );
+                        rs.getString("descripcion"));
+                evento.setId(rs.getInt("evento_id"));
+
+                lista.add(evento);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

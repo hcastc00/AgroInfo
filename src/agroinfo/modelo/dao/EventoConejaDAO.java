@@ -42,7 +42,6 @@ public class EventoConejaDAO extends ConexionBD {
 
         this.abrirConexion();
 
-
         try {
             String sentencia = "DELETE FROM evento_conejas WHERE evento_id = ?";
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
