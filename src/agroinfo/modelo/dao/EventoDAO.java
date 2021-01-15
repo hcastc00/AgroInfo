@@ -153,10 +153,12 @@ public class EventoDAO extends ConexionBD {
             pSentencia.setString(1, matricula);
             ResultSet rs = pSentencia.executeQuery();
             while(rs.next()){
-                lista.add(new Evento(rs.getString("matricula"),
+                Evento e = new Evento(rs.getString("matricula"),
                         rs.getDate("fecha"),
-                        rs.getString("descripcion"))
-                );
+                        rs.getString("descripcion"));
+                e.setId(rs.getInt("evento_id"));
+
+                lista.add(e);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

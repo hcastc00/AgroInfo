@@ -316,7 +316,6 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void eliminarEvento(){
-        System.out.println(eventoSeleccionado.getDescripcion());
         eventoDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
         this.recargar();
     }
@@ -478,18 +477,31 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void mostrarAlmacen() {
-        this.panel = 4;
-        this.panelMaquinaria.setVisible(false);
-        this.panelParcelas.setVisible(false);
-        this.panelVentas.setVisible(false);
-        this.panelGastos.setVisible(false);
-        this.panelEventos.setVisible(false);
-        this.panelAlmacen.setVisible(true);
+        Task<Boolean> t = new Task<>() {
+            @Override
+            protected Boolean call() {
 
-        if(this.almacen == null){
-            this.almacen = almacenDAO.getAlmacen();
-            this.pintaAlmacen();
-        }
+                if(almacen == null){
+                    almacen = almacenDAO.getAlmacen();
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        t.setOnSucceeded(workerStateEvent -> {
+            if(t.getValue())
+                this.pintaAlmacen();
+            this.panel = 4;
+            this.panelMaquinaria.setVisible(false);
+            this.panelParcelas.setVisible(false);
+            this.panelVentas.setVisible(false);
+            this.panelGastos.setVisible(false);
+            this.panelEventos.setVisible(false);
+            this.panelAlmacen.setVisible(true);
+        });
+
+        new Thread(t).start();
     }
 
     @FXML
