@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -81,7 +82,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
@@ -115,7 +116,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
@@ -149,14 +150,14 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin></ImageView>
-                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="75.0" fitWidth="75.0" onMousePressed="#recargar" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -193,9 +194,10 @@
                 </Pane>
             <Pane fx:id="panelEventos" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
+                  <JFXSpinner fx:id="spinnerEventos" layoutX="261.0" layoutY="279.0" prefHeight="342.0" prefWidth="401.0" visible="false" />
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
