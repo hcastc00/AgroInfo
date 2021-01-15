@@ -241,6 +241,7 @@ public class AdminController implements Initializable {
 
     @FXML
     private void mostrarGastos() {
+
         Task<Boolean> t = new Task<Boolean>() {
             @Override
             protected Boolean call() throws Exception {
@@ -257,7 +258,7 @@ public class AdminController implements Initializable {
         t.setOnSucceeded(workerStateEvent -> {
             if(t.getValue())
                 this.pintaGasto();
-            this.panel = 2;
+            this.panel = 1;
             this.panelUsuarios.setVisible(false);
             this.panelAuditoria.setVisible(false);
             this.panelVentas.setVisible(false);
@@ -417,7 +418,9 @@ public class AdminController implements Initializable {
                 this.listaVentas.getChildren().addAll(nodesV);
                 this.listaVentas.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
-                    return !id.getText().matches(buscarVenta.getText() + ".*");
+                    Label tipoVenta = (Label) node.lookup("#tipo");
+                    return (!id.getText().matches(buscarVenta.getText() + ".*"))&&
+                            !tipoVenta.getText().matches(buscarVenta.getText() + ".*") ;
                 });
             }
         }
