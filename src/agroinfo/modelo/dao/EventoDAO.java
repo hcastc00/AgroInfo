@@ -31,7 +31,7 @@ public class EventoDAO extends ConexionBD {
 
             //El id al ser incremental, no se settea nada en el primer parametro
             pSentencia.setInt(1, evento.getIdentificadorParcela());
-            pSentencia.setDate  (2, (Date) evento.getFecha());
+            pSentencia.setDate  (2, evento.getFecha());
             pSentencia.setString(3, evento.getDescripcion());
             pSentencia.execute();
 

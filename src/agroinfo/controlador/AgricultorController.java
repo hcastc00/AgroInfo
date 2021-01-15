@@ -116,6 +116,12 @@ public class AgricultorController implements Initializable {
     @FXML
     private AnchorPane root;
 
+    @FXML
+    private Label idEscondido;
+
+    @FXML
+    private Label matriculaEscondido;
+
     /*
      * Esta variable indica en que vista esta el programa para facilitar el metodo de buscar()
      *      - El 0 es para Parcelas
@@ -275,8 +281,17 @@ public class AgricultorController implements Initializable {
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
-        scene.setUserData(Venta.TipoVenta.Agricultura);
         scene.setFill(Color.TRANSPARENT);
+
+        JFXButton boton = (JFXButton)actionEvent.getSource();
+        Label label = (Label)boton.getScene().lookup("#idEscondido");
+
+        //Si el id esta vacio, es maquinaria
+        if(idEscondido.getText().isBlank()){
+            scene.setUserData(matriculaEscondido.getText());
+        }else{
+            scene.setUserData(Integer.parseInt(idEscondido.getText()));
+        }
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -284,7 +299,11 @@ public class AgricultorController implements Initializable {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
         stage.setOnHidden(windowEvent -> {
-            this.recargar();
+            if(idEscondido.getText().isBlank()){
+               this.pintaEventosMaquinaria(matriculaEscondido.getText());
+            }else{
+                this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
+            }
         });
     }
 
@@ -548,6 +567,7 @@ public class AgricultorController implements Initializable {
                 this.nodesG = new Node[gastos.size()];
                 this.pintaGasto();
             }
+
         }
     }
 
@@ -803,6 +823,8 @@ public class AgricultorController implements Initializable {
     }
 
     private void pintaEventosParcela(int id){
+
+        this.listaEventos.setItems(null);
         this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
@@ -821,9 +843,15 @@ public class AgricultorController implements Initializable {
                 return  fecha.contains(text) || descripcion.contains(text);
             });
         });
+
+        this.matriculaEscondido.setText("");
+        this.idEscondido.setText(String.valueOf(id));
+
     }
 
     private void pintaEventosMaquinaria(String id){
+
+        this.listaEventos.setItems(null);
         this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
@@ -842,6 +870,10 @@ public class AgricultorController implements Initializable {
                 return  fecha.contains(text) || descripcion.contains(text);
             });
         });
+
+        this.idEscondido.setText("");
+        this.matriculaEscondido.setText(id);
+
     }
 
     private void pintarDescripcion(String d, Image i) throws IOException {
