@@ -91,6 +91,7 @@ public class MaquinariaDAO extends ConexionBD {
                 "(SELECT m.matricula, nombre, fecha FROM eventos " +
                 "LEFT JOIN maquinaria m on eventos.matricula = m.matricula " +
                 ")) AS sub " +
+                "WHERE matricula is not null "+
                 "GROUP BY matricula " +
                 "ORDER BY matricula";
 
