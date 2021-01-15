@@ -628,15 +628,32 @@ public class AgricultorController implements Initializable {
 
     @FXML
     private void salir(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent agricultor = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
-        Scene scene = new Scene(agricultor, 1200, 750);
-        scene.getStylesheets().add(Ventana.color);
-        thisStage.setScene(scene);
 
-        usuarioDAO.cerrarSesion(usuarioActual.getNombreUsuario());
+        Task<Parent> cargarVista = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                return FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
+            }
+        };
 
+        cargarVista.setOnSucceeded(workerStateEvent -> {
+            Node node = (Node) event.getSource();
+            Stage thisStage = (Stage) node.getScene().getWindow();
+            Scene scene = new Scene(cargarVista.getValue(), 1200, 750);
+            scene.getStylesheets().add(Ventana.color);
+            thisStage.setScene(scene);
+        });
+
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+                usuarioDAO.cerrarSesion(usuarioActual.getNombreUsuario());
+                return null;
+            }
+        };
+
+        new Thread(t).start();
+        new Thread(cargarVista).start();
     }
 
     //METODOS AUXILIARES
