@@ -182,7 +182,7 @@
                      <children>
                         <Pane fx:id="auditoria" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Auditoria">
                                        <font>
@@ -215,7 +215,7 @@
                         </Pane>
                         <Pane fx:id="ventasP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Ventas">
                                        <font>
@@ -248,7 +248,7 @@
                         </Pane>
                         <Pane fx:id="gastosP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Gastos">
                                        <font>
@@ -281,7 +281,7 @@
                         </Pane>
                         <Pane fx:id="altaUsuario" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Usuario">
                                        <font>
@@ -314,7 +314,7 @@
                         </Pane>
                         <Pane fx:id="usuariosP" prefHeight="600.0" prefWidth="950.0">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Usuarios">
                                        <font>
