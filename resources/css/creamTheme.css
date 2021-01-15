@@ -4,7 +4,7 @@
 }
 
 .VBox{
-    -fx-background-color: rgb(247, 170, 62);
+    -fx-background-color: "#DEB164";
 }
 
 .button{
@@ -14,7 +14,7 @@
 
 .button:hover{
     -fx-cursor: hand;
-    -fx-background-color: rgb(246, 180, 67);
+    -fx-background-color: "#F7C56F";
 }
 
 .fondo{
@@ -27,19 +27,19 @@
 }
 
 .button-entrar{
-    -fx-background-color: "#F7AA3E";
+    -fx-background-color: "#DEB164";
     -fx-background-radius: 2em;
 }
 
 .text-field{
     -fx-text-inner-color: "#3a3a3a";
-    -jfx-focus-color: "#F7AA3E";
+    -jfx-focus-color: "#DEB164";
     -jfx-unfocus-color: "#3a3a3a";
 }
 
 /* Pane basico */
 .pane{
-    -fx-background-color : "#f7aa3e";
+    -fx-background-color : "#DEB164";
     -fx-background-radius: 1.5em;
 }
 

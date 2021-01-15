@@ -223,7 +223,7 @@
                         </JFXTextField>
                      </children>
                   </HBox>
-                  <TableView fx:id="listaEventos" layoutY="150.0" prefHeight="600.0" prefWidth="950.0" stylesheets="@../css/tableview.css">
+                  <TableView fx:id="listaEventos" layoutY="150.0" prefHeight="600.0" prefWidth="950.0">
                      <placeholder>
                         <Label text="" />
                      </placeholder>

@@ -1,13 +1,54 @@
+.root{
+    -fx-font-family: "System";
+    -fx-background-color: "#3a3a3a"
+}
+
+.VBox{
+    -fx-background-color: "#DEB164";
+}
+
+.button{
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 2em;
+}
+
+.button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: "#F7C56F";
+}
+
+.fondo{
+    -fx-background-image: url("../img/fondoLogin.jpg");
+}
+
+.login-pane{
+    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-background-radius: 3.5em;
+}
+
+.button-entrar{
+    -fx-background-color: "#DEB164";
+    -fx-background-radius: 2em;
+}
+
+.text-field{
+    -fx-text-inner-color: "#3a3a3a";
+    -jfx-focus-color: "#DEB164";
+    -jfx-unfocus-color: "#3a3a3a";
+}
+
+/* Pane basico */
+.pane{
+    -fx-background-color : "#DEB164";
+    -fx-background-radius: 1.5em;
+}
+
+/* Para el tableview */
 .table-view {
     -fx-table-color: rgba(247, 170, 62, 0.4);
     -fx-table-rippler-color: rgba(247, 170, 62, 0.6);
     -fx-background-color:  transparent;
     -fx-padding: 0 10 0 10;
-}
-:focused {
-    -fx-background-color: -fx-table-color, -fx-box-border, -fx-control-inner-background;
-    -fx-background-insets: -1.4, 0, 1;
-    -fx-background-radius: 1.4, 0, 0;
 }
 
 .table-view:focused .table-row-cell:selected{

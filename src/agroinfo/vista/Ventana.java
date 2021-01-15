@@ -11,9 +11,9 @@ import javafx.stage.StageStyle;
 
 public class Ventana extends Application {
     private double x,y;
-    private static final String verde = "css/darkGreen.css";
-    private static final String naranja = "css/darkOrange.css";
-    public static String color = naranja;
+    private static final String verde = "css/greenTheme.css";
+    private static final String crema = "css/creamTheme.css";
+    public static String color = crema;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
