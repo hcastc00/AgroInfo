@@ -3,8 +3,7 @@ package agroinfo.controlador;
 import agroinfo.modelo.dao.UsuarioDAO;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.vista.Ventana;
-import animatefx.animation.FadeIn;
-import animatefx.animation.Shake;
+import animatefx.animation.*;
 import com.jfoenix.controls.*;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -20,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.awt.event.MouseEvent;
@@ -59,7 +59,9 @@ public class LoginController implements Initializable {
 
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
-        thisStage.close();
+        ZoomOut b = new ZoomOut(root);
+        b.setOnFinished(e -> thisStage.close());
+        b.play();
     }
 
     @FXML
@@ -118,6 +120,7 @@ public class LoginController implements Initializable {
                     Label nombre = (Label) ventana.lookup("#nombre");
                     nombre.setText(usuarioActual.getNombreUsuario());
                     Scene scene = new Scene(ventana, 1200, 750);
+                    scene.setFill(Color.TRANSPARENT);
                     scene.getStylesheets().add(Ventana.color);
                     this.spinnerProgreso.setVisible(false);
                     this.cargandoLabel.setVisible(false);

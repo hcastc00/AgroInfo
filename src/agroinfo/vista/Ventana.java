@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -21,10 +22,11 @@ public class Ventana extends Application {
         primaryStage.setTitle("AgroInfo");
         Scene scene = new Scene(root);
         scene.getStylesheets().add(color);
+        scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
 
         //Quitar barra
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         //Icono
         primaryStage.getIcons().add(new Image("/img/ico.png"));
