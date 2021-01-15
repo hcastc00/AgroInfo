@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXSpinner?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Blend?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.LoginController">
    <children>
@@ -40,18 +33,7 @@
                <children>
                   <VBox fx:id="panelAgricultor" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
                   <VBox fx:id="panelGanadero" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
-                  <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0">
-                     <children>
-                        <JFXButton fx:id="exitButton1" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Ayuda">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
-                     </children>
-                  </VBox>
+                  <VBox fx:id="panelAdmin" alignment="TOP_CENTER" prefHeight="490.0" prefWidth="250.0" />
                </children>
             </StackPane>
             <JFXButton fx:id="exitButton" onAction="#close" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Salir">

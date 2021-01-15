@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaVentaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaVentaController">
     <children>
         <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" styleClass="pane">
             <children>
@@ -59,7 +54,7 @@
             </ImageView>
             <HBox alignment="CENTER" layoutX="252.0" layoutY="113.0" prefHeight="48.0" prefWidth="349.0">
                <children>
-                      <Label fx:id="error" text="El ID debe ser un numero" textFill="#e43c3c">
+                      <Label fx:id="error" text="El ID debe ser un numero" textFill="#e43c3c" visible="false">
                           <font>
                               <Font size="24.0" />
                           </font>
