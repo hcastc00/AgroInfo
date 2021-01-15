@@ -282,6 +282,9 @@ public class AgricultorController implements Initializable {
                 JFXTextField latitud = (JFXTextField) root.lookup("#latitud");
                 JFXTextField longitud = (JFXTextField) root.lookup("#longitud");
                 JFXTextField tam = (JFXTextField) root.lookup("#tam");
+                JFXTextField produccion = (JFXTextField) root.lookup("#produccion");
+
+                Label excedente = (Label) root.lookup("#excedente");
 
                 JFXComboBox tipoParcela = (JFXComboBox) root.lookup("#tipoParcela");
                 JFXComboBox tipoCultivo = (JFXComboBox) root.lookup("#tipoCultivo");
@@ -289,6 +292,8 @@ public class AgricultorController implements Initializable {
                 latitud.setText(String.valueOf(parcela.getLatitud()));
                 longitud.setText(String.valueOf(parcela.getLongitud()));
                 tam.setText(String.valueOf(parcela.getTam()));
+                produccion.setText(String.valueOf(parcela.getProduccion()));
+                excedente.setText(String.valueOf(parcela.getExcedente()));
 
                 tipoParcela.getItems().addAll(Parcela.TipoParcela.values());
                 tipoCultivo.getItems().addAll(Parcela.TipoCultivo.values());
