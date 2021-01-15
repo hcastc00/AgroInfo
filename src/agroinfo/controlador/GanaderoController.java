@@ -308,15 +308,32 @@ public class GanaderoController implements Initializable {
 
     @FXML
     private void salir(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
-        Scene scene = new Scene(ganadero, 1200, 750);
-        scene.setFill(Color.TRANSPARENT);
-        scene.getStylesheets().add(Ventana.color);
-        thisStage.setScene(scene);
+        Task<Parent> cargarVista = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                return FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
+            }
+        };
 
-        usuarioActual.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
+        cargarVista.setOnSucceeded(workerStateEvent -> {
+            Node node = (Node) event.getSource();
+            Stage thisStage = (Stage) node.getScene().getWindow();
+            Scene scene = new Scene(cargarVista.getValue(), 1200, 750);
+            scene.setFill(Color.TRANSPARENT);
+            scene.getStylesheets().add(Ventana.color);
+            thisStage.setScene(scene);
+        });
+
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+                new UsuarioDAO().cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
+                return null;
+            }
+        };
+
+        new Thread(t).start();
+        new Thread(cargarVista).start();
     }
 
     @FXML
@@ -370,6 +387,7 @@ public class GanaderoController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -402,6 +420,7 @@ public class GanaderoController implements Initializable {
             Scene scene = new Scene(root);
             scene.setUserData(eventoSeleccionado);
             scene.setFill(Color.TRANSPARENT);
+            scene.getStylesheets().add(Ventana.color);
 
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -424,6 +443,7 @@ public class GanaderoController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
         scene.setUserData(Gasto.TipoGasto.Ganaderia);
 
         Stage stage = new Stage();
@@ -444,6 +464,7 @@ public class GanaderoController implements Initializable {
         Scene scene = new Scene(root);
         scene.setUserData(Venta.TipoVenta.Ganaderia);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -463,6 +484,7 @@ public class GanaderoController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         JFXButton boton = (JFXButton)actionEvent.getSource();
         Label idConeja = (Label)boton.getScene().lookup("#idEscondido");
@@ -668,6 +690,7 @@ public class GanaderoController implements Initializable {
         Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
