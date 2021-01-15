@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AltaEventoConejaController">
     <children>
-        <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" style="-fx-background-color: #86c541; -fx-background-radius: 3em;">
+        <Pane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" styleClass="pane">
             <children>
             <HBox alignment="CENTER" layoutY="27.0" prefHeight="100.0" prefWidth="850.0">
                <children>
@@ -29,7 +29,7 @@
                   </Pane>
                </children>
             </HBox>
-                <JFXButton fx:id="botonGuardar" layoutX="329.0" layoutY="464.0" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #3a3a3a; -fx-background-radius: 2em;" text="Guardar" textFill="#86c541">
+                <JFXButton fx:id="botonGuardar" layoutX="329.0" layoutY="464.0" onAction="#guardar" prefHeight="48.0" prefWidth="193.0" styleClass="button-alta" text="Guardar">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -44,7 +44,7 @@
                                     <Font size="20.0" />
                                 </font>
                             </Label>
-                        <JFXDatePicker fx:id="fecha" defaultColor="GREEN" editable="false" layoutX="73.0" layoutY="40.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: ·3a3a3a;" />
+                        <JFXDatePicker fx:id="fecha" defaultColor="#3a3a3a" editable="false" layoutX="73.0" layoutY="40.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: ·3a3a3a;" />
                      </children>
                   </Pane>
                   <Pane prefHeight="100.0" prefWidth="271.0">
