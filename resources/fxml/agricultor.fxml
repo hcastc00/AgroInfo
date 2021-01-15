@@ -148,7 +148,19 @@
             </Pane>
             <Pane fx:id="panelAlmacen" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                <children>
-                  <VBox fx:id="listaAlmacen" alignment="CENTER" prefHeight="750.0" prefWidth="950.0" />
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="950.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url = "@/img/recargar.png" />
+                            </image>
+                           <HBox.margin>
+                              <Insets right="600.0" top="50.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox fx:id="listaAlmacen" alignment="CENTER" layoutY="90.0" prefHeight="700.0" prefWidth="950.0" />
                </children>
             </Pane>
             <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
@@ -236,7 +248,7 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="eliminarEvento" layoutX="282.0" layoutY="61.0" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Eliminar">
+                        <JFXButton fx:id="eliminarEvento" layoutX="282.0" layoutY="61.0" onAction="#eliminarEvento" prefHeight="48.0" prefWidth="193.0" styleClass="button" text="Eliminar">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>

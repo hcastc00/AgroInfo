@@ -148,9 +148,14 @@ public class AgricultorController implements Initializable {
     private List<Gasto> gastos;
     private Node[] nodesG;
 
+    // Lista de los eventos
+    private List<Evento> eventos;
+
     //Cosas de almacen
     private Node nodeA;
     private Almacen almacen;
+
+    private Evento eventoSeleccionado;
 
     private List<Parcela> listarParcelas() {
         return parcelaDAO.listar();
@@ -173,6 +178,12 @@ public class AgricultorController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         moverVentana();
         mostrarParcelas();
+
+        this.listaEventos.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                eventoSeleccionado = listaEventos.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
     @FXML
@@ -257,7 +268,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    public void altaVenta(ActionEvent actionEvent) throws IOException {
+    private void altaVenta(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -276,7 +287,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    public void altaEvento(ActionEvent actionEvent) throws IOException {
+    private void altaEvento(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEvento.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -304,12 +315,19 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    public void verDescripcionVenta(ActionEvent actionEvent){
+    private void eliminarEvento(){
+        System.out.println(eventoSeleccionado.getDescripcion());
+        eventoDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
+        this.recargar();
+    }
+
+    @FXML
+    private void verDescripcionVenta(ActionEvent actionEvent){
 
     }
 
     @FXML
-    public void altaGasto(ActionEvent actionEvent) throws IOException {
+    private void altaGasto(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaGasto.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -483,7 +501,16 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelEventos.setVisible(true);
-        this.pintaEventosParcela(id);
+
+        if(this.eventos == null || this.eventos.isEmpty()){
+            this.eventos = eventoDAO.listarEventosParcela(id);
+            this.pintaEventosParcela(id);
+        }
+
+        for(int i=0; i<eventos.size(); i++){
+            System.out.println(eventos.get(i).getId());
+        }
+
     }
 
     @FXML
@@ -495,7 +522,11 @@ public class AgricultorController implements Initializable {
         this.panelAlmacen.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelEventos.setVisible(true);
-        this.pintaEventosMaquinaria(id);
+
+        if(this.eventos == null || this.eventos.isEmpty()){
+            this.eventos = eventoDAO.listarEventosMaquinaria(id);
+            this.pintaEventosMaquinaria(id);
+        }
     }
 
     @FXML
@@ -574,8 +605,12 @@ public class AgricultorController implements Initializable {
 
             case 5 -> {
                 this.listaEventos.setItems(null);
-                if(matriculaEscondido.getText().isBlank()) this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
-                else this.pintaEventosMaquinaria(matriculaEscondido.getText());
+                this.eventos = eventoDAO.listarEventosParcela(Integer.parseInt(idEscondido.getText()));
+                if(matriculaEscondido.getText().isBlank())
+                    this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
+                else
+                    this.pintaEventosMaquinaria(matriculaEscondido.getText());
+
             }
         }
     }
@@ -838,7 +873,7 @@ public class AgricultorController implements Initializable {
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
 
-        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosParcela(id)), p -> true);
+        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventos), p -> true);
         SortedList<Evento> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
         this.listaEventos.setItems(sortedData);
