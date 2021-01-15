@@ -18,7 +18,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="950.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Pane fx:id="base" layoutX="50.0" layoutY="28.0" style="-fx-background-color: #86c541; -fx-background-radius: 1.5em;">
+        <Pane fx:id="base" layoutX="50.0" layoutY="28.0" styleClass="pane">
             <children>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="850.0">
                     <children>
@@ -87,12 +87,12 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </GridPane>
-                        <JFXButton fx:id="botonEvent" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="Gestionar Eventos">
+                        <JFXButton fx:id="botonEvent" prefHeight="37.0" prefWidth="151.0" text="Gestionar Eventos">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
                         </JFXButton>
-                  <JFXButton fx:id="botonBorrar" layoutX="645.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 2em;" text="X">
+                  <JFXButton fx:id="botonBorrar" layoutX="645.0" layoutY="42.0" prefHeight="35.0" prefWidth="35.0" text="X">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>

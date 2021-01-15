@@ -717,6 +717,8 @@ public class AgricultorController implements Initializable {
                     mostrarEventosParcela(Integer.parseInt(id.getText()));
                 });
 
+                nodesP[i].getStyleClass().add(Ventana.color);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -755,6 +757,8 @@ public class AgricultorController implements Initializable {
                 gestionarEventos.setOnAction(e ->{
                     mostrarEventosMaquinaria(matricula.getText());
                 });
+
+                nodesM[i].getStyleClass().add(Ventana.color);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -806,6 +810,8 @@ public class AgricultorController implements Initializable {
                     }
                 });
 
+                nodesV[i].getStyleClass().add(Ventana.color);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -850,6 +856,8 @@ public class AgricultorController implements Initializable {
                     }
                 });
 
+                nodesG[i].getStyleClass().add(Ventana.color);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -883,6 +891,8 @@ public class AgricultorController implements Initializable {
             //Remolacha
             Label remolacha = (Label) nodeA.lookup("#remolacha");
             remolacha.setText(String.valueOf(almacen.getExcedenteRemolacha()));
+
+            nodeA.getStyleClass().add(Ventana.color);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -948,6 +958,7 @@ public class AgricultorController implements Initializable {
         Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
