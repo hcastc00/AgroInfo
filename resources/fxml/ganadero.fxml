@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXSpinner?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.GanaderoController">
     <children>
@@ -85,14 +75,17 @@
                      <children>
                         <Pane fx:id="altaVentaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Venta">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/AltaVentaGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
@@ -115,14 +108,17 @@
                         </Pane>
                         <Pane fx:id="ventaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Ventas">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/VentasGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
@@ -145,14 +141,17 @@
                         </Pane>
                         <Pane fx:id="descripcionGasto" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Descripcion Gastos">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/DescripcionGastoGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
@@ -175,14 +174,17 @@
                         </Pane>
                         <Pane fx:id="gastosP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Gastos">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/GastosGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
@@ -205,22 +207,31 @@
                         </Pane>
                         <Pane fx:id="almacenP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Almacen">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/AlmacenGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -229,22 +240,31 @@
                         </Pane>
                         <Pane fx:id="altaEventoConejaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Evento Coneja">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/AltaEventoConejaGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -253,22 +273,31 @@
                         </Pane>
                         <Pane fx:id="eventoConejaP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Eventos Conejas">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/EventosConejaGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -277,22 +306,31 @@
                         </Pane>
                         <Pane fx:id="altaConejasP" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Conejas">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/AltaConejaGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -301,22 +339,31 @@
                         </Pane>
                         <Pane fx:id="descripcionVentaP" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Descripcion Venta">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/DescripcionVentaGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -325,22 +372,31 @@
                         </Pane>
                         <Pane fx:id="altaGastosP" prefHeight="600.0" prefWidth="950.0" visible="false">
                            <children>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Alta Gasto">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/AltaGastoGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -349,70 +405,31 @@
                         </Pane>
                         <Pane fx:id="conejasP" prefHeight="600.0" prefWidth="950.0">
                            <children>
-                              <Pane fx:id="descripcionVenta" prefHeight="600.0" prefWidth="950.0" visible="false">
-                                 <children>
-                                    <Pane fx:id="altaGastosP111" prefHeight="600.0" prefWidth="950.0" visible="false">
-                                       <children>
-                                          <VBox prefHeight="750.0" prefWidth="952.0">
-                                             <children>
-                                                <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Auditoria">
-                                                   <font>
-                                                      <Font name="System Bold" size="48.0" />
-                                                   </font>
-                                                </Label>
-                                                <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
-                                                   <children>
-                                                      <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
-                                                         <HBox.margin>
-                                                            <Insets right="800.0" />
-                                                         </HBox.margin>
-                                                      </ImageView>
-                                                      <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </Pane>
-                                    <VBox prefHeight="750.0" prefWidth="952.0">
-                                       <children>
-                                          <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Auditoria">
-                                             <font>
-                                                <Font name="System Bold" size="48.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
-                                             <children>
-                                                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
-                                                   <HBox.margin>
-                                                      <Insets right="800.0" />
-                                                   </HBox.margin>
-                                                </ImageView>
-                                                <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" styleClass="recargar" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </Pane>
-                              <VBox prefHeight="750.0" prefWidth="952.0">
+                              <VBox alignment="CENTER" prefHeight="750.0" prefWidth="952.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="102.0" prefWidth="949.0" text="Conejas">
                                        <font>
                                           <Font name="System Bold" size="48.0" />
                                        </font>
                                     </Label>
-                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="550.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/img/ayuda/ConejasGanadero.png" />
+                                       </image></ImageView>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="932.0">
                                        <children>
                                           <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#anterior" pickOnBounds="true" preserveRatio="true">
                                              <HBox.margin>
                                                 <Insets right="800.0" />
                                              </HBox.margin>
+                                             <image>
+                                                <Image url="@/img/izda.png" />
+                                             </image>
                                           </ImageView>
-                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#siguiente" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@/img/dcha.png" />
+                                             </image></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
