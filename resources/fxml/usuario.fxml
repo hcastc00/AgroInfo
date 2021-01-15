@@ -40,6 +40,9 @@
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
                         </Label>
                         <Label fx:id="tipo" style="-fx-text-fill: black;" text="No definido">
                            <VBox.margin>
@@ -54,6 +57,9 @@
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
                         </Label>
                         <Label fx:id="ultimoInicio" style="-fx-text-fill: black;" text="No definido">
                            <VBox.margin>
