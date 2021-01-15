@@ -1,12 +1,14 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.dao.*;
+import agroinfo.modelo.vo.Evento;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextArea;
 import com.mysql.jdbc.log.Log;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -97,6 +99,9 @@ public class AdminController implements Initializable {
     @FXML
     private TextField buscarUsuario;
 
+    @FXML
+    private JFXSpinner spinnerEventos;
+
     //Lista de logs
     private List<String[]> logs;
     private Node[] nodesL;
@@ -133,15 +138,33 @@ public class AdminController implements Initializable {
 
     @FXML
     private void salir(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage thisStage = (Stage) node.getScene().getWindow();
-        Parent admin = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
-        Scene scene = new Scene(admin, 1200, 750);
-        scene.setFill(Color.TRANSPARENT);
-        scene.getStylesheets().add(Ventana.color);
-        thisStage.setScene(scene);
+        Task<Parent> cargarVista = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                return FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
+            }
+        };
 
-        usuarioDAO.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
+        cargarVista.setOnSucceeded(workerStateEvent -> {
+            Node node = (Node) event.getSource();
+            Stage thisStage = (Stage) node.getScene().getWindow();
+            Scene scene = new Scene(cargarVista.getValue(), 1200, 750);
+            scene.setFill(Color.TRANSPARENT);
+            scene.getStylesheets().add(Ventana.color);
+            scene.getStylesheets().add(Ventana.color);
+            thisStage.setScene(scene);
+        });
+
+        Task<Boolean> t = new Task<Boolean>() {
+            @Override
+            protected Boolean call() throws Exception {
+                usuarioDAO.cerrarSesion(LoginController.getUsuarioActual().getNombreUsuario());
+                return null;
+            }
+        };
+
+        new Thread(t).start();
+        new Thread(cargarVista).start();
     }
 
     @FXML
@@ -179,6 +202,10 @@ public class AdminController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelAuditoria.setVisible(true);
+
+        listaAuditoria.setItems(null);
+        spinnerEventos.setVisible(true);
+
         this.pintaAuditoria();
     }
 
@@ -445,23 +472,34 @@ public class AdminController implements Initializable {
         this.tipo.setCellValueFactory(t -> new ReadOnlyStringWrapper(t.getValue()[2]));
         this.log.setCellValueFactory(l -> new ReadOnlyStringWrapper(l.getValue()[3]));
 
-        FilteredList<String[]> filteredData = new FilteredList<>(FXCollections.observableArrayList(registroDAO.listar()), p -> true);
-        SortedList<String[]> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(this.listaAuditoria.comparatorProperty());
-        this.listaAuditoria.setItems(sortedData);
+        Task<FilteredList<String[]>> listar = new Task<>() {
+            @Override
+            protected FilteredList<String[]> call() throws Exception {
 
-        buscarAuditoria.textProperty().addListener((prop, old, text) -> {
-            filteredData.setPredicate(logs -> {
-                if(text == null || text.isEmpty()) return true;
+                FilteredList<String[]> filteredData = new FilteredList<>(FXCollections.observableArrayList(registroDAO.listar()), p -> true);
+                SortedList<String[]> sortedData = new SortedList<>(filteredData);
+                sortedData.comparatorProperty().bind(listaAuditoria.comparatorProperty());
+                listaAuditoria.setItems(sortedData);
+                return filteredData;
+            };
+        };
 
-                String name = logs[0];
-                String fecha = logs[1];
-                String tipo = logs[2];
-                String log = logs[3];
-                return name.contains(text) || tipo.contains(text) || fecha.contains(text) || log.contains(text);
+        listar.setOnSucceeded(workerStateEvent1 -> {
+            buscarAuditoria.textProperty().addListener((prop, old, text) -> {
+                listar.getValue().setPredicate(logs -> {
+                    if (text == null || text.isEmpty()) return true;
+
+                    String name = logs[0];
+                    String fecha = logs[1];
+                    String tipo = logs[2];
+                    String log = logs[3];
+                    return name.contains(text) || tipo.contains(text) || fecha.contains(text) || log.contains(text);
+                });
             });
+            spinnerEventos.setVisible(false);
         });
 
+        new Thread(listar).start();
     }
 
     private void moverVentana() {
