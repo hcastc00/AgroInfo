@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
+<AnchorPane fx:id="root" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agroinfo.controlador.AgricultorController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="750.0" prefWidth="250.0" styleClass="VBox">
             <children>
@@ -152,7 +153,7 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                             <image>
-                                <Image url = "@/img/recargar.png" />
+                                <Image url="@/img/recargar.png" />
                             </image>
                            <HBox.margin>
                               <Insets right="600.0" top="50.0" />
@@ -163,7 +164,7 @@
                   <VBox fx:id="listaAlmacen" alignment="CENTER" layoutY="90.0" prefHeight="700.0" prefWidth="950.0" />
                </children>
             </Pane>
-            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
+            <Pane fx:id="panelMaquinaria" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
@@ -197,7 +198,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
+                <Pane fx:id="panelParcelas" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
@@ -273,6 +274,7 @@
                     </columns>
                   </TableView>
                   <Label fx:id="idEscondido" layoutX="461.0" layoutY="367.0" visible="false" />
+                  <JFXSpinner fx:id="spinnerEventos" layoutX="285.0" layoutY="260.0" prefHeight="342.0" prefWidth="401.0" visible="false" />
                </children>
             </Pane>
             <Label fx:id="matriculaEscondido" visible="false" />
