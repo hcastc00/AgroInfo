@@ -23,7 +23,7 @@ public class Parcela {
         this.tipoParcela = tipoParcela;
         this.tipoCultivo = tipoCultivo;
         this.produccion = produccion;
-        this.excedente = 0;
+        this.excedente = 0.9 * produccion;
     }
 
     // GETTERS Y SETTERS
