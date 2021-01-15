@@ -4,9 +4,7 @@ import agroinfo.modelo.conexion.ConexionOpenWheatherAPI;
 import agroinfo.modelo.dao.*;
 import agroinfo.modelo.vo.*;
 import agroinfo.vista.Ventana;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,14 +28,17 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -705,6 +707,17 @@ public class AgricultorController implements Initializable {
                     this.recargar();
                 });
 
+                //Desc
+                JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
+                verDesc.setOnAction(e ->{
+                    try {
+                        Image img = new Image(this.getClass().getClassLoader().getResource("img/venta.png").toURI().toString());
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                    } catch (IOException | URISyntaxException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -736,6 +749,17 @@ public class AgricultorController implements Initializable {
                     gastoDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
+                });
+
+                //Desc
+                JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
+                verDesc.setOnAction(e ->{
+                    try {
+                        Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                    } catch (IOException | URISyntaxException ioException) {
+                        ioException.printStackTrace();
+                    }
                 });
 
             } catch (IOException e) {
@@ -772,7 +796,6 @@ public class AgricultorController implements Initializable {
             Label remolacha = (Label) nodeA.lookup("#remolacha");
             remolacha.setText(String.valueOf(almacen.getExcedenteRemolacha()));
 
-            System.out.println(nodeA);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -819,6 +842,25 @@ public class AgricultorController implements Initializable {
                 return  fecha.contains(text) || descripcion.contains(text);
             });
         });
+    }
+
+    private void pintarDescripcion(String d, Image i) throws IOException {
+        Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
+        Scene scene = new Scene(loader);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+
+        JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
+        desc.setText(d);
+
+        ImageView img = (ImageView)scene.lookup("#imagen");
+        img.setImage(i);
+
     }
 
     private void moverVentana() {
