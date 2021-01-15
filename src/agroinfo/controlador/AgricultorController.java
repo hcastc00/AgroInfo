@@ -298,7 +298,7 @@ public class AgricultorController implements Initializable {
         Label label = (Label)boton.getScene().lookup("#idEscondido");
 
         //Si el id esta vacio, es maquinaria
-        if(idEscondido.getText().isBlank()){
+        if(idEscondido == null || idEscondido.getText().isBlank()){
             scene.setUserData(matriculaEscondido.getText());
         }else{
             scene.setUserData(Integer.parseInt(idEscondido.getText()));
@@ -502,13 +502,11 @@ public class AgricultorController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelEventos.setVisible(true);
 
-        if(this.eventos == null || this.eventos.isEmpty()){
+        if(this.eventos == null || this.eventos.isEmpty() || this.idEscondido != null || !this.idEscondido.getText().equals(String.valueOf(id))){
+            this.idEscondido.setText(String.valueOf(id));
+            this.matriculaEscondido.setText("");
             this.eventos = eventoDAO.listarEventosParcela(id);
             this.pintaEventosParcela(id);
-        }
-
-        for(int i=0; i<eventos.size(); i++){
-            System.out.println(eventos.get(i).getId());
         }
 
     }
@@ -523,7 +521,9 @@ public class AgricultorController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelEventos.setVisible(true);
 
-        if(this.eventos == null || this.eventos.isEmpty()){
+        if(this.eventos == null || this.eventos.isEmpty() || this.matriculaEscondido != null || !this.matriculaEscondido.getText().equals(id)){
+            this.matriculaEscondido.setText(id);
+            this.idEscondido.setText("");
             this.eventos = eventoDAO.listarEventosMaquinaria(id);
             this.pintaEventosMaquinaria(id);
         }
@@ -605,7 +605,6 @@ public class AgricultorController implements Initializable {
 
             case 5 -> {
                 this.listaEventos.setItems(null);
-                this.eventos = eventoDAO.listarEventosParcela(Integer.parseInt(idEscondido.getText()));
                 if(matriculaEscondido.getText().isBlank())
                     this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
                 else
