@@ -9,10 +9,10 @@ public class EventoConeja {
 
     private int id;
     private int idConeja;
-    private Date fecha;
+    private java.sql.Date fecha;
     private TipoEventoConeja tipoEventoConeja;
 
-    public EventoConeja(int idConeja, Date fecha, TipoEventoConeja tipoEventoConeja) {
+    public EventoConeja(int idConeja, java.sql.Date fecha, TipoEventoConeja tipoEventoConeja) {
         this.idConeja = idConeja;
         this.fecha = fecha;
         this.tipoEventoConeja = tipoEventoConeja;
@@ -26,7 +26,7 @@ public class EventoConeja {
         return idConeja;
     }
 
-    public Date getFecha() {
+    public java.sql.Date getFecha() {
         return fecha;
     }
 
@@ -36,7 +36,7 @@ public class EventoConeja {
 
     public void setId(int id) { this.id = id; }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(java.sql.Date fecha) {
         this.fecha = fecha;
     }
 
