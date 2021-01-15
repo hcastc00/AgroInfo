@@ -7,6 +7,7 @@ import agroinfo.modelo.vo.Venta;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.mysql.jdbc.log.Log;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
@@ -136,6 +137,7 @@ public class AdminController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent admin = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         Scene scene = new Scene(admin, 1200, 750);
+        scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
         thisStage.setScene(scene);
 
@@ -363,6 +365,17 @@ public class AdminController implements Initializable {
                 JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
                 borrar.setVisible(false);
 
+                //Ver desc
+                JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
+                verDesc.setOnAction(e ->{
+                    try {
+                        Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                    } catch (URISyntaxException | IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+
                 nodesG[i].getStyleClass().add(Ventana.color);
 
             } catch (IOException e) {
@@ -403,6 +416,17 @@ public class AdminController implements Initializable {
                 Label tipo = (Label) nodesV[i].lookup("#tipo");
                 tipo.setText(ventas.get(i).getTipo().toString());
                 cajaTipo.setVisible(true);
+
+                //Ver desc
+                JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
+                verDesc.setOnAction(e ->{
+                    try {
+                        Image img = new Image(this.getClass().getClassLoader().getResource("img/venta.png").toURI().toString());
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                    } catch (URISyntaxException | IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
 
                 nodesV[i].getStyleClass().add(Ventana.color);
 
@@ -477,6 +501,23 @@ public class AdminController implements Initializable {
         }
     }
 
+    private void pintarDescripcion(String d, Image i) throws IOException {
+        Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
+        Scene scene = new Scene(loader);
+        scene.setFill(Color.TRANSPARENT);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+
+        JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
+        desc.setText(d);
+
+        ImageView img = (ImageView)scene.lookup("#imagen");
+        img.setImage(i);
+    }
 
 }
 

@@ -635,6 +635,7 @@ public class AgricultorController implements Initializable {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
             Scene scene = new Scene(cargarVista.getValue(), 1200, 750);
+            scene.setFill(Color.TRANSPARENT);
             scene.getStylesheets().add(Ventana.color);
             thisStage.setScene(scene);
         });

@@ -311,6 +311,7 @@ public class GanaderoController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         Parent ganadero = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         Scene scene = new Scene(ganadero, 1200, 750);
+        scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
         thisStage.setScene(scene);
 
@@ -645,7 +646,6 @@ public class GanaderoController implements Initializable {
 
         ImageView img = (ImageView)scene.lookup("#imagen");
         img.setImage(i);
-
     }
 
     private void pintaAlmacen() {
