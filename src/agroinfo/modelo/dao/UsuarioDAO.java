@@ -19,8 +19,7 @@ public class UsuarioDAO extends ConexionBD {
 
         Usuario u = this.buscar(nombreUsuario);
 
-        //if(u == null || !u.getContrasenya().equals(DigestUtils.md5Hex(contrasenya))){
-        if(u == null || !u.getContrasenya().equals(contrasenya)){
+        if(u == null || !u.getContrasenya().equals(DigestUtils.md5Hex(contrasenya))){
             return null;
         }else {
 
