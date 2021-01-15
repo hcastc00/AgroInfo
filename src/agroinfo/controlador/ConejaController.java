@@ -6,8 +6,6 @@ import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RegexValidator;
-import com.mysql.jdbc.CommunicationsException;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,11 +17,9 @@ import java.sql.SQLException;
 
 public class ConejaController {
 
+    ConejaDAO conejaDAO = new ConejaDAO();
     @FXML
     private JFXTextField idAlta;
-
-    ConejaDAO conejaDAO = new ConejaDAO();
-
     @FXML
     private Label error;
 
@@ -45,7 +41,7 @@ public class ConejaController {
 
         boolean idError = idAlta.getText().isBlank() || !idAlta.getText().matches("^[0-9]*$");
 
-        if(!idError){
+        if (!idError) {
 
             try {
                 conejaDAO.crear(new Coneja((Integer.parseInt(idAlta.getText()))),
@@ -53,7 +49,7 @@ public class ConejaController {
                 this.close(event);
             } catch (SQLException e) {
 
-                if (e.getClass() == MySQLIntegrityConstraintViolationException.class){
+                if (e.getClass() == MySQLIntegrityConstraintViolationException.class) {
                     error.setText("La coneja con el id " + idAlta.getText() + " ya existe.");
                 }
 
@@ -62,7 +58,7 @@ public class ConejaController {
                 new FadeIn(error).play();
             }
 
-        }else{
+        } else {
             error.setVisible(true);
             new Shake(botonGuardar).play();
             new FadeIn(error).play();

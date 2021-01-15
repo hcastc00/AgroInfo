@@ -2,7 +2,6 @@ package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Parcela;
-import agroinfo.modelo.vo.Usuario;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParcelaDAO extends ConexionBD {
-    public ParcelaDAO(){
+    public ParcelaDAO() {
     }
 
 
@@ -23,7 +22,7 @@ public class ParcelaDAO extends ConexionBD {
                 " tipo_parcela, tipo_cultivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
 
-        pSentencia.setInt   (1, parcela.getId());
+        pSentencia.setInt(1, parcela.getId());
         pSentencia.setDouble(2, parcela.getLatitud());
         pSentencia.setDouble(3, parcela.getLongitud());
         pSentencia.setDouble(4, parcela.getTam());
@@ -44,7 +43,7 @@ public class ParcelaDAO extends ConexionBD {
 
         this.abrirConexion();
 
-        String sentencia = "UPDATE parcelas SET "+
+        String sentencia = "UPDATE parcelas SET " +
                 "latitud    = ?," +
                 "longitud       = ?, " +
                 "tamanyo        = ?, " +
@@ -54,16 +53,16 @@ public class ParcelaDAO extends ConexionBD {
                 "tipo_cultivo   = ? " +
                 "WHERE identificador = ?";
 
-            PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setDouble(1, parcela.getLatitud());
-            pSentencia.setDouble(2, parcela.getLongitud());
-            pSentencia.setDouble(3, parcela.getTam());
-            pSentencia.setDouble(4, parcela.getProduccion());
-            pSentencia.setDouble(5, parcela.getExcedente());
-            pSentencia.setString(6, parcela.getTipoParcela().toString());
-            pSentencia.setString(7, parcela.getTipoCultivo().toString());
-            pSentencia.setInt   (8, parcela.getId());
-            pSentencia.executeUpdate();
+        PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
+        pSentencia.setDouble(1, parcela.getLatitud());
+        pSentencia.setDouble(2, parcela.getLongitud());
+        pSentencia.setDouble(3, parcela.getTam());
+        pSentencia.setDouble(4, parcela.getProduccion());
+        pSentencia.setDouble(5, parcela.getExcedente());
+        pSentencia.setString(6, parcela.getTipoParcela().toString());
+        pSentencia.setString(7, parcela.getTipoCultivo().toString());
+        pSentencia.setInt(8, parcela.getId());
+        pSentencia.executeUpdate();
 
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
@@ -105,7 +104,7 @@ public class ParcelaDAO extends ConexionBD {
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM parcelas");
 
-            while (rs.next()){
+            while (rs.next()) {
                 Parcela p = new Parcela(rs.getInt("identificador"),
                         rs.getDouble("latitud"),
                         rs.getDouble("longitud"),

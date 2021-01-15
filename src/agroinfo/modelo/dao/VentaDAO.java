@@ -1,10 +1,8 @@
 package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
-import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Venta;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VentaDAO extends ConexionBD {
-    public VentaDAO(){
+    public VentaDAO() {
     }
 
     public void crear(Venta venta) throws SQLException {
@@ -29,11 +27,11 @@ public class VentaDAO extends ConexionBD {
         pSentencia.setDouble(2, venta.getPrecioUnitario());
         pSentencia.setString(3, venta.getUsuarioRegistrador());
         pSentencia.setString(4, venta.getDescripcion());
-        pSentencia.setString(5 ,venta.getTipo().toString());
+        pSentencia.setString(5, venta.getTipo().toString());
         pSentencia.execute();
 
         RegistroDAO.registrar(this.getConnection(), venta.getUsuarioRegistrador(),
-                "El usuario ha registrado una venta." ,
+                "El usuario ha registrado una venta.",
                 "Creacion de venta");
 
         this.cerrarConexion();
@@ -54,13 +52,13 @@ public class VentaDAO extends ConexionBD {
         }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha eliminado una venta." ,
+                "El usuario ha eliminado una venta.",
                 "Eliminacion de venta");
 
         this.cerrarConexion();
     }
 
-    public List<Venta> listar(Venta.TipoVenta tipoVenta){
+    public List<Venta> listar(Venta.TipoVenta tipoVenta) {
 
         this.abrirConexion();
 
@@ -72,7 +70,7 @@ public class VentaDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setString(1, tipoVenta.toString());
             ResultSet rs = pSentencia.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Venta v = new Venta(
                         rs.getInt("cantidad"),
                         rs.getDouble("precio_unitario"),
@@ -94,7 +92,7 @@ public class VentaDAO extends ConexionBD {
         return lista;
     }
 
-    public List<Venta> listar(){
+    public List<Venta> listar() {
 
         this.abrirConexion();
 
@@ -104,7 +102,7 @@ public class VentaDAO extends ConexionBD {
 
             String sentencia = "SELECT * FROM ventas";
             ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
-            while(rs.next()){
+            while (rs.next()) {
                 Venta v = new Venta(
                         rs.getInt("cantidad"),
                         rs.getDouble("precio_unitario"),
@@ -126,7 +124,7 @@ public class VentaDAO extends ConexionBD {
         return lista;
     }
 
-    public Venta buscar(int id){
+    public Venta buscar(int id) {
 
         Venta v = null;
 

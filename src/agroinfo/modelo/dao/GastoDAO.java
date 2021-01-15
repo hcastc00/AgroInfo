@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GastoDAO extends ConexionBD {
-    public GastoDAO(){
+    public GastoDAO() {
     }
 
     public void crear(Gasto gasto, String usuario_identificador) throws SQLException {
@@ -26,7 +26,7 @@ public class GastoDAO extends ConexionBD {
         pSentencia.setDouble(1, gasto.getImporte());
         pSentencia.setString(2, gasto.getDescripcion());
         pSentencia.setString(3, gasto.getTipoGasto().toString());
-        pSentencia.setString (4, gasto.getUsuarioRegistrador());
+        pSentencia.setString(4, gasto.getUsuarioRegistrador());
         pSentencia.execute();
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
@@ -37,7 +37,7 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(int id, String usuario_identificador){
+    public void eliminar(int id, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -57,7 +57,7 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(Gasto gasto, String usuario_identificador){
+    public void modificar(Gasto gasto, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -69,7 +69,7 @@ public class GastoDAO extends ConexionBD {
 
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setDouble (1, gasto.getImporte());
+            pSentencia.setDouble(1, gasto.getImporte());
             pSentencia.setString(2, gasto.getDescripcion());
             pSentencia.setString(3, gasto.getTipoGasto().toString());
             pSentencia.setInt(4, gasto.getId());
@@ -86,7 +86,7 @@ public class GastoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Gasto> listar(Gasto.TipoGasto tipoGasto){
+    public List<Gasto> listar(Gasto.TipoGasto tipoGasto) {
 
         this.abrirConexion();
 
@@ -98,7 +98,7 @@ public class GastoDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setString(1, tipoGasto.toString());
             ResultSet rs = pSentencia.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Gasto g = new Gasto(
                         rs.getInt("importe"),
                         rs.getString("descripcion"),
@@ -119,7 +119,7 @@ public class GastoDAO extends ConexionBD {
         return lista;
     }
 
-    public List<Gasto> listar(){
+    public List<Gasto> listar() {
 
         this.abrirConexion();
 
@@ -129,7 +129,7 @@ public class GastoDAO extends ConexionBD {
 
             String sentencia = "SELECT * FROM gastos";
             ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
-            while(rs.next()){
+            while (rs.next()) {
                 Gasto g = new Gasto(
                         rs.getInt("importe"),
                         rs.getString("descripcion"),
@@ -150,7 +150,7 @@ public class GastoDAO extends ConexionBD {
         return lista;
     }
 
-    public Gasto buscar(int id){
+    public Gasto buscar(int id) {
 
         Gasto g = null;
 

@@ -3,16 +3,16 @@ package agroinfo.modelo.dao;
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Coneja;
 import agroinfo.modelo.vo.EventoConeja;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ConejaDAO extends ConexionBD {
 
-    public ConejaDAO(){
+    public ConejaDAO() {
     }
 
     public void crear(Coneja coneja, String usuario_identificador) throws SQLException {
@@ -25,14 +25,14 @@ public class ConejaDAO extends ConexionBD {
         pSentencia.setInt(1, coneja.getId());
         pSentencia.execute();
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-        "El usuario ha dado de alta una nueva coneja con id: "+ coneja.getId(),
+                "El usuario ha dado de alta una nueva coneja con id: " + coneja.getId(),
                 "Creacion de coneja");
 
         this.cerrarConexion();
 
     }
 
-    public void eliminar(int id, String usuario_identificador){
+    public void eliminar(int id, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -42,7 +42,7 @@ public class ConejaDAO extends ConexionBD {
             pSentencia.setInt(1, id);
             pSentencia.execute();
             RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha dado de alta una nueva coneja con id: "+ id,
+                    "El usuario ha dado de alta una nueva coneja con id: " + id,
                     "Creacion de coneja");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -52,7 +52,7 @@ public class ConejaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public List<Coneja> listar(){
+    public List<Coneja> listar() {
 
         this.abrirConexion();
 
@@ -60,7 +60,7 @@ public class ConejaDAO extends ConexionBD {
 
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM conejas");
-            while(rs.next()){
+            while (rs.next()) {
                 lista.add(new Coneja(rs.getInt(1)));
             }
 
@@ -73,7 +73,7 @@ public class ConejaDAO extends ConexionBD {
         return lista;
     }
 
-    public ArrayList<String[]> listarConEventos(){
+    public ArrayList<String[]> listarConEventos() {
 
         this.abrirConexion();
 
@@ -98,11 +98,11 @@ public class ConejaDAO extends ConexionBD {
             int idNuevo;
             String[] a = new String[3];
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 idNuevo = rs.getInt("identificador");
 
-                if(idAnt != idNuevo ){
+                if (idAnt != idNuevo) {
                     if (rs.getRow() != 1)
                         lista.add(a);
                     a = new String[3];
@@ -110,9 +110,9 @@ public class ConejaDAO extends ConexionBD {
                     a[0] = String.valueOf(idNuevo);
                 }
 
-               String tipo = rs.getString("tipo");
+                String tipo = rs.getString("tipo");
 
-                if (tipo!=null) {
+                if (tipo != null) {
                     if (tipo.equals(EventoConeja.TipoEventoConeja.Inseminacion.toString())) {
                         a[1] = rs.getDate("fecha").toString();
                     } else if (tipo.equals(EventoConeja.TipoEventoConeja.Parto.toString())) {
@@ -120,7 +120,7 @@ public class ConejaDAO extends ConexionBD {
                     }
                 }
 
-                if(rs.isLast()){
+                if (rs.isLast()) {
                     lista.add(a);
                 }
             }
@@ -134,7 +134,7 @@ public class ConejaDAO extends ConexionBD {
         return lista;
     }
 
-    public Coneja buscar(int id){
+    public Coneja buscar(int id) {
 
         Coneja coneja = null;
 

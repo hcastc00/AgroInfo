@@ -10,13 +10,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Ventana extends Application {
-    private double x,y;
     private static final String verde = "css/greenTheme.css";
     private static final String crema = "css/creamTheme.css";
     public static String color = crema;
+    private double x, y;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/login.fxml"));
         primaryStage.setTitle("AgroInfo");
@@ -32,10 +36,5 @@ public class Ventana extends Application {
         primaryStage.getIcons().add(new Image("/img/ico.png"));
 
         primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

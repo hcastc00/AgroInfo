@@ -5,13 +5,11 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 public class ConexionOpenWheatherAPI {
 
-    private String APIKEY = "26ff56f4aaa3010b43e26cee6c2b8cb1";
+    private final String APIKEY = "26ff56f4aaa3010b43e26cee6c2b8cb1";
 
     private String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();

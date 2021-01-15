@@ -1,8 +1,8 @@
 package agroinfo.modelo.vo;
 
 public class Maquinaria {
-    private String matricula;
-    private String nombre;
+    private final String matricula;
+    private final String nombre;
 
     public Maquinaria(String matricula, String nombre) {
         this.matricula = matricula;

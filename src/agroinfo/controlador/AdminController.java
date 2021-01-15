@@ -1,7 +1,9 @@
 package agroinfo.controlador;
 
-import agroinfo.modelo.dao.*;
-import agroinfo.modelo.vo.Evento;
+import agroinfo.modelo.dao.GastoDAO;
+import agroinfo.modelo.dao.RegistroDAO;
+import agroinfo.modelo.dao.UsuarioDAO;
+import agroinfo.modelo.dao.VentaDAO;
 import agroinfo.modelo.vo.Gasto;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.modelo.vo.Venta;
@@ -10,9 +12,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextArea;
-import com.mysql.jdbc.log.Log;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -24,20 +24,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -205,7 +208,7 @@ public class AdminController implements Initializable {
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
 
-        JFXComboBox tipoParcela = (JFXComboBox)root.lookup("#tipo");
+        JFXComboBox tipoParcela = (JFXComboBox) root.lookup("#tipo");
         tipoParcela.getItems().addAll(Usuario.TipoUsuario.values());
 
         Stage stage = new Stage();
@@ -219,7 +222,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    void borrarUsuario(ActionEvent event){
+    void borrarUsuario(ActionEvent event) {
 
     }
 
@@ -256,7 +259,7 @@ public class AdminController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaGasto();
             this.panel = 1;
             this.panelUsuarios.setVisible(false);
@@ -305,7 +308,7 @@ public class AdminController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaVenta();
             this.panel = 2;
             this.panelUsuarios.setVisible(false);
@@ -331,7 +334,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void siguiente(){
+    private void siguiente() {
         switch (panelA) {
             case 0 -> {
                 usuariosP.setVisible(false);
@@ -362,7 +365,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void anterior(){
+    private void anterior() {
         switch (panelA) {
             case 0 -> {
                 usuariosP.setVisible(false);
@@ -419,8 +422,8 @@ public class AdminController implements Initializable {
                 this.listaVentas.getChildren().removeIf(node -> {
                     Label id = (Label) node.lookup("#id");
                     Label tipoVenta = (Label) node.lookup("#tipo");
-                    return (!id.getText().matches(buscarVenta.getText() + ".*"))&&
-                            !tipoVenta.getText().matches(buscarVenta.getText() + ".*") ;
+                    return (!id.getText().matches(buscarVenta.getText() + ".*")) &&
+                            !tipoVenta.getText().matches(buscarVenta.getText() + ".*");
                 });
             }
         }
@@ -444,18 +447,18 @@ public class AdminController implements Initializable {
 
                 //Ultimo inicio de sesion
                 Label ultimoInicio = (Label) nodesU[i].lookup("#ultimoInicio");
-                if(!usuarios.get(i)[4].equals("null"))
+                if (!usuarios.get(i)[4].equals("null"))
                     ultimoInicio.setText(usuarios.get(i)[4]);
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesU[i].lookup("#botonBorrar");
 
                 //Evita borrar el usuario MASTER y actual
-                if(id.getText().equals(LoginController.getUsuarioActual().getNombreUsuario()) ||
+                if (id.getText().equals(LoginController.getUsuarioActual().getNombreUsuario()) ||
                         id.getText().equals("admin"))
                     borrar.setVisible(false);
 
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     usuarioDAO.eliminar(id.getText(),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
@@ -463,15 +466,12 @@ public class AdminController implements Initializable {
 
                 //Imagen
                 ImageView imagen = (ImageView) nodesU[i].lookup("#imagen");
-                switch (Usuario.TipoUsuario.valueOf(usuarios.get(i)[2])){
-                    case Ganadero ->
-                            imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/ganadero.png")).toURI().toString()));
+                switch (Usuario.TipoUsuario.valueOf(usuarios.get(i)[2])) {
+                    case Ganadero -> imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/ganadero.png")).toURI().toString()));
 
-                    case Agricultor ->
-                            imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/agricultor.png")).toURI().toString()));
+                    case Agricultor -> imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/agricultor.png")).toURI().toString()));
 
-                    case Administrador ->
-                            imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/admin.png")).toURI().toString()));
+                    case Administrador -> imagen.setImage(new Image((this.getClass().getClassLoader().getResource("img/admin.png")).toURI().toString()));
                 }
 
                 nodesU[i].getStyleClass().add(Ventana.color);
@@ -507,10 +507,10 @@ public class AdminController implements Initializable {
 
                 //Ver desc
                 JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
-                verDesc.setOnAction(e ->{
+                verDesc.setOnAction(e -> {
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
-                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(), img);
                     } catch (URISyntaxException | IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -559,10 +559,10 @@ public class AdminController implements Initializable {
 
                 //Ver desc
                 JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
-                verDesc.setOnAction(e ->{
+                verDesc.setOnAction(e -> {
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/venta.png").toURI().toString());
-                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(), img);
                     } catch (URISyntaxException | IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -593,7 +593,8 @@ public class AdminController implements Initializable {
                 sortedData.comparatorProperty().bind(listaAuditoria.comparatorProperty());
                 listaAuditoria.setItems(sortedData);
                 return filteredData;
-            };
+            }
+
         };
 
         listar.setOnSucceeded(workerStateEvent1 -> {
@@ -653,7 +654,7 @@ public class AdminController implements Initializable {
     }
 
     private void pintarDescripcion(String d, Image i) throws IOException {
-        Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
+        Parent loader = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
@@ -664,10 +665,10 @@ public class AdminController implements Initializable {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
 
-        JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
+        JFXTextArea desc = (JFXTextArea) scene.lookup("#descripcion");
         desc.setText(d);
 
-        ImageView img = (ImageView)scene.lookup("#imagen");
+        ImageView img = (ImageView) scene.lookup("#imagen");
         img.setImage(i);
     }
 

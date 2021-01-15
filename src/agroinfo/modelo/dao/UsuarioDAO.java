@@ -2,26 +2,25 @@ package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Usuario;
-
 import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class UsuarioDAO extends ConexionBD {
 
-    public UsuarioDAO(){
+    public UsuarioDAO() {
     }
 
     public Usuario iniciarSesion(String nombreUsuario, String contrasenya) {
 
         Usuario u = this.buscar(nombreUsuario);
 
-        if(u == null || !u.getContrasenya().equals(DigestUtils.md5Hex(contrasenya))){
+        if (u == null || !u.getContrasenya().equals(DigestUtils.md5Hex(contrasenya))) {
             return null;
-        }else {
+        } else {
 
             this.abrirConexion();
             RegistroDAO.registrar(this.getConnection(), nombreUsuario,
@@ -41,7 +40,7 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void crear(Usuario usuario,String usuario_identificador) throws SQLException {
+    public void crear(Usuario usuario, String usuario_identificador) throws SQLException {
 
         this.abrirConexion();
 
@@ -83,35 +82,35 @@ public class UsuarioDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public ArrayList<String[]> listar(){
+    public ArrayList<String[]> listar() {
 
         ArrayList<String[]> lista = new ArrayList<>();
 
         this.abrirConexion();
 
         try {
-            
+
             String sentencia =
                     "SELECT  nombre_usuario, contrasenya, tipo, id_almacen, CONVERT_TZ(MAX(fecha) ,'EST','CET') as fecha, tipo_registro " +
-                    "FROM ( " +
-                        "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
-                        "FROM usuarios " +
-                        "RIGHT JOIN registro r on usuarios.nombre_usuario = r.usuario_id) " +
-                    "UNION " +
-                        "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
-                        "FROM usuarios " +
-                        "LEFT JOIN registro r on usuarios.nombre_usuario = r.usuario_id) " +
-                    ") as urur " +
-                    "WHERE nombre_usuario is not null AND (tipo_registro like 'Inicio de sesion' OR tipo_registro is null) " +
-                    "GROUP BY nombre_usuario " +
-                    "ORDER BY nombre_usuario";
-            
+                            "FROM ( " +
+                            "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
+                            "FROM usuarios " +
+                            "RIGHT JOIN registro r on usuarios.nombre_usuario = r.usuario_id) " +
+                            "UNION " +
+                            "(SELECT nombre_usuario, contrasenya, usuarios.tipo, id_almacen, fecha , r.tipo as tipo_registro " +
+                            "FROM usuarios " +
+                            "LEFT JOIN registro r on usuarios.nombre_usuario = r.usuario_id) " +
+                            ") as urur " +
+                            "WHERE nombre_usuario is not null AND (tipo_registro like 'Inicio de sesion' OR tipo_registro is null) " +
+                            "GROUP BY nombre_usuario " +
+                            "ORDER BY nombre_usuario";
+
             ResultSet rs = this.getConnection().createStatement().executeQuery(sentencia);
 
 
             String[] a;
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 a = new String[5];
 
@@ -123,7 +122,6 @@ public class UsuarioDAO extends ConexionBD {
 
                 lista.add(a);
             }
-
 
 
         } catch (SQLException throwables) {

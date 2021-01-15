@@ -1,8 +1,5 @@
 package agroinfo.modelo.vo;
 
-import agroinfo.modelo.dao.EventoDAO;
-import java.util.Date;
-
 public class Evento {
 
     private int id;
@@ -45,23 +42,33 @@ public class Evento {
         return id;
     }
 
-    public int getIdentificadorParcela() { return identificadorParcela; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getMatricula() { return matricula;}
+    public int getIdentificadorParcela() {
+        return identificadorParcela;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
 
     public java.sql.Date getFecha() {
         return fecha;
+    }
+
+    public void setFecha(java.sql.Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setId(int id) { this.id = id; }
-
-    public void setFecha(java.sql.Date fecha) {this.fecha = fecha;}
-
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion;}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 
 }

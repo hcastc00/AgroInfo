@@ -1,16 +1,17 @@
 package agroinfo.modelo.conexion;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class ConexionBD {
 
-    private String url;
-    private String driverName;
-    private String user;
-    private String pass;
+    private final String url;
+    private final String driverName;
+    private final String user;
+    private final String pass;
     private Connection connection;
 
-    public ConexionBD(){
+    public ConexionBD() {
 
 /*        this.url = "jdbc:mysql://bj85kxmab6wnixickgpm-mysql.services.clever-cloud.com:3306/bj85kxmab6wnixickgpm";
         this.driverName = "com.mysql.jdbc.Driver";
@@ -59,7 +60,7 @@ public class ConexionBD {
     }
 
 
-    public void cerrarConexion(){
+    public void cerrarConexion() {
 
         try {
             this.connection.close();

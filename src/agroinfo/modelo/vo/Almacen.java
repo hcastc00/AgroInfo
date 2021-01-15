@@ -5,10 +5,10 @@ public class Almacen {
     private double piensoMedicado;
     private double piensoRemate;
     private int conejos;
-    private int excedente_trigo;
-    private int excedente_maiz;
-    private int excedente_remolacha;
-    private int excedente_cebada;
+    private final int excedente_trigo;
+    private final int excedente_maiz;
+    private final int excedente_remolacha;
+    private final int excedente_cebada;
 
     public Almacen(int conejos, double piensoLactancia, double piensoMedicado, double piensoRemate, int excedente_trigo, int excedente_maiz, int excedente_remolacha, int excedente_cebada) {
         this.piensoLactancia = piensoLactancia;

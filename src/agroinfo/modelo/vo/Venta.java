@@ -2,16 +2,12 @@ package agroinfo.modelo.vo;
 
 public class Venta {
 
-    public enum TipoVenta {Agricultura, Ganaderia}
-
-
     private int id;
-    private int cantidad;
-    private double precioUnitario;
-    private String descripcion;
-    private String usuarioRegistrador;
-    private TipoVenta tipo;
-
+    private final int cantidad;
+    private final double precioUnitario;
+    private final String descripcion;
+    private final String usuarioRegistrador;
+    private final TipoVenta tipo;
     public Venta(int cantidad, double precioUnitario, String usuarioRegistrador, String descripcion, TipoVenta tipo) {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -24,6 +20,10 @@ public class Venta {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getCantidad() {
         return cantidad;
     }
@@ -32,14 +32,18 @@ public class Venta {
         return precioUnitario;
     }
 
-    public String getUsuarioRegistrador() {return usuarioRegistrador;}
+    public String getUsuarioRegistrador() {
+        return usuarioRegistrador;
+    }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public TipoVenta getTipo(){ return  tipo ;}
+    public TipoVenta getTipo() {
+        return tipo;
+    }
 
-    public void setId(int id) {this.id = id;}
+    public enum TipoVenta {Agricultura, Ganaderia}
 
 }

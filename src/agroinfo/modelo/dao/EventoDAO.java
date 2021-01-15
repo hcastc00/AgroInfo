@@ -1,9 +1,7 @@
 package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
-import agroinfo.modelo.vo.Coneja;
 import agroinfo.modelo.vo.Evento;
-import agroinfo.modelo.vo.EventoConeja;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventoDAO extends ConexionBD {
-    public EventoDAO(){
+    public EventoDAO() {
     }
 
     public void crear(Evento evento, String usuario_identificador) throws SQLException {
@@ -22,7 +20,7 @@ public class EventoDAO extends ConexionBD {
 
 
         //Si el evento no tiene matrícula, el evento es de Parcela
-        if(evento.getMatricula().equals("")){
+        if (evento.getMatricula().equals("")) {
             //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
             String sentencia = "INSERT into eventos(identificador_parcela, fecha, descripcion) "
                     + "VALUES (?, ?, ?)";
@@ -31,7 +29,7 @@ public class EventoDAO extends ConexionBD {
 
             //El id al ser incremental, no se settea nada en el primer parametro
             pSentencia.setInt(1, evento.getIdentificadorParcela());
-            pSentencia.setDate  (2, evento.getFecha());
+            pSentencia.setDate(2, evento.getFecha());
             pSentencia.setString(3, evento.getDescripcion());
             pSentencia.execute();
 
@@ -40,7 +38,7 @@ public class EventoDAO extends ConexionBD {
                     "Creacion de parcela");
 
             //Si el evento tiene matricula, el evento es de Maquinaria
-        }else{
+        } else {
             //Existe ID en el parametro del constructor, pero lo omitimos porque es un valor autoincremental
             String sentencia = "INSERT into eventos(matricula, fecha, descripcion) "
                     + "VALUES (?, ?, ?)";
@@ -49,7 +47,7 @@ public class EventoDAO extends ConexionBD {
 
             //El id al ser incremental, no se settea nada en el primer parametro
             pSentencia.setString(1, evento.getMatricula());
-            pSentencia.setDate  (2, (Date) evento.getFecha());
+            pSentencia.setDate(2, evento.getFecha());
             pSentencia.setString(3, evento.getDescripcion());
             pSentencia.execute();
 
@@ -63,7 +61,7 @@ public class EventoDAO extends ConexionBD {
     }
 
 
-    public void eliminar(Evento evento, String usuario_identificador){
+    public void eliminar(Evento evento, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -84,12 +82,12 @@ public class EventoDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(Evento evento, String usuario_identificador){
+    public void modificar(Evento evento, String usuario_identificador) {
 
         this.abrirConexion();
 
         //Si el evento no tiene matrícula, el evento es de Parcela
-        if(evento.getMatricula().equals("")) {
+        if (evento.getMatricula().equals("")) {
             String sentencia = "UPDATE eventos SET " +
                     " identificador_parcela = ?," +
                     " fecha = ?," +
@@ -98,10 +96,10 @@ public class EventoDAO extends ConexionBD {
 
             try {
                 PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-                pSentencia.setInt   (1, evento.getIdentificadorParcela());
-                pSentencia.setDate  (2, (Date) evento.getFecha());
+                pSentencia.setInt(1, evento.getIdentificadorParcela());
+                pSentencia.setDate(2, evento.getFecha());
                 pSentencia.setString(3, evento.getDescripcion());
-                pSentencia.setInt   (4, evento.getId());
+                pSentencia.setInt(4, evento.getId());
 
                 pSentencia.executeUpdate();
             } catch (SQLException throwables) {
@@ -113,7 +111,7 @@ public class EventoDAO extends ConexionBD {
                     "Modificacion de evento");
 
             //Si el evento tiene matricula, el evento es de maquinaria
-        }else{
+        } else {
 
             String sentencia = "UPDATE eventos SET " +
                     " matricula = ?," +
@@ -124,9 +122,9 @@ public class EventoDAO extends ConexionBD {
             try {
                 PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
                 pSentencia.setString(1, evento.getMatricula());
-                pSentencia.setDate  (2, (Date) evento.getFecha());
+                pSentencia.setDate(2, evento.getFecha());
                 pSentencia.setString(3, evento.getDescripcion());
-                pSentencia.setInt   (4, evento.getId());
+                pSentencia.setInt(4, evento.getId());
 
                 pSentencia.executeUpdate();
             } catch (SQLException throwables) {
@@ -141,7 +139,7 @@ public class EventoDAO extends ConexionBD {
 
     }
 
-    public List<Evento> listarEventosMaquinaria(String matricula){
+    public List<Evento> listarEventosMaquinaria(String matricula) {
 
         this.abrirConexion();
 
@@ -152,7 +150,7 @@ public class EventoDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setString(1, matricula);
             ResultSet rs = pSentencia.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Evento e = new Evento(
                         rs.getInt("evento_id"),
                         rs.getString("matricula"),
@@ -181,7 +179,7 @@ public class EventoDAO extends ConexionBD {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
             pSentencia.setInt(1, identificadorParcela);
             ResultSet rs = pSentencia.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Evento evento = new Evento(
                         rs.getInt("evento_id"),
                         rs.getInt("identificador_parcela"),
@@ -199,7 +197,7 @@ public class EventoDAO extends ConexionBD {
         return lista;
     }
 
-    public Evento buscar(int id){
+    public Evento buscar(int id) {
 
         Evento e = null;
 
@@ -213,7 +211,7 @@ public class EventoDAO extends ConexionBD {
             rs.next();
 
             //Si no tiene matricula, el evento es de Parcela
-            if(rs.getString("matricula").equals("")){
+            if (rs.getString("matricula").equals("")) {
                 e = new Evento(
                         rs.getInt("evento_id"),
                         rs.getInt("identificadorParcela"),

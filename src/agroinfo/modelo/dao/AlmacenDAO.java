@@ -2,7 +2,6 @@ package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.Almacen;
-import agroinfo.modelo.vo.Coneja;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,7 @@ public class AlmacenDAO extends ConexionBD {
     public AlmacenDAO() {
     }
 
-    public Almacen getAlmacen(){
+    public Almacen getAlmacen() {
 
         Almacen almacen = null;
 
@@ -22,15 +21,15 @@ public class AlmacenDAO extends ConexionBD {
 
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM almacen WHERE id = 1");
-            while(rs.next()) {
+            while (rs.next()) {
                 almacen = new Almacen(rs.getInt("conejos"),
                         rs.getDouble("pienso_lactancia"),
                         rs.getDouble("pienso_medicado"),
                         rs.getDouble("pienso_remate"),
-                        rs.getInt   ("excedente_trigo"),
-                        rs.getInt   ("excedente_maiz"),
-                        rs.getInt   ("excedente_remolacha"),
-                        rs.getInt   ("excedente_cebada"));
+                        rs.getInt("excedente_trigo"),
+                        rs.getInt("excedente_maiz"),
+                        rs.getInt("excedente_remolacha"),
+                        rs.getInt("excedente_cebada"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -41,7 +40,7 @@ public class AlmacenDAO extends ConexionBD {
         return almacen;
     }
 
-    public void modificar(Almacen almacen, String usuario_identificador){
+    public void modificar(Almacen almacen, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -58,7 +57,7 @@ public class AlmacenDAO extends ConexionBD {
 
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt   (1, almacen.getConejos());
+            pSentencia.setInt(1, almacen.getConejos());
             pSentencia.setDouble(2, almacen.getPiensoLactancia());
             pSentencia.setDouble(3, almacen.getPiensoMedicado());
             pSentencia.setDouble(4, almacen.getPiensoRemate());
@@ -75,6 +74,6 @@ public class AlmacenDAO extends ConexionBD {
                 "El usuario ha modificado elementos del almacen",
                 "Modificacion del almacen");
 
-           this.cerrarConexion();
+        this.cerrarConexion();
     }
 }

@@ -3,8 +3,13 @@ package agroinfo.controlador;
 import agroinfo.modelo.dao.UsuarioDAO;
 import agroinfo.modelo.vo.Usuario;
 import agroinfo.vista.Ventana;
-import animatefx.animation.*;
-import com.jfoenix.controls.*;
+import animatefx.animation.FadeIn;
+import animatefx.animation.Shake;
+import animatefx.animation.ZoomOut;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXSpinner;
+import com.jfoenix.controls.JFXTextField;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -22,17 +26,14 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-
     private static Usuario usuarioActual;
-
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     @FXML
     private Label cargandoLabel;
 
@@ -53,6 +54,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private AnchorPane root;
+    @FXML
+    private ImageView logo;
+
+    public static Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
 
     @FXML
     private void close(ActionEvent event) {
@@ -153,10 +160,6 @@ public class LoginController implements Initializable {
 
     }
 
-    @FXML
-    private ImageView logo;
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         root.setOnMousePressed(pressEvent -> {
@@ -169,11 +172,9 @@ public class LoginController implements Initializable {
         });
     }
 
-    public static Usuario getUsuarioActual() { return usuarioActual; }
-
     @FXML
     public void easterEgg(javafx.scene.input.MouseEvent mouseEvent) {
-        if(mouseEvent.getClickCount() == 15) {
+        if (mouseEvent.getClickCount() == 15) {
             String audio = "tractorAmarillo.mp3";
             File f = new File(String.valueOf(this.getClass().getClassLoader().getResource(audio)));
             Media sound = new Media(f.toString());

@@ -1,7 +1,6 @@
 package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
-import agroinfo.modelo.vo.EventoConeja;
 import agroinfo.modelo.vo.Maquinaria;
 
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class MaquinariaDAO extends ConexionBD {
 
-    public MaquinariaDAO(){
+    public MaquinariaDAO() {
     }
 
     public void crear(Maquinaria maquinaria, String usuario_identificador) throws SQLException {
@@ -33,7 +32,7 @@ public class MaquinariaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void eliminar(String matricula, String usuario_identificador){
+    public void eliminar(String matricula, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -64,7 +63,7 @@ public class MaquinariaDAO extends ConexionBD {
         try {
             ResultSet rs = this.getConnection().createStatement().executeQuery("SELECT * FROM maquinaria");
 
-            while (rs.next()){
+            while (rs.next()) {
                 lista.add(new Maquinaria(rs.getString("matricula"),
                         rs.getString("nombre")));
             }
@@ -91,7 +90,7 @@ public class MaquinariaDAO extends ConexionBD {
                 "(SELECT m.matricula, nombre, fecha FROM eventos " +
                 "LEFT JOIN maquinaria m on eventos.matricula = m.matricula " +
                 ")) AS sub " +
-                "WHERE matricula is not null "+
+                "WHERE matricula is not null " +
                 "GROUP BY matricula " +
                 "ORDER BY matricula";
 
@@ -100,7 +99,7 @@ public class MaquinariaDAO extends ConexionBD {
 
             String[] a;
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 a = new String[3];
 
@@ -143,7 +142,7 @@ public class MaquinariaDAO extends ConexionBD {
 
             String[] a;
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 a = new String[3];
 

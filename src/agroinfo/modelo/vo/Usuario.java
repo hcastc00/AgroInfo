@@ -1,12 +1,9 @@
 package agroinfo.modelo.vo;
 
 public class Usuario {
-    public enum TipoUsuario {Administrador, Ganadero, Agricultor}
-
-    private String nombreUsuario;
-    private String contrasenya;
-    private TipoUsuario tipo;
-
+    private final String nombreUsuario;
+    private final String contrasenya;
+    private final TipoUsuario tipo;
     public Usuario(String nombreUsuario, String contrasenya, TipoUsuario tipo) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenya = contrasenya;
@@ -24,4 +21,6 @@ public class Usuario {
     public TipoUsuario getTipo() {
         return tipo;
     }
+
+    public enum TipoUsuario {Administrador, Ganadero, Agricultor}
 }

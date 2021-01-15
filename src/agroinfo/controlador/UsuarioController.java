@@ -1,10 +1,11 @@
 package agroinfo.controlador;
 
-import agroinfo.modelo.dao.MaquinariaDAO;
-import agroinfo.modelo.vo.Maquinaria;
+import agroinfo.modelo.dao.UsuarioDAO;
+import agroinfo.modelo.vo.Usuario;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import javafx.event.ActionEvent;
@@ -15,21 +16,24 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class AltaMaquinariaController {
+public class UsuarioController {
 
-    MaquinariaDAO maquinariaDAO = new MaquinariaDAO();
-
-    @FXML
-    private JFXTextField matricula;
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @FXML
     private JFXTextField nombre;
 
     @FXML
-    private Label error;
+    private JFXTextField contrasenya;
+
+    @FXML
+    private JFXComboBox tipo;
 
     @FXML
     private JFXButton botonGuardar;
+
+    @FXML
+    private Label error;
 
     @FXML
     private void close(ActionEvent event) {
@@ -41,19 +45,21 @@ public class AltaMaquinariaController {
     @FXML
     private void guardar(ActionEvent event) {
 
-        boolean matriculaError = matricula.getText().isBlank() || !matricula.getText().matches("^[A-Za-z0-9]*$");
         boolean nombreError = nombre.getText().isBlank();
+        boolean contrasenyaError = contrasenya.getText().isBlank();
+        boolean tipoError = tipo.getValue() == null;
 
-        if(!matriculaError && !nombreError){
+        if (!nombreError && !tipoError && !contrasenyaError) {
 
             try {
-                maquinariaDAO.crear(new Maquinaria(matricula.getText(), nombre.getText()),
+                usuarioDAO.crear(new Usuario(nombre.getText(), contrasenya.getText(),
+                                Usuario.TipoUsuario.valueOf(tipo.getSelectionModel().getSelectedItem().toString())),
                         LoginController.getUsuarioActual().getNombreUsuario());
                 this.close(event);
             } catch (SQLException e) {
 
-                if (e.getClass() == MySQLIntegrityConstraintViolationException.class){
-                    error.setText("La maquina con la matricula " + matricula.getText() + " ya existe.");
+                if (e.getClass() == MySQLIntegrityConstraintViolationException.class) {
+                    error.setText("El usuario " + nombre.getText() + " ya existe.");
                 }
 
                 error.setVisible(true);
@@ -61,22 +67,19 @@ public class AltaMaquinariaController {
                 new FadeIn(error).play();
             }
 
-        }else{
+        } else {
 
-            if (matriculaError)
-                error.setText("La matricula debe estar formada por letras y numeros.");
-            else
-                error.setText("El nombre debe estar formado por letras y/o numeros.");
+            if (nombreError) {
+                error.setText("El nombre no puede estar vacio.");
+            } else if (tipoError) {
+                error.setText("El tipo no puede estar vacio.");
+            } else {
+                error.setText("La contraseña no puede estar vacia.");
+            }
 
             error.setVisible(true);
             new Shake(botonGuardar).play();
             new FadeIn(error).play();
         }
-    }
-
-    @FXML
-    private void borrar(ActionEvent event) {
-       /* maquinariaDAO.eliminar(Integer.parseInt(id.getText()),
-                LoginController.getUsuarioActual().getNombreUsuario());*/
     }
 }

@@ -1,21 +1,21 @@
 package agroinfo.modelo.dao;
+
 import agroinfo.modelo.conexion.ConexionBD;
-import agroinfo.modelo.vo.Coneja;
-import agroinfo.modelo.vo.EventoConeja;
-import agroinfo.modelo.vo.Usuario;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class RegistroDAO extends ConexionBD{
+public class RegistroDAO extends ConexionBD {
 
-    public RegistroDAO(){
+    public RegistroDAO() {
 
     }
 
-    public static void registrar(Connection conexion,String usuario_identificador, String mensaje, String tipo) {
-        String sentencia = "INSERT into registro(usuario_id, fecha, tipo, mensaje) VALUES (?,NOW(),?,?)" ;
+    public static void registrar(Connection conexion, String usuario_identificador, String mensaje, String tipo) {
+        String sentencia = "INSERT into registro(usuario_id, fecha, tipo, mensaje) VALUES (?,NOW(),?,?)";
 
         try {
             PreparedStatement pSentencia = conexion.prepareStatement(sentencia);
@@ -28,7 +28,7 @@ public class RegistroDAO extends ConexionBD{
         }
     }
 
-    public ArrayList<String[]> listar(){
+    public ArrayList<String[]> listar() {
 
         ArrayList<String[]> lista = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class RegistroDAO extends ConexionBD{
 
             String[] a;
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 a = new String[4];
 

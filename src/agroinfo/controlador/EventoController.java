@@ -2,31 +2,21 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.dao.EventoDAO;
 import agroinfo.modelo.vo.Evento;
-import agroinfo.modelo.vo.Gasto;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
-import com.mysql.jdbc.log.Log;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Type;
-import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.ResourceBundle;
 
-public class AltaEventoController {
-    private EventoDAO eventoDAO = new EventoDAO();
+public class EventoController {
+    private final EventoDAO eventoDAO = new EventoDAO();
 
     @FXML
     private JFXButton botonGuardar;
@@ -49,7 +39,7 @@ public class AltaEventoController {
         boolean fechaError = (fecha.getValue() == null);
         boolean descripcionError = (descripcion.getText().isBlank());
 
-        if(objeto instanceof String || objeto instanceof Integer) {
+        if (objeto instanceof String || objeto instanceof Integer) {
             //GUARDAR
             if (!fechaError && !descripcionError) {
                 //Si en correcto es un evento maquinaria
@@ -63,13 +53,13 @@ public class AltaEventoController {
                 this.close(actionEvent);
             } else comprobar(fechaError, descripcionError);
 
-        }else{
+        } else {
             //MODIFICAR
             if (!fechaError && !descripcionError) {
                 //Si en correcto es un evento maquinaria
                 Evento e = (Evento) objeto;
                 if (e.getIdentificadorParcela() == Integer.MIN_VALUE) {
-                    eventoDAO.modificar(new Evento(e.getId(),e.getMatricula(), java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
+                    eventoDAO.modificar(new Evento(e.getId(), e.getMatricula(), java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                 } else {
                     eventoDAO.modificar(new Evento(e.getId(), e.getIdentificadorParcela(), java.sql.Date.valueOf(fecha.getValue()), descripcion.getText()),
@@ -81,8 +71,6 @@ public class AltaEventoController {
             }
 
         }
-
-
 
 
     }

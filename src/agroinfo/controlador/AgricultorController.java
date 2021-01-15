@@ -47,7 +47,7 @@ public class AgricultorController implements Initializable {
     private final GastoDAO gastoDAO = new GastoDAO();
     private final ConexionOpenWheatherAPI tiempo = new ConexionOpenWheatherAPI();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private Usuario usuarioActual = LoginController.getUsuarioActual();
+    private final Usuario usuarioActual = LoginController.getUsuarioActual();
 
     @FXML
     private Pane panelAlmacen;
@@ -217,9 +217,9 @@ public class AgricultorController implements Initializable {
         mostrarParcelas();
 
         this.listaEventos.setOnMouseClicked((MouseEvent event) -> {
-            if(event.getButton().equals(MouseButton.PRIMARY)){
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
                 eventoSeleccionado = listaEventos.getSelectionModel().getSelectedItem();
-                if(event.getClickCount() == 2) {
+                if (event.getClickCount() == 2) {
                     try {
                         modificarEvento();
                     } catch (IOException e) {
@@ -234,7 +234,7 @@ public class AgricultorController implements Initializable {
     @FXML
     private void altaParcela(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcela.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
@@ -246,8 +246,8 @@ public class AgricultorController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        JFXComboBox tipoParcela = (JFXComboBox)root.lookup("#tipoParcela");
-        JFXComboBox tipoCultivo = (JFXComboBox)root.lookup("#tipoCultivo");
+        JFXComboBox tipoParcela = (JFXComboBox) root.lookup("#tipoParcela");
+        JFXComboBox tipoCultivo = (JFXComboBox) root.lookup("#tipoCultivo");
 
         tipoParcela.getItems().addAll(Parcela.TipoParcela.values());
         tipoCultivo.getItems().addAll(Parcela.TipoCultivo.values());
@@ -261,14 +261,14 @@ public class AgricultorController implements Initializable {
     @FXML
     private void modificarParcela(MouseEvent mouseEvent) throws IOException {
 
-        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-            if(mouseEvent.getClickCount() == 2){
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaParcela.fxml"));
-                Parent root = (Parent) loader.load();
+                Parent root = loader.load();
 
                 //Get nodo de la parcela clickada
-                Node node = (Node)mouseEvent.getSource();
-                Label id = (Label)node.lookup("#id");
+                Node node = (Node) mouseEvent.getSource();
+                Label id = (Label) node.lookup("#id");
                 int idText = Integer.parseInt(id.getText());
                 Parcela parcela = parcelaDAO.buscar(idText);
 
@@ -283,8 +283,8 @@ public class AgricultorController implements Initializable {
                 JFXTextField longitud = (JFXTextField) root.lookup("#longitud");
                 JFXTextField tam = (JFXTextField) root.lookup("#tam");
 
-                JFXComboBox tipoParcela = (JFXComboBox)root.lookup("#tipoParcela");
-                JFXComboBox tipoCultivo = (JFXComboBox)root.lookup("#tipoCultivo");
+                JFXComboBox tipoParcela = (JFXComboBox) root.lookup("#tipoParcela");
+                JFXComboBox tipoCultivo = (JFXComboBox) root.lookup("#tipoCultivo");
 
                 latitud.setText(String.valueOf(parcela.getLatitud()));
                 longitud.setText(String.valueOf(parcela.getLongitud()));
@@ -343,14 +343,14 @@ public class AgricultorController implements Initializable {
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
 
-        JFXButton boton = (JFXButton)actionEvent.getSource();
+        JFXButton boton = (JFXButton) actionEvent.getSource();
 
- //       scene.setUserData(eventoSeleccionado);
+        //       scene.setUserData(eventoSeleccionado);
 
         //Si el id esta vacio, es maquinaria
-        if(idEscondido == null || idEscondido.getText().isBlank()){
+        if (idEscondido == null || idEscondido.getText().isBlank()) {
             scene.setUserData(matriculaEscondido.getText());
-        }else{
+        } else {
             scene.setUserData(Integer.parseInt(idEscondido.getText()));
         }
 
@@ -365,7 +365,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void eliminarEvento(){
+    private void eliminarEvento() {
         eventoDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
         this.recargar();
     }
@@ -403,7 +403,7 @@ public class AgricultorController implements Initializable {
     @FXML
     private void altaGasto(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaGasto.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
@@ -442,7 +442,7 @@ public class AgricultorController implements Initializable {
     @FXML
     private void altaMaquinaria(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaMaquinaria.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
@@ -476,7 +476,7 @@ public class AgricultorController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaMaquinaria();
             this.panel = 1;
             this.panelParcelas.setVisible(false);
@@ -508,7 +508,7 @@ public class AgricultorController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 pintaVenta();
             this.panel = 2;
             this.panelMaquinaria.setVisible(false);
@@ -539,7 +539,7 @@ public class AgricultorController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaGasto();
             this.panel = 3;
             this.panelMaquinaria.setVisible(false);
@@ -559,7 +559,7 @@ public class AgricultorController implements Initializable {
             @Override
             protected Boolean call() {
 
-                if(almacen == null){
+                if (almacen == null) {
                     almacen = almacenDAO.getAlmacen();
                     return true;
                 }
@@ -568,7 +568,7 @@ public class AgricultorController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaAlmacen();
             this.panel = 4;
             this.panelMaquinaria.setVisible(false);
@@ -583,7 +583,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void mostrarEventosParcela(int id){
+    private void mostrarEventosParcela(int id) {
         this.panel = 5;
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
@@ -592,7 +592,7 @@ public class AgricultorController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelEventos.setVisible(true);
 
-        if(this.eventos == null || this.eventos.isEmpty() || this.idEscondido != null || !this.idEscondido.getText().equals(String.valueOf(id))){
+        if (this.eventos == null || this.eventos.isEmpty() || this.idEscondido != null || !this.idEscondido.getText().equals(String.valueOf(id))) {
 
             this.idEscondido.setText(String.valueOf(id));
             this.matriculaEscondido.setText("");
@@ -604,7 +604,8 @@ public class AgricultorController implements Initializable {
                 @Override
                 protected List<Evento> call() throws Exception {
                     return eventoDAO.listarEventosParcela(id);
-                };
+                }
+
             };
 
             listar.setOnSucceeded(workerStateEvent1 -> {
@@ -617,7 +618,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void mostrarEventosMaquinaria(String id){
+    private void mostrarEventosMaquinaria(String id) {
         this.panel = 5;
         this.panelMaquinaria.setVisible(false);
         this.panelParcelas.setVisible(false);
@@ -626,7 +627,7 @@ public class AgricultorController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelEventos.setVisible(true);
 
-        if(this.eventos == null || this.eventos.isEmpty() || this.matriculaEscondido != null || !this.matriculaEscondido.getText().equals(id)){
+        if (this.eventos == null || this.eventos.isEmpty() || this.matriculaEscondido != null || !this.matriculaEscondido.getText().equals(id)) {
             this.matriculaEscondido.setText(id);
             this.idEscondido.setText("");
 
@@ -638,7 +639,8 @@ public class AgricultorController implements Initializable {
                 protected List<Evento> call() throws Exception {
 
                     return eventoDAO.listarEventosMaquinaria(id);
-                };
+                }
+
             };
             listar.setOnSucceeded(workerStateEvent1 -> {
                 this.eventos = listar.getValue();
@@ -662,7 +664,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void siguiente(){
+    private void siguiente() {
         switch (panelA) {
             case 0 -> {
                 this.parcelasP.setVisible(false);
@@ -708,7 +710,7 @@ public class AgricultorController implements Initializable {
     }
 
     @FXML
-    private void anterior(){
+    private void anterior() {
         switch (panelA) {
             case 0 -> {
                 this.parcelasP.setVisible(false);
@@ -829,7 +831,7 @@ public class AgricultorController implements Initializable {
 
             case 5 -> {
                 this.listaEventos.setItems(null);
-                if(matriculaEscondido.getText().isBlank())
+                if (matriculaEscondido.getText().isBlank())
                     this.pintaEventosParcela(Integer.parseInt(idEscondido.getText()));
                 else
                     this.pintaEventosMaquinaria(matriculaEscondido.getText());
@@ -914,14 +916,14 @@ public class AgricultorController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesP[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     parcelaDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
                 });
 
                 Pane base = (Pane) nodesP[i].lookup("#base");
-                base.setOnMouseClicked(e ->{
+                base.setOnMouseClicked(e -> {
                     try {
                         this.modificarParcela(e);
                     } catch (IOException ioException) {
@@ -931,7 +933,7 @@ public class AgricultorController implements Initializable {
 
                 //Eventos
                 JFXButton gestionarEventos = (JFXButton) nodesP[i].lookup("#botonEvent");
-                gestionarEventos.setOnAction(e ->{
+                gestionarEventos.setOnAction(e -> {
                     mostrarEventosParcela(Integer.parseInt(id.getText()));
                 });
 
@@ -964,7 +966,7 @@ public class AgricultorController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesM[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
 
                     Task<Boolean> eliminar = new Task<Boolean>() {
                         @Override
@@ -983,7 +985,7 @@ public class AgricultorController implements Initializable {
 
                 //Eventos
                 JFXButton gestionarEventos = (JFXButton) nodesM[i].lookup("#botonEventos");
-                gestionarEventos.setOnAction(e ->{
+                gestionarEventos.setOnAction(e -> {
                     mostrarEventosMaquinaria(matricula.getText());
                 });
 
@@ -1022,7 +1024,7 @@ public class AgricultorController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesV[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     ventaDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
@@ -1030,10 +1032,10 @@ public class AgricultorController implements Initializable {
 
                 //Desc
                 JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
-                verDesc.setOnAction(e ->{
+                verDesc.setOnAction(e -> {
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/venta.png").toURI().toString());
-                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(), img);
                     } catch (IOException | URISyntaxException ioException) {
                         ioException.printStackTrace();
                     }
@@ -1069,7 +1071,7 @@ public class AgricultorController implements Initializable {
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
 
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     gastoDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
@@ -1077,10 +1079,10 @@ public class AgricultorController implements Initializable {
 
                 //Desc
                 JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
-                verDesc.setOnAction(e ->{
+                verDesc.setOnAction(e -> {
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
-                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(), img);
                     } catch (IOException | URISyntaxException ioException) {
                         ioException.printStackTrace();
                     }
@@ -1095,7 +1097,7 @@ public class AgricultorController implements Initializable {
         this.listaGastos.getChildren().addAll(nodesG);
     }
 
-    private void pintaAlmacen(){
+    private void pintaAlmacen() {
         this.listaAlmacen.getChildren().clear();
         try {
             nodeA = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/almacen.fxml"));
@@ -1130,7 +1132,7 @@ public class AgricultorController implements Initializable {
         this.listaAlmacen.getChildren().add(nodeA);
     }
 
-    private void pintaEventosParcela(int id){
+    private void pintaEventosParcela(int id) {
 
         this.listaEventos.setItems(null);
         this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1146,7 +1148,8 @@ public class AgricultorController implements Initializable {
                 sortedData.comparatorProperty().bind(listaEventos.comparatorProperty());
                 listaEventos.setItems(sortedData);
                 return filteredData;
-            };
+            }
+
         };
 
         listar.setOnSucceeded(workerStateEvent1 -> {
@@ -1168,7 +1171,7 @@ public class AgricultorController implements Initializable {
         new Thread(listar).start();
     }
 
-    private void pintaEventosMaquinaria(String id){
+    private void pintaEventosMaquinaria(String id) {
 
         this.listaEventos.setItems(null);
         this.listaEventos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1184,18 +1187,19 @@ public class AgricultorController implements Initializable {
                 sortedData.comparatorProperty().bind(listaEventos.comparatorProperty());
                 listaEventos.setItems(sortedData);
                 return filteredData;
-            };
+            }
+
         };
 
         listar.setOnSucceeded(workerStateEvent1 -> {
 
             buscarEvento.textProperty().addListener((prop, old, text) -> {
                 listar.getValue().setPredicate(eventos -> {
-                    if(text == null || text.isEmpty()) return true;
+                    if (text == null || text.isEmpty()) return true;
 
                     String fecha = String.valueOf(eventos.getFecha());
                     String descripcion = eventos.getDescripcion();
-                    return  fecha.contains(text) || descripcion.contains(text);
+                    return fecha.contains(text) || descripcion.contains(text);
                 });
             });
 
@@ -1208,7 +1212,7 @@ public class AgricultorController implements Initializable {
     }
 
     private void pintarDescripcion(String d, Image i) throws IOException {
-        Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
+        Parent loader = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
@@ -1219,10 +1223,10 @@ public class AgricultorController implements Initializable {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
 
-        JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
+        JFXTextArea desc = (JFXTextArea) scene.lookup("#descripcion");
         desc.setText(d);
 
-        ImageView img = (ImageView)scene.lookup("#imagen");
+        ImageView img = (ImageView) scene.lookup("#imagen");
         img.setImage(i);
 
     }

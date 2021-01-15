@@ -2,7 +2,6 @@ package agroinfo.modelo.dao;
 
 import agroinfo.modelo.conexion.ConexionBD;
 import agroinfo.modelo.vo.EventoConeja;
-import agroinfo.modelo.vo.Gasto;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventoConejaDAO extends ConexionBD {
-    public EventoConejaDAO(){
+    public EventoConejaDAO() {
     }
 
     public void crear(EventoConeja evento, String usuario_identificador) throws SQLException {
@@ -27,12 +26,12 @@ public class EventoConejaDAO extends ConexionBD {
 
         //El id al ser incremental, no se settea nada en el primer parametro
         pSentencia.setDouble(1, evento.getIdConeja());
-        pSentencia.setDate  (2, (Date) evento.getFecha());
+        pSentencia.setDate(2, evento.getFecha());
         pSentencia.setString(3, evento.getTipoEventoConeja().toString());
         pSentencia.execute();
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha creado un evento para la coneja "+evento.getIdConeja(),
+                "El usuario ha creado un evento para la coneja " + evento.getIdConeja(),
                 "Creacion de evento de coneja");
 
         this.cerrarConexion();
@@ -49,7 +48,7 @@ public class EventoConejaDAO extends ConexionBD {
             pSentencia.execute();
 
             RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                    "El usuario ha elininado un evento de la coneja "+evento.getIdConeja(),
+                    "El usuario ha elininado un evento de la coneja " + evento.getIdConeja(),
                     "Eliminacion de evento de coneja");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -59,7 +58,7 @@ public class EventoConejaDAO extends ConexionBD {
         this.cerrarConexion();
     }
 
-    public void modificar(EventoConeja evento, String usuario_identificador){
+    public void modificar(EventoConeja evento, String usuario_identificador) {
 
         this.abrirConexion();
 
@@ -71,22 +70,22 @@ public class EventoConejaDAO extends ConexionBD {
 
         try {
             PreparedStatement pSentencia = this.getConnection().prepareStatement(sentencia);
-            pSentencia.setInt   (1, evento.getIdConeja());
-            pSentencia.setDate  (2, (Date)evento.getFecha()) ;
+            pSentencia.setInt(1, evento.getIdConeja());
+            pSentencia.setDate(2, evento.getFecha());
             pSentencia.setString(3, evento.getTipoEventoConeja().toString());
-            pSentencia.setInt   (4, evento.getId());
+            pSentencia.setInt(4, evento.getId());
             pSentencia.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
         RegistroDAO.registrar(this.getConnection(), usuario_identificador,
-                "El usuario ha modificado un evento para la coneja "+evento.getIdConeja(),
+                "El usuario ha modificado un evento para la coneja " + evento.getIdConeja(),
                 "Modificacion de evento de coneja");
 
     }
 
-    public List<EventoConeja> listar(int id){
+    public List<EventoConeja> listar(int id) {
 
         this.abrirConexion();
 
@@ -111,7 +110,7 @@ public class EventoConejaDAO extends ConexionBD {
         return lista;
     }
 
-    public List<EventoConeja> listar(int id, EventoConeja.TipoEventoConeja tipo){
+    public List<EventoConeja> listar(int id, EventoConeja.TipoEventoConeja tipo) {
 
         this.abrirConexion();
 
@@ -144,7 +143,7 @@ public class EventoConejaDAO extends ConexionBD {
         try {
             ResultSet rs = pSentencia.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 EventoConeja ec = new EventoConeja(
                         rs.getInt("evento_id"),
                         rs.getInt("identificador_coneja"),
@@ -159,7 +158,7 @@ public class EventoConejaDAO extends ConexionBD {
         }
     }
 
-    public EventoConeja buscar(int id){
+    public EventoConeja buscar(int id) {
         EventoConeja ec = null;
 
         this.abrirConexion();

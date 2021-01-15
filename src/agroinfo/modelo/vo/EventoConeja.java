@@ -1,17 +1,10 @@
 package agroinfo.modelo.vo;
 
-import agroinfo.modelo.dao.EventoConejaDAO;
-
-import java.util.Date;
-
 public class EventoConeja {
-    public enum TipoEventoConeja {Inseminacion, Parto}
-
     private int id;
-    private int idConeja;
+    private final int idConeja;
     private java.sql.Date fecha;
     private TipoEventoConeja tipoEventoConeja;
-
     public EventoConeja(int idConeja, java.sql.Date fecha, TipoEventoConeja tipoEventoConeja) {
         this.idConeja = idConeja;
         this.fecha = fecha;
@@ -29,6 +22,10 @@ public class EventoConeja {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getIdConeja() {
         return idConeja;
     }
@@ -37,17 +34,17 @@ public class EventoConeja {
         return fecha;
     }
 
-    public TipoEventoConeja getTipoEventoConeja() {
-        return tipoEventoConeja;
-    }
-
-    public void setId(int id) { this.id = id; }
-
     public void setFecha(java.sql.Date fecha) {
         this.fecha = fecha;
+    }
+
+    public TipoEventoConeja getTipoEventoConeja() {
+        return tipoEventoConeja;
     }
 
     public void setTipoEventoConeja(TipoEventoConeja tipoEventoConeja) {
         this.tipoEventoConeja = tipoEventoConeja;
     }
+
+    public enum TipoEventoConeja {Inseminacion, Parto}
 }

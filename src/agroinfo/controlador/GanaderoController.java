@@ -2,7 +2,10 @@ package agroinfo.controlador;
 
 import agroinfo.modelo.conexion.ConexionSensor;
 import agroinfo.modelo.dao.*;
-import agroinfo.modelo.vo.*;
+import agroinfo.modelo.vo.Almacen;
+import agroinfo.modelo.vo.EventoConeja;
+import agroinfo.modelo.vo.Gasto;
+import agroinfo.modelo.vo.Venta;
 import agroinfo.vista.Ventana;
 import com.jfoenix.controls.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -28,19 +31,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.*;
-import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 public class GanaderoController implements Initializable {
     private final ConejaDAO conejaDAO = new ConejaDAO();
@@ -203,9 +202,9 @@ public class GanaderoController implements Initializable {
         this.mostrarConejas();
 
         this.listaEventos.setOnMouseClicked((MouseEvent event) -> {
-            if(event.getButton().equals(MouseButton.PRIMARY)){
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
                 eventoSeleccionado = listaEventos.getSelectionModel().getSelectedItem();
-                if(event.getClickCount() == 2){
+                if (event.getClickCount() == 2) {
                     modificarEventoConeja();
                 }
             }
@@ -213,7 +212,7 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void mostrarConejas(){
+    private void mostrarConejas() {
         this.panel = 0;
         this.panelAlmacen.setVisible(false);
         this.panelGastos.setVisible(false);
@@ -237,7 +236,7 @@ public class GanaderoController implements Initializable {
         this.panelEventos.setVisible(false);
         this.panelAlmacen.setVisible(true);
 
-        if(this.almacen == null){
+        if (this.almacen == null) {
             this.almacen = almacenDAO.getAlmacen();
             this.pintaAlmacen();
         }
@@ -261,7 +260,7 @@ public class GanaderoController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaVenta();
             this.panel = 2;
             this.panelAlmacen.setVisible(false);
@@ -276,7 +275,7 @@ public class GanaderoController implements Initializable {
 
 
     @FXML
-    private void mostrarGastos(){
+    private void mostrarGastos() {
 
         Task<Boolean> t = new Task<Boolean>() {
             @Override
@@ -292,7 +291,7 @@ public class GanaderoController implements Initializable {
         };
 
         t.setOnSucceeded(workerStateEvent -> {
-            if(t.getValue())
+            if (t.getValue())
                 this.pintaGasto();
             this.panel = 3;
             this.panelAlmacen.setVisible(false);
@@ -306,7 +305,7 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void mostrarEventosConeja(int id){
+    private void mostrarEventosConeja(int id) {
 
         this.panel = 4;
         this.panelConejas.setVisible(false);
@@ -332,7 +331,6 @@ public class GanaderoController implements Initializable {
         t.setOnSucceeded(workerStateEvent -> {
 
 
-
             this.pintaEventosConeja(id);
         });
 
@@ -353,7 +351,7 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void siguiente(){
+    private void siguiente() {
         switch (panelA) {
             case 0 -> {
                 this.conejasP.setVisible(false);
@@ -414,7 +412,7 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void anterior(){
+    private void anterior() {
         switch (panelA) {
             case 0 -> {
                 this.conejasP.setVisible(false);
@@ -489,17 +487,18 @@ public class GanaderoController implements Initializable {
                 sortedData.comparatorProperty().bind(listaEventos.comparatorProperty());
                 listaEventos.setItems(sortedData);
                 return filteredData;
-            };
+            }
+
         };
 
         listar.setOnSucceeded(workerStateEvent1 -> {
             buscarEvento.textProperty().addListener((prop, old, text) -> {
                 listar.getValue().setPredicate(eventos -> {
-                    if(text == null || text.isEmpty()) return true;
+                    if (text == null || text.isEmpty()) return true;
 
                     String fecha = String.valueOf(eventos.getFecha());
                     String tipo = eventos.getTipoEventoConeja().toString();
-                    return  fecha.contains(text) || tipo.contains(text);
+                    return fecha.contains(text) || tipo.contains(text);
                 });
             });
             spinnerEventos.setVisible(false);
@@ -604,10 +603,10 @@ public class GanaderoController implements Initializable {
     }
 
     @FXML
-    private void modificarEventoConeja(){
+    private void modificarEventoConeja() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEventoConeja.fxml"));
-            Parent root = (Parent) loader.load();
+            Parent root = loader.load();
 
             EventoConeja eventoConeja = listaEventos.getSelectionModel().getSelectedItem();
 
@@ -643,7 +642,7 @@ public class GanaderoController implements Initializable {
     @FXML
     public void altaGasto(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaGasto.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
@@ -663,7 +662,7 @@ public class GanaderoController implements Initializable {
     @FXML
     public void altaVenta(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaVenta.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setUserData(Venta.TipoVenta.Ganaderia);
@@ -684,16 +683,16 @@ public class GanaderoController implements Initializable {
     @FXML
     private void altaEvento(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/altaEventoConeja.fxml"));
-        Parent root = (Parent) loader.load();
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
 
-        JFXButton boton = (JFXButton)actionEvent.getSource();
-        Label idConeja = (Label)boton.getScene().lookup("#idEscondido");
+        JFXButton boton = (JFXButton) actionEvent.getSource();
+        Label idConeja = (Label) boton.getScene().lookup("#idEscondido");
 
-        JFXComboBox tipoEventoConeja = (JFXComboBox)root.lookup("#tipoEventoConeja");
+        JFXComboBox tipoEventoConeja = (JFXComboBox) root.lookup("#tipoEventoConeja");
         tipoEventoConeja.getItems().addAll(EventoConeja.TipoEventoConeja.values());
 
         scene.setUserData(idConeja.getText());
@@ -710,7 +709,7 @@ public class GanaderoController implements Initializable {
 
 
     @FXML
-    private void eliminarEvento(){
+    private void eliminarEvento() {
         eventoConejaDAO.eliminar(eventoSeleccionado, LoginController.getUsuarioActual().getNombreUsuario());
         this.recargar();
     }
@@ -770,7 +769,7 @@ public class GanaderoController implements Initializable {
                     parto.setText(s[2]);
 
                 JFXButton borrar = (JFXButton) nodesC[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     conejaDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
@@ -778,7 +777,7 @@ public class GanaderoController implements Initializable {
 
                 //Eventos
                 JFXButton gestionarEventos = (JFXButton) nodesC[i].lookup("#botonEventos");
-                gestionarEventos.setOnAction(e ->{
+                gestionarEventos.setOnAction(e -> {
                     mostrarEventosConeja(Integer.parseInt(id.getText()));
                 });
 
@@ -816,7 +815,7 @@ public class GanaderoController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesV[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     ventaDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
@@ -824,10 +823,10 @@ public class GanaderoController implements Initializable {
 
                 //Desc
                 JFXButton verDesc = (JFXButton) nodesV[i].lookup("#botonDesc");
-                verDesc.setOnAction(e ->{
+                verDesc.setOnAction(e -> {
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/venta.png").toURI().toString());
-                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(ventaDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(), img);
                     } catch (IOException | URISyntaxException ioException) {
                         ioException.printStackTrace();
                     }
@@ -863,7 +862,7 @@ public class GanaderoController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
-                borrar.setOnAction(e ->{
+                borrar.setOnAction(e -> {
                     gastoDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
                     this.recargar();
@@ -871,10 +870,10 @@ public class GanaderoController implements Initializable {
 
                 //Desc
                 JFXButton verDesc = (JFXButton) nodesG[i].lookup("#botonDesc");
-                verDesc.setOnAction(e ->{
+                verDesc.setOnAction(e -> {
                     try {
                         Image img = new Image(this.getClass().getClassLoader().getResource("img/gasto.png").toURI().toString());
-                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(),img);
+                        pintarDescripcion(gastoDAO.buscar(Integer.parseInt(id.getText())).getDescripcion(), img);
                     } catch (IOException | URISyntaxException ioException) {
                         ioException.printStackTrace();
                     }
@@ -891,7 +890,7 @@ public class GanaderoController implements Initializable {
     }
 
     private void pintarDescripcion(String d, Image i) throws IOException {
-        Parent loader =  FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
+        Parent loader = FXMLLoader.load(this.getClass().getClassLoader().getResource("fxml/descripcion.fxml"));
         Scene scene = new Scene(loader);
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Ventana.color);
@@ -902,10 +901,10 @@ public class GanaderoController implements Initializable {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
 
-        JFXTextArea desc = (JFXTextArea)scene.lookup("#descripcion");
+        JFXTextArea desc = (JFXTextArea) scene.lookup("#descripcion");
         desc.setText(d);
 
-        ImageView img = (ImageView)scene.lookup("#imagen");
+        ImageView img = (ImageView) scene.lookup("#imagen");
         img.setImage(i);
     }
 

@@ -7,17 +7,12 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 public class AlmacenController implements Initializable {
 
@@ -75,7 +70,7 @@ public class AlmacenController implements Initializable {
         soloEntradaNumerica(piensoRemateModificado);
     }
 
-    private void soloEntradaNumerica(JFXTextField entrada){
+    private void soloEntradaNumerica(JFXTextField entrada) {
         entrada.getProperties().put("vkType", "numeric");
         entrada.setTextFormatter(new TextFormatter<>(c -> {
             if (c.isContentChange()) {
@@ -95,11 +90,11 @@ public class AlmacenController implements Initializable {
 
 
     @FXML
-    private void sumarConejos(ActionEvent actionEvent){
+    private void sumarConejos(ActionEvent actionEvent) {
 
-        boolean conejosError =  conejosModificacion.getText().isBlank() || !conejosModificacion.getText().matches("^[0-9]*$");
+        boolean conejosError = conejosModificacion.getText().isBlank() || !conejosModificacion.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
-        if(!conejosError) {
+        if (!conejosError) {
             int conejosTotales = almacen.getConejos() + Integer.parseInt(conejosModificacion.getText());
             conejos.setText(String.valueOf(conejosTotales));
             almacen.setConejos(Integer.parseInt(conejos.getText()));
@@ -117,14 +112,14 @@ public class AlmacenController implements Initializable {
     }
 
     @FXML
-    private void restarConejos(ActionEvent actionEvent){
+    private void restarConejos(ActionEvent actionEvent) {
 
         boolean conejosError = conejosModificacion.getText().isBlank() || !conejosModificacion.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
 
-        if(!conejosError) {
+        if (!conejosError) {
             int conejosTotales = almacen.getConejos() - Integer.parseInt(conejosModificacion.getText());
-            if(conejosTotales >=0) {
+            if (conejosTotales >= 0) {
                 conejos.setText(String.valueOf(conejosTotales));
                 almacen.setConejos(Integer.parseInt(conejos.getText()));
                 Task<Boolean> t = new Task<>() {
@@ -137,7 +132,7 @@ public class AlmacenController implements Initializable {
 
                 new Thread(t).start();
 
-            }else if(conejosTotales < 0){
+            } else if (conejosTotales < 0) {
                 conejos.setText("0");
                 almacen.setConejos(Integer.parseInt(conejos.getText()));
                 Task<Boolean> t = new Task<>() {
@@ -154,12 +149,12 @@ public class AlmacenController implements Initializable {
     }
 
     @FXML
-    private void sumarPiensoLactancia(ActionEvent actionEvent){
+    private void sumarPiensoLactancia(ActionEvent actionEvent) {
 
-        boolean piensoLactanciaError =  piensoLactanciaModificacion.getText().isBlank() || !piensoLactanciaModificacion.getText().matches("^[0-9]*$");
+        boolean piensoLactanciaError = piensoLactanciaModificacion.getText().isBlank() || !piensoLactanciaModificacion.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
 
-        if(!piensoLactanciaError) {
+        if (!piensoLactanciaError) {
             double piensoLactanciaTotal = almacen.getPiensoLactancia() + Integer.parseInt(piensoLactanciaModificacion.getText());
             piensoLactancia.setText(String.valueOf(piensoLactanciaTotal));
             almacen.setPiensoLactancia(Double.parseDouble(piensoLactancia.getText()));
@@ -215,12 +210,12 @@ public class AlmacenController implements Initializable {
     }
 
     @FXML
-    private void sumarPiensoMedicado(ActionEvent actionEvent){
+    private void sumarPiensoMedicado(ActionEvent actionEvent) {
 
-        boolean piensoMedicadoError =  piensoMedicadoModificacion.getText().isBlank() || !piensoMedicadoModificacion.getText().matches("^[0-9]*$");
+        boolean piensoMedicadoError = piensoMedicadoModificacion.getText().isBlank() || !piensoMedicadoModificacion.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
 
-        if(!piensoMedicadoError) {
+        if (!piensoMedicadoError) {
             double piensoMedicadoTotal = almacen.getPiensoMedicado() + Integer.parseInt(piensoMedicadoModificacion.getText());
             piensoMedicado.setText(String.valueOf(piensoMedicadoTotal));
             almacen.setPiensoMedicado(Double.parseDouble(piensoMedicado.getText()));
@@ -238,13 +233,13 @@ public class AlmacenController implements Initializable {
     }
 
     @FXML
-    private void restarPiensoMedicado(ActionEvent actionEvent){
+    private void restarPiensoMedicado(ActionEvent actionEvent) {
         boolean piensoMedicadoError = piensoMedicadoModificacion.getText().isBlank() || !piensoMedicadoModificacion.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
 
         if (!piensoMedicadoError) {
             Double piensoMedicadoTotal = almacen.getPiensoMedicado() - Integer.parseInt(piensoLactanciaModificacion.getText());
-            if(piensoMedicadoTotal >= 0) {
+            if (piensoMedicadoTotal >= 0) {
                 piensoMedicado.setText(String.valueOf(piensoMedicadoTotal));
                 almacen.setPiensoMedicado(Double.parseDouble(piensoMedicado.getText()));
 
@@ -267,11 +262,11 @@ public class AlmacenController implements Initializable {
     }
 
     @FXML
-    private void sumarPiensoRemate(ActionEvent actionEvent){
-        boolean piensoRemateError =  piensoRemateModificado.getText().isBlank() || !piensoRemateModificado.getText().matches("^[0-9]*$");
+    private void sumarPiensoRemate(ActionEvent actionEvent) {
+        boolean piensoRemateError = piensoRemateModificado.getText().isBlank() || !piensoRemateModificado.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
 
-        if(!piensoRemateError) {
+        if (!piensoRemateError) {
             double piensoRemateTotal = almacen.getPiensoRemate() + Integer.parseInt(piensoRemateModificado.getText());
             piensoRemate.setText(String.valueOf(piensoRemateTotal));
             almacen.setPiensoRemate(Double.parseDouble(piensoRemate.getText()));
@@ -289,13 +284,13 @@ public class AlmacenController implements Initializable {
     }
 
     @FXML
-    private void restarPiensoRemate(ActionEvent actionEvent){
+    private void restarPiensoRemate(ActionEvent actionEvent) {
         boolean piensoRemateError = piensoRemateModificado.getText().isBlank() || !piensoRemateModificado.getText().matches("^[0-9]*$");
         Almacen almacen = almacenDAO.getAlmacen();
 
         if (!piensoRemateError) {
             Double piensoRemateTotal = almacen.getPiensoRemate() - Integer.parseInt(piensoRemateModificado.getText());
-            if(piensoRemateTotal>= 0) {
+            if (piensoRemateTotal >= 0) {
                 piensoRemate.setText(String.valueOf(piensoRemateTotal));
                 almacen.setPiensoRemate(Double.parseDouble(piensoRemate.getText()));
 

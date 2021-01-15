@@ -2,7 +2,7 @@ package agroinfo.modelo.vo;
 
 public class Coneja {
 
-    private int id;
+    private final int id;
 
     public Coneja(int id) {
         this.id = id;

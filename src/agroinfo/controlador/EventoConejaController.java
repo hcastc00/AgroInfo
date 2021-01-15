@@ -1,30 +1,23 @@
 package agroinfo.controlador;
 
 import agroinfo.modelo.dao.EventoConejaDAO;
-import agroinfo.modelo.vo.Evento;
 import agroinfo.modelo.vo.EventoConeja;
 import animatefx.animation.FadeIn;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class AltaEventoConejaController{
+public class EventoConejaController {
 
-    private EventoConejaDAO eventoConejaDAO = new EventoConejaDAO();
+    private final EventoConejaDAO eventoConejaDAO = new EventoConejaDAO();
 
     @FXML
     private JFXDatePicker fecha;
@@ -40,22 +33,22 @@ public class AltaEventoConejaController{
 
 
     @FXML
-    private void guardar(ActionEvent actionEvent){
+    private void guardar(ActionEvent actionEvent) {
 
         Object evento = botonGuardar.getScene().getUserData();
         boolean fechaError = (fecha.getValue() == null);
         boolean tipoError = (tipoEventoConeja.getValue() == null);
 
         try {
-            if(!fechaError && !tipoError) {
+            if (!fechaError && !tipoError) {
                 //Si evento es un String, estamos creando un conejo
-                if(evento instanceof String){
+                if (evento instanceof String) {
                     eventoConejaDAO.crear(new EventoConeja((Integer.valueOf(evento.toString())),
                                     java.sql.Date.valueOf(fecha.getValue()),
                                     (EventoConeja.TipoEventoConeja) tipoEventoConeja.getValue()),
-                                    LoginController.getUsuarioActual().getNombreUsuario());
-                //Si evento es un EventoConeja, es un modificar
-                }else if(evento instanceof EventoConeja){
+                            LoginController.getUsuarioActual().getNombreUsuario());
+                    //Si evento es un EventoConeja, es un modificar
+                } else if (evento instanceof EventoConeja) {
                     EventoConeja nuevoEvento = new EventoConeja(
                             ((EventoConeja) evento).getId(),
                             ((EventoConeja) evento).getIdConeja(),
@@ -65,13 +58,13 @@ public class AltaEventoConejaController{
                 }
 
                 this.close(actionEvent);
-            }else if(fechaError){
+            } else if (fechaError) {
                 error.setText("Debe introducir una fecha");
                 error.setVisible(true);
                 new Shake(botonGuardar).play();
                 new FadeIn(error).play();
 
-            }else if (tipoError){
+            } else if (tipoError) {
                 error.setText("Debe introducir un tipo de evento");
                 error.setVisible(true);
                 new Shake(botonGuardar).play();
