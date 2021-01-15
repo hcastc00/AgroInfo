@@ -198,11 +198,11 @@
                                  <font>
                                     <Font size="20.0" />
                                  </font></Label>
-                              <JFXTextField fx:id="excedente" alignment="BOTTOM_LEFT" editable="false" focusColor="#3a3a3a" layoutX="131.0" layoutY="5.0" prefHeight="30.0" prefWidth="150.0" style="-fx-text-inner-color: #3a3a3a;" unFocusColor="#3a3a3a">
+                              <Label fx:id="excedente" layoutX="131.0" layoutY="22.0" text="No definido" textFill="#3a3a3a">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
-                              </JFXTextField>
+                              </Label>
                            </children>
                            <HBox.margin>
                               <Insets left="90.0" />
