@@ -3,6 +3,7 @@ package agroinfo.controlador;
 import agroinfo.modelo.dao.AlmacenDAO;
 import agroinfo.modelo.vo.Almacen;
 import com.jfoenix.controls.JFXTextField;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -102,7 +103,16 @@ public class AlmacenController implements Initializable {
             int conejosTotales = almacen.getConejos() + Integer.parseInt(conejosModificacion.getText());
             conejos.setText(String.valueOf(conejosTotales));
             almacen.setConejos(Integer.parseInt(conejos.getText()));
-            almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+
+            Task<Boolean> t = new Task<>() {
+                @Override
+                protected Boolean call() throws Exception {
+                    almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                    return false;
+                }
+            };
+
+            new Thread(t).start();
         }
     }
 
@@ -117,13 +127,29 @@ public class AlmacenController implements Initializable {
             if(conejosTotales >=0) {
                 conejos.setText(String.valueOf(conejosTotales));
                 almacen.setConejos(Integer.parseInt(conejos.getText()));
-                almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
 
-    }else if(conejosTotales < 0){
-        conejos.setText("0");
-        almacen.setConejos(Integer.parseInt(conejos.getText()));
-        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
-    }
+                new Thread(t).start();
+
+            }else if(conejosTotales < 0){
+                conejos.setText("0");
+                almacen.setConejos(Integer.parseInt(conejos.getText()));
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
+
+                new Thread(t).start();
+            }
         }
     }
 
@@ -137,7 +163,16 @@ public class AlmacenController implements Initializable {
             double piensoLactanciaTotal = almacen.getPiensoLactancia() + Integer.parseInt(piensoLactanciaModificacion.getText());
             piensoLactancia.setText(String.valueOf(piensoLactanciaTotal));
             almacen.setPiensoLactancia(Double.parseDouble(piensoLactancia.getText()));
-            almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+
+            Task<Boolean> t = new Task<>() {
+                @Override
+                protected Boolean call() throws Exception {
+                    almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                    return false;
+                }
+            };
+
+            new Thread(t).start();
         }
     }
 
@@ -152,13 +187,30 @@ public class AlmacenController implements Initializable {
             if (piensoLactanciaTotal >= 0) {
                 piensoLactancia.setText(String.valueOf(piensoLactanciaTotal));
                 almacen.setPiensoLactancia(Double.parseDouble(piensoLactancia.getText()));
-                almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
 
-    } else if (piensoLactanciaTotal < 0) {
-        piensoLactancia.setText("0");
-        almacen.setPiensoLactancia(Double.parseDouble(piensoLactancia.getText()));
-        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
-    }
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
+
+                new Thread(t).start();
+
+            } else if (piensoLactanciaTotal < 0) {
+                piensoLactancia.setText("0");
+                almacen.setPiensoLactancia(Double.parseDouble(piensoLactancia.getText()));
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
+
+                new Thread(t).start();
+            }
         }
     }
 
@@ -172,7 +224,16 @@ public class AlmacenController implements Initializable {
             double piensoMedicadoTotal = almacen.getPiensoMedicado() + Integer.parseInt(piensoMedicadoModificacion.getText());
             piensoMedicado.setText(String.valueOf(piensoMedicadoTotal));
             almacen.setPiensoMedicado(Double.parseDouble(piensoMedicado.getText()));
-            almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+
+            Task<Boolean> t = new Task<>() {
+                @Override
+                protected Boolean call() throws Exception {
+                    almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                    return false;
+                }
+            };
+
+            new Thread(t).start();
         }
     }
 
@@ -186,13 +247,22 @@ public class AlmacenController implements Initializable {
             if(piensoMedicadoTotal >= 0) {
                 piensoMedicado.setText(String.valueOf(piensoMedicadoTotal));
                 almacen.setPiensoMedicado(Double.parseDouble(piensoMedicado.getText()));
-                almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
 
-        } else if (piensoMedicadoTotal < 0) {
-            piensoLactancia.setText("0");
-            almacen.setPiensoMedicado(Double.parseDouble(piensoLactancia.getText()));
-            almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
-        }
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
+
+                new Thread(t).start();
+
+            } else if (piensoMedicadoTotal < 0) {
+                piensoLactancia.setText("0");
+                almacen.setPiensoMedicado(Double.parseDouble(piensoLactancia.getText()));
+                almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+            }
         }
     }
 
@@ -205,7 +275,16 @@ public class AlmacenController implements Initializable {
             double piensoRemateTotal = almacen.getPiensoRemate() + Integer.parseInt(piensoRemateModificado.getText());
             piensoRemate.setText(String.valueOf(piensoRemateTotal));
             almacen.setPiensoRemate(Double.parseDouble(piensoRemate.getText()));
-            almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+
+            Task<Boolean> t = new Task<>() {
+                @Override
+                protected Boolean call() throws Exception {
+                    almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                    return false;
+                }
+            };
+
+            new Thread(t).start();
         }
     }
 
@@ -219,13 +298,31 @@ public class AlmacenController implements Initializable {
             if(piensoRemateTotal>= 0) {
                 piensoRemate.setText(String.valueOf(piensoRemateTotal));
                 almacen.setPiensoRemate(Double.parseDouble(piensoRemate.getText()));
-                almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
 
-        } else if (piensoRemateTotal < 0) {
-            piensoRemate.setText("0");
-            almacen.setPiensoRemate(Double.parseDouble(piensoRemate.getText()));
-            almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
-        }
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
+
+                new Thread(t).start();
+
+            } else if (piensoRemateTotal < 0) {
+                piensoRemate.setText("0");
+                almacen.setPiensoRemate(Double.parseDouble(piensoRemate.getText()));
+
+                Task<Boolean> t = new Task<>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
+                        return false;
+                    }
+                };
+
+                new Thread(t).start();
+            }
         }
     }
 
