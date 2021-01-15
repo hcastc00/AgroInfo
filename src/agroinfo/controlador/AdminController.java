@@ -64,6 +64,9 @@ public class AdminController implements Initializable {
     private Pane panelUsuarios;
 
     @FXML
+    private Pane panelAyuda;
+
+    @FXML
     private Pane panelGastos;
 
     @FXML
@@ -71,6 +74,21 @@ public class AdminController implements Initializable {
 
     @FXML
     private Pane panelVentas;
+
+    @FXML
+    private Pane usuariosP;
+
+    @FXML
+    private Pane altaUsuario;
+
+    @FXML
+    private Pane gastosP;
+
+    @FXML
+    private Pane ventasP;
+
+    @FXML
+    private Pane auditoria;
 
     @FXML
     private TableView<String[]> listaAuditoria;
@@ -127,8 +145,18 @@ public class AdminController implements Initializable {
      *      - El 1 es para Gastos
      *      - El 2 es para Ventas
      *      - El 3 es para Auditoria
+     *      - El 4 es para Ayuda
      */
     private int panel;
+    /*
+     * Esta variable indica el panel de la ayuda
+     *      - El 0 es para Usuario
+     *      - El 1 es para AltaUsuario
+     *      - El 2 es para Gastos
+     *      - El 3 es para Ventas
+     *      - El 4 es para Auditoria
+     */
+    private int panelA;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -201,6 +229,7 @@ public class AdminController implements Initializable {
         this.panelUsuarios.setVisible(false);
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
+        this.panelAyuda.setVisible(false);
         this.panelAuditoria.setVisible(true);
 
         listaAuditoria.setItems(null);
@@ -231,6 +260,7 @@ public class AdminController implements Initializable {
             this.panelUsuarios.setVisible(false);
             this.panelAuditoria.setVisible(false);
             this.panelVentas.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelGastos.setVisible(true);
         });
 
@@ -244,6 +274,7 @@ public class AdminController implements Initializable {
         this.panelGastos.setVisible(false);
         this.panelVentas.setVisible(false);
         this.panelAuditoria.setVisible(false);
+        this.panelAyuda.setVisible(false);
         this.panelUsuarios.setVisible(true);
 
         if (usuarios == null || usuarios.isEmpty()) {
@@ -276,10 +307,84 @@ public class AdminController implements Initializable {
             this.panelUsuarios.setVisible(false);
             this.panelGastos.setVisible(false);
             this.panelAuditoria.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelVentas.setVisible(true);
         });
 
         new Thread(t).start();
+    }
+
+    @FXML
+    private void mostrarAyuda() {
+        this.panel = 4;
+        this.panelA = 0;
+        this.panelUsuarios.setVisible(false);
+        this.panelGastos.setVisible(false);
+        this.panelAuditoria.setVisible(false);
+        this.panelVentas.setVisible(false);
+        this.panelAyuda.setVisible(true);
+    }
+
+    @FXML
+    private void siguiente(){
+        switch (panelA) {
+            case 0 -> {
+                usuariosP.setVisible(false);
+                altaUsuario.setVisible(true);
+                this.panelA = 1;
+            }
+            case 1 -> {
+                altaUsuario.setVisible(false);
+                gastosP.setVisible(true);
+                this.panelA = 2;
+            }
+            case 2 -> {
+                gastosP.setVisible(false);
+                ventasP.setVisible(true);
+                this.panelA = 3;
+            }
+            case 3 -> {
+                ventasP.setVisible(false);
+                auditoria.setVisible(true);
+                this.panelA = 4;
+            }
+            case 4 -> {
+                auditoria.setVisible(false);
+                usuariosP.setVisible(true);
+                this.panelA = 0;
+            }
+        }
+    }
+
+    @FXML
+    private void anterior(){
+        switch (panelA) {
+            case 0 -> {
+                usuariosP.setVisible(false);
+                auditoria.setVisible(true);
+                this.panelA = 4;
+            }
+            case 1 -> {
+                altaUsuario.setVisible(false);
+                usuariosP.setVisible(true);
+                this.panelA = 0;
+            }
+            case 2 -> {
+                gastosP.setVisible(false);
+                altaUsuario.setVisible(true);
+                this.panelA = 1;
+            }
+            case 3 -> {
+                ventasP.setVisible(false);
+                gastosP.setVisible(true);
+                this.panelA = 2;
+            }
+            case 4 -> {
+                auditoria.setVisible(false);
+                ventasP.setVisible(true);
+                this.panelA = 3;
+            }
+        }
     }
 
     @FXML
