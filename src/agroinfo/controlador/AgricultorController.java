@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -122,6 +123,9 @@ public class AgricultorController implements Initializable {
     @FXML
     private Label matriculaEscondido;
 
+    @FXML
+    private JFXSpinner spinnerEventos;
+
     /*
      * Esta variable indica en que vista esta el programa para facilitar el metodo de buscar()
      *      - El 0 es para Parcelas
@@ -193,6 +197,7 @@ public class AgricultorController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
         scene.setUserData("alta");
 
         Stage stage = new Stage();
@@ -253,6 +258,7 @@ public class AgricultorController implements Initializable {
                 Scene scene = new Scene(root);
                 scene.setUserData("modificar");
                 scene.setFill(Color.TRANSPARENT);
+                scene.getStylesheets().add(Ventana.color);
 
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -275,6 +281,7 @@ public class AgricultorController implements Initializable {
         Scene scene = new Scene(root);
         scene.setUserData(Venta.TipoVenta.Agricultura);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -293,6 +300,7 @@ public class AgricultorController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         JFXButton boton = (JFXButton)actionEvent.getSource();
         Label label = (Label)boton.getScene().lookup("#idEscondido");
@@ -327,6 +335,7 @@ public class AgricultorController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
         scene.setUserData(Gasto.TipoGasto.Agricultura);
 
         Stage stage = new Stage();
@@ -364,6 +373,7 @@ public class AgricultorController implements Initializable {
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(Ventana.color);
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -510,12 +520,27 @@ public class AgricultorController implements Initializable {
         this.panelEventos.setVisible(true);
 
         if(this.eventos == null || this.eventos.isEmpty() || this.idEscondido != null || !this.idEscondido.getText().equals(String.valueOf(id))){
+
             this.idEscondido.setText(String.valueOf(id));
             this.matriculaEscondido.setText("");
-            this.eventos = eventoDAO.listarEventosParcela(id);
-            this.pintaEventosParcela(id);
-        }
 
+            listaEventos.setItems(null);
+            spinnerEventos.setVisible(true);
+
+            Task<List<Evento>> listar = new Task<List<Evento>>() {
+                @Override
+                protected List<Evento> call() throws Exception {
+                    return eventoDAO.listarEventosParcela(id);
+                };
+            };
+
+            listar.setOnSucceeded(workerStateEvent1 -> {
+                this.eventos = listar.getValue();
+                this.pintaEventosParcela(id);
+            });
+
+            new Thread(listar).start();
+        }
     }
 
     @FXML
@@ -531,8 +556,23 @@ public class AgricultorController implements Initializable {
         if(this.eventos == null || this.eventos.isEmpty() || this.matriculaEscondido != null || !this.matriculaEscondido.getText().equals(id)){
             this.matriculaEscondido.setText(id);
             this.idEscondido.setText("");
-            this.eventos = eventoDAO.listarEventosMaquinaria(id);
-            this.pintaEventosMaquinaria(id);
+
+            listaEventos.setItems(null);
+            spinnerEventos.setVisible(true);
+
+            Task<List<Evento>> listar = new Task<List<Evento>>() {
+                @Override
+                protected List<Evento> call() throws Exception {
+
+                    return eventoDAO.listarEventosMaquinaria(id);
+                };
+            };
+            listar.setOnSucceeded(workerStateEvent1 -> {
+                this.eventos = listar.getValue();
+                this.pintaEventosMaquinaria(id);
+            });
+
+            new Thread(listar).start();
         }
     }
 
@@ -636,6 +676,7 @@ public class AgricultorController implements Initializable {
             Stage thisStage = (Stage) node.getScene().getWindow();
             Scene scene = new Scene(cargarVista.getValue(), 1200, 750);
             scene.setFill(Color.TRANSPARENT);
+            scene.getStylesheets().add(Ventana.color);
             scene.getStylesheets().add(Ventana.color);
             thisStage.setScene(scene);
         });
@@ -747,9 +788,20 @@ public class AgricultorController implements Initializable {
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesM[i].lookup("#botonBorrar");
                 borrar.setOnAction(e ->{
-                    maquinariaDAO.eliminar(matricula.getText(),
-                            LoginController.getUsuarioActual().getNombreUsuario());
-                    this.recargar();
+
+                    Task<Boolean> eliminar = new Task<Boolean>() {
+                        @Override
+                        protected Boolean call() throws Exception {
+                            maquinariaDAO.eliminar(matricula.getText(),
+                                    LoginController.getUsuarioActual().getNombreUsuario());
+                            return true;
+                        }
+                    };
+                    eliminar.setOnSucceeded(WorkerStateEvent -> {
+                        this.recargar();
+                    });
+
+                    new Thread(eliminar).start();
                 });
 
                 //Eventos
@@ -839,6 +891,7 @@ public class AgricultorController implements Initializable {
 
                 //Borrar
                 JFXButton borrar = (JFXButton) nodesG[i].lookup("#botonBorrar");
+
                 borrar.setOnAction(e ->{
                     gastoDAO.eliminar(Integer.parseInt(id.getText()),
                             LoginController.getUsuarioActual().getNombreUsuario());
@@ -907,24 +960,35 @@ public class AgricultorController implements Initializable {
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
 
-        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosParcela(id)), p -> true);
-        SortedList<Evento> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
-        this.listaEventos.setItems(sortedData);
+        Task<FilteredList<Evento>> listar = new Task<>() {
+            @Override
+            protected FilteredList<Evento> call() throws Exception {
 
-        buscarEvento.textProperty().addListener((prop, old, text) -> {
-            filteredData.setPredicate(eventos -> {
-                if(text == null || text.isEmpty()) return true;
+                FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosParcela(id)), p -> true);
+                SortedList<Evento> sortedData = new SortedList<>(filteredData);
+                sortedData.comparatorProperty().bind(listaEventos.comparatorProperty());
+                listaEventos.setItems(sortedData);
+                return filteredData;
+            };
+        };
 
-                String fecha = String.valueOf(eventos.getFecha());
-                String descripcion = eventos.getDescripcion();
-                return  fecha.contains(text) || descripcion.contains(text);
+        listar.setOnSucceeded(workerStateEvent1 -> {
+            buscarEvento.textProperty().addListener((prop, old, text) -> {
+                listar.getValue().setPredicate(eventos -> {
+                    if (text == null || text.isEmpty()) return true;
+
+                    String fecha = String.valueOf(eventos.getFecha());
+                    String descripcion = eventos.getDescripcion();
+                    return fecha.contains(text) || descripcion.contains(text);
+                });
             });
+
+            spinnerEventos.setVisible(false);
+            this.matriculaEscondido.setText("");
+            this.idEscondido.setText(String.valueOf(id));
         });
 
-        this.matriculaEscondido.setText("");
-        this.idEscondido.setText(String.valueOf(id));
-
+        new Thread(listar).start();
     }
 
     private void pintaEventosMaquinaria(String id){
@@ -934,24 +998,36 @@ public class AgricultorController implements Initializable {
         this.fecha.setCellValueFactory(f -> new ReadOnlyStringWrapper(String.valueOf(f.getValue().getFecha())));
         this.descripcion.setCellValueFactory(d -> new ReadOnlyStringWrapper(d.getValue().getDescripcion()));
 
-        FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosMaquinaria(id)), p -> true);
-        SortedList<Evento> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(this.listaEventos.comparatorProperty());
-        this.listaEventos.setItems(sortedData);
+        Task<FilteredList<Evento>> listar = new Task<>() {
+            @Override
+            protected FilteredList<Evento> call() throws Exception {
 
-        buscarEvento.textProperty().addListener((prop, old, text) -> {
-            filteredData.setPredicate(eventos -> {
-                if(text == null || text.isEmpty()) return true;
+                FilteredList<Evento> filteredData = new FilteredList<>(FXCollections.observableArrayList(eventoDAO.listarEventosMaquinaria(id)), p -> true);
+                SortedList<Evento> sortedData = new SortedList<>(filteredData);
+                sortedData.comparatorProperty().bind(listaEventos.comparatorProperty());
+                listaEventos.setItems(sortedData);
+                return filteredData;
+            };
+        };
 
-                String fecha = String.valueOf(eventos.getFecha());
-                String descripcion = eventos.getDescripcion();
-                return  fecha.contains(text) || descripcion.contains(text);
+        listar.setOnSucceeded(workerStateEvent1 -> {
+
+            buscarEvento.textProperty().addListener((prop, old, text) -> {
+                listar.getValue().setPredicate(eventos -> {
+                    if(text == null || text.isEmpty()) return true;
+
+                    String fecha = String.valueOf(eventos.getFecha());
+                    String descripcion = eventos.getDescripcion();
+                    return  fecha.contains(text) || descripcion.contains(text);
+                });
             });
+
+            spinnerEventos.setVisible(false);
+            this.idEscondido.setText("");
+            this.matriculaEscondido.setText(id);
         });
 
-        this.idEscondido.setText("");
-        this.matriculaEscondido.setText(id);
-
+        new Thread(listar).start();
     }
 
     private void pintarDescripcion(String d, Image i) throws IOException {
