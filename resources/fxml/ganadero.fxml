@@ -81,7 +81,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
@@ -115,7 +115,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
@@ -149,14 +149,14 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                             <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin></ImageView>
-                        <ImageView fitHeight="75.0" fitWidth="75.0" onMousePressed="#recargar" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -195,7 +195,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="150.0" prefWidth="950.0">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#recargar" pickOnBounds="true" preserveRatio="true" styleClass="recargar">
                            <image>
                               <Image url="@/img/recargar.png" />
                            </image>
