@@ -440,7 +440,7 @@
                   </StackPane>
                </children>
             </Pane>
-                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" styleClass="fondo">
+                <Pane fx:id="panelAlmacen" prefHeight="750.0" prefWidth="950.0" styleClass="fondo" visible="false">
                <children>
                   <VBox fx:id="listaAlmacen" alignment="CENTER" prefHeight="750.0" prefWidth="950.0" />
                </children></Pane>

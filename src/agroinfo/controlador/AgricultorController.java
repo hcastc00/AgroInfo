@@ -489,6 +489,7 @@ public class AgricultorController implements Initializable {
             this.panelVentas.setVisible(false);
             this.panelAlmacen.setVisible(false);
             this.panelEventos.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelMaquinaria.setVisible(true);
 
         });
@@ -521,6 +522,7 @@ public class AgricultorController implements Initializable {
             this.panelParcelas.setVisible(false);
             this.panelAlmacen.setVisible(false);
             this.panelEventos.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelVentas.setVisible(true);
         });
 
@@ -552,6 +554,7 @@ public class AgricultorController implements Initializable {
             this.panelVentas.setVisible(false);
             this.panelAlmacen.setVisible(false);
             this.panelEventos.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelGastos.setVisible(true);
         });
 
@@ -581,6 +584,7 @@ public class AgricultorController implements Initializable {
             this.panelVentas.setVisible(false);
             this.panelGastos.setVisible(false);
             this.panelEventos.setVisible(false);
+            this.panelAyuda.setVisible(false);
             this.panelAlmacen.setVisible(true);
         });
 
