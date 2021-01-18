@@ -159,6 +159,6 @@
 /*Text Area*/
 .text-area{
     -fx-text-inner-color: "#3a3a3a";
-    -jfx-focus-color: "#A6844B";
+    -jfx-focus-color: "#3a3a3a";
     -jfx-unfocus-color: "#3a3a3a";
 }
