@@ -238,7 +238,7 @@ public class AlmacenController implements Initializable {
         Almacen almacen = almacenDAO.getAlmacen();
 
         if (!piensoMedicadoError) {
-            Double piensoMedicadoTotal = almacen.getPiensoMedicado() - Integer.parseInt(piensoLactanciaModificacion.getText());
+            Double piensoMedicadoTotal = almacen.getPiensoMedicado() - Integer.parseInt(piensoMedicadoModificacion.getText());
             if (piensoMedicadoTotal >= 0) {
                 piensoMedicado.setText(String.valueOf(piensoMedicadoTotal));
                 almacen.setPiensoMedicado(Double.parseDouble(piensoMedicado.getText()));
