@@ -254,8 +254,8 @@ public class AlmacenController implements Initializable {
                 new Thread(t).start();
 
             } else if (piensoMedicadoTotal < 0) {
-                piensoLactancia.setText("0");
-                almacen.setPiensoMedicado(Double.parseDouble(piensoLactancia.getText()));
+                piensoMedicado.setText("0");
+                almacen.setPiensoMedicado(Double.parseDouble(piensoMedicado.getText()));
                 almacenDAO.modificar(almacen, LoginController.getUsuarioActual().getNombreUsuario());
             }
         }
