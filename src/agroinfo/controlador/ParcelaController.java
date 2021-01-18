@@ -59,23 +59,23 @@ public class ParcelaController {
 
 
     @FXML
-    public void guardar(ActionEvent event) throws IOException {
+    public void guardar(ActionEvent event) {
 
 
         boolean idParcelaError = idParcela.getText().isBlank() || !idParcela.getText().matches("^[0-9]*$");
         boolean latitudError = latitud.getText().isBlank() || !latitud.getText().matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$");
         boolean longitudError = longitud.getText().isBlank() || !longitud.getText().matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$");
-        boolean produccionError = produccion.getText().isBlank() || !produccion.getText().matches("^[0-9]*$");
+        boolean produccionError = produccion.getText().isBlank() || !produccion.getText().matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$");
         boolean tipoParcelaError = tipoParcela.getValue() == null;
         boolean tamError = tam.getText().isBlank() || !tam.getText().matches("^(0|([1-9][0-9]*))(\\.[0-9]+)?$");
         boolean tipoCultivoError = tipoCultivo.getValue() == null;
 
-        if (latitudError == false)
+        if (!latitudError)
             if ((Double.parseDouble(latitud.getText()) > 90) || (Double.parseDouble(latitud.getText()) < -90)) {
                 latitudError = true;
             }
 
-        if (longitudError == false)
+        if (!longitudError)
             if ((Double.parseDouble(longitud.getText()) > 180) || (Double.parseDouble(longitud.getText()) < -180)) {
                 latitudError = true;
             }
